@@ -16,3 +16,30 @@ main {
     top: 0%;
     right: 0%;
 }
+
+/*Setting CSS conditions for 3 supported screen sizes.
+Mobile - Min width 350px
+Tablet - Min width 700px
+Desktops - Min width 900px
+*/
+
+@media(width>=350px){
+    p#screenSize:after{
+      content:"Viewport width atleast than 350px";
+    }
+  }
+
+  @media(width>=700px){
+    p#screenSize:after{
+      content:"Viewport width atleast than 700px";
+    }
+  }
+  
+@media(width>=900px){
+    p#screenSize:after{
+      content:"Viewport width greater than 900px";
+    }
+  }
+
+
+
