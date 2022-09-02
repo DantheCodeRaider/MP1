@@ -5,38 +5,38 @@ var Horizon = 0 //Mobile 200px, Tablet 300px, Desktop 400px
 //Variables to determine screen size for background images
 let verticalOffSet = 0
 let horizontalOffSet = 0
-let bottomOffSet = 0
-let leftOffSet = 0
 let heightOfSky = 0
 let heightOfGrass = 0
 let widthOfGrass = 0
 
 
 //Find out browser width to set game map size.
-function mapSize(screenWidth) {
+function mapSize(screenWidth, screenHieght) {
     if (screenWidth>=900){
         //Map Size will be 900px by 1300px
-        console.log(screenWidth)
-        console.log("Set Game Map Size to 900x1300")
+        console.log("Screen Width " + screenWidth+ " Screen Hieght " + screenHieght + " Set Game Map Size to 900x1300")
         GameMapSize = 3
         //Set Horizon height
-        Horizon = 400
-         //Check to ensure inner window width is as expected
-        if (window.innerWidth > 900) {
-            horizontalOffSet = (window.innerWidth-900)/2
+        Horizon = setHorizon(screenHieght, 400)
+        console.log('Horizon ' + Horizon)
+
+         //Check to ensure window width is as expected
+        if (screenWidth > 900) {
+            horizontalOffSet = (screenWidth-900)/2
         } else {
             horizontalOffSet = 0
         }
-        //Check to ensure inner window height is as expected
-        if (window.innerHeight > 1300) {
-            verticalOffSet = (window.innerHeight-1300)/2
+        //Check to ensure window height is as expected
+        if (screenHieght > 1300) {
+            verticalOffSet = (screenHieght-1300)/2
         } else {
             verticalOffSet = 0
         }
         //Set Variables for how big an area to tile for the game map
-        heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2)
-        heightOfGrass = Horizon + 50 - (verticalOffSet*2)
-        widthOfGrass = window.innerWidth - (horizontalOffSet*2)
+        heightOfSky = 400
+        heightOfGrass = Horizon + 50
+        widthOfGrass = screenWidth - (horizontalOffSet*2)
+        //console.log('HeightofSky '+ heightOfSky)
     } else if (screenWidth>=700){
         //Map Size will be 700px by 1000px
         console.log(screenWidth)
@@ -58,7 +58,7 @@ function mapSize(screenWidth) {
         }
         //Set Variables for how big an area to tile for the game map
         heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2)
-        heightOfGrass = Horizon + 50 - (verticalOffSet*2)
+        heightOfGrass = Horizon + 50
         widthOfGrass = window.innerWidth - (horizontalOffSet*2)
     } else {
         //Map Size will be 350px by 650px
@@ -80,10 +80,16 @@ function mapSize(screenWidth) {
             verticalOffSet = 0
         }
         //Set Variables for how big an area to tile for the game map
-        heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2)
-        heightOfGrass = Horizon + 50 - (verticalOffSet*2)
+        heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2) 
+        heightOfGrass = Horizon + 50 - (verticalOffSet)
         widthOfGrass = window.innerWidth - (horizontalOffSet*2)
+        
     }
+}
+
+function setHorizon (screenHieght, hzn){
+    let h = screenHieght-hzn
+    return h 
 }
 
 //Function for placing background images throughout the browser
@@ -91,6 +97,53 @@ function tile(ImgAssest, Xpos, Ypos, Zpos, width, height){
     for(let h = 0; h < height; h++){
         for(let w = 0; w < width; w++){
             newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
+        }
+    }
+}
+
+//Function for placing background images throughout the browser
+function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+   /*  let h=0
+    let w=0
+    newImage(ImgAssest, Xpos + w*40, Ypos + h*40, Zpos) */
+/*     for(let h = 0; h < height; h++){
+        for(let w = 0; w < width; w++){
+            newImage(ImgAssest, Xpos + w*40, Ypos + h*40, Zpos)
+            //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
+        }
+    } */
+    for(let h = 0; h < height; h++){
+        for(let w = 0; w < width; w++){
+            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+            //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
+            
+            //Stop the madness
+            if (w > 500) {
+                w = width
+                h = height
+            } else if ( h > 500) {
+                w = width
+                h = height
+            }
+        }
+}
+}
+
+//Function for placing offset background images throughout the browser
+function tileOffSet(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+    for(let h = 0; h < height; h++){
+        for(let w = 0; w < width; w++){
+            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+            //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
+            
+            //Stop the madness
+            if (w > 500) {
+                w = width
+                h = height
+            } else if ( h > 500) {
+                w = width
+                h = height
+            }
         }
     }
 }
@@ -107,10 +160,15 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     return nImg
 }
 
-//Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
-tile('./assets/img/sky50.svg', 0, horizon, 0, window.innerWidth/50, heightOfSky/50)
-tile('./assets/img/grass50.svg', 0, 100, 0, window.innerWidth/50, Horizon/50)
-
 window.onload = ()=> {
-    mapSize(window.screen.availWidth)
+    mapSize(window.screen.availWidth, window.screen.availHeight)
+    //Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
+    console.log('Sky Height ' + heightOfSky)
+    console.log('Grass Height ' + heightOfGrass)
+    console.log('Width ' + widthOfGrass)
+    console.log('Horizon/50 ' + Horizon/50)
+    //tileOffSet('./assets/img/offset50.svg', 0, 0, 0, widthOfGrass, heightOfSky/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 0, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet, verticalOffSet, 0, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
 };
+
