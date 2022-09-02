@@ -114,9 +114,9 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
             //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
         }
     } */
-    for(let h = 0; h < height; h++){
-        for(let w = 0; w < width; w++){
-            //newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+    for(let h = 1; h < height; h++){
+        for(let w = 1; w < width; w++){
+            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
             //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
             
             //Stop the madness
@@ -131,10 +131,10 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
 }
 }
 
-/* //Function for placing offset background images throughout the browser
+//Function for placing offset background images throughout the browser
 function tileOffSet(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
-    for(let h = 0; h < height; h++){
-        for(let w = 0; w < width; w++){
+    for(let h = 1; h < height; h++){
+        for(let w = 1; w < width; w++){
             newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
             //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
             
@@ -148,7 +148,7 @@ function tileOffSet(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet
             }
         }
     }
-} */
+}
 
 //Function for placing static images throughout the browser
 function newImage (ImgAssest, Xpos, Ypos, Zpos) {
@@ -167,9 +167,9 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     let nDiv= document.createElement('Div')
     nDiv.className = 'gameWindow'
     nDiv.style.position = 'fixed'
-    nDiv.style.top = vOffSet +'px'
-    nDiv.style.width = width+"px"
-    nDiv.style.height = height+"px"
+    nDiv.style.bottom = vOffSet-10 +'px'
+    nDiv.style.width = 10+width+"px"
+    nDiv.style.height = 10+height+"px"
     nDiv.style.Zpos = Zpos
     nDiv.style.border = "solid 5px Black"
     nDiv.style.textAlign = "Center"
@@ -181,14 +181,17 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
 window.onload = ()=> {
     mapSize(window.screen.availWidth, window.screen.availHeight)
     //Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
-    //console.log('Sky Height ' + heightOfSky)
-    //console.log('Grass Height ' + heightOfGrass)
-    //console.log('Width ' + widthOfGrass)
+    console.log('Sky Height ' + heightOfSky)
+    console.log('Grass Height ' + heightOfGrass)
+    console.log('Width ' + widthOfGrass)
     console.log('widthOfGrass/50 ' + widthOfGrass/50 + ' heightOfGrass/50 ' + heightOfGrass/50+ ' horizontalOffSet '+ horizontalOffSet + ' verticalOffSet '+ verticalOffSet )
     console.log('heightOfGrass/50 ' + heightOfGrass/50)
-    //tileOffSet('./assets/img/offset50.svg', 0, 0, 0, widthOfGrass, heightOfSky/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 1, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/grass100.svg', horizontalOffSet, verticalOffSet, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
-    gameWindow(horizontalOffSet, verticalOffSet, 2, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
+    //tileOffSet('./assets/img/offset50.svg', 0, 0, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet)
+
+    
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
+    gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
+
 };
 
