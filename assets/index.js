@@ -34,8 +34,8 @@ function mapSize(screenWidth, screenHieght) {
         }
         //Set Variables for how big an area to tile for the game map
         heightOfSky = 400
-        heightOfGrass = Horizon + 50
-        widthOfGrass = screenWidth - (horizontalOffSet*2)
+        heightOfGrass = 900
+        widthOfGrass = 900
         //console.log('HeightofSky '+ heightOfSky)
     } else if (screenWidth>=700){
         //Map Size will be 700px by 1000px
@@ -103,6 +103,8 @@ function tile(ImgAssest, Xpos, Ypos, Zpos, width, height){
 
 //Function for placing background images throughout the browser
 function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+    let vOS = (vOffSet*2)/50
+    let hOS = (hOffSet*2)/50
    /*  let h=0
     let w=0
     newImage(ImgAssest, Xpos + w*40, Ypos + h*40, Zpos) */
@@ -114,7 +116,7 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
     } */
     for(let h = 0; h < height; h++){
         for(let w = 0; w < width; w++){
-            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+            //newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
             //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
             
             //Stop the madness
@@ -129,11 +131,11 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
 }
 }
 
-//Function for placing offset background images throughout the browser
+/* //Function for placing offset background images throughout the browser
 function tileOffSet(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     for(let h = 0; h < height; h++){
         for(let w = 0; w < width; w++){
-            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+            newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
             //console.log(Xpos +' '+ w*50 +' '+ Ypos +' '+ h*50 +' '+ Zpos)
             
             //Stop the madness
@@ -146,7 +148,7 @@ function tileOffSet(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet
             }
         }
     }
-}
+} */
 
 //Function for placing static images throughout the browser
 function newImage (ImgAssest, Xpos, Ypos, Zpos) {
@@ -160,15 +162,33 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     return nImg
 }
 
+function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+    let mDiv = document.querySelector('main')
+    let nDiv= document.createElement('Div')
+    nDiv.className = 'gameWindow'
+    nDiv.style.position = 'fixed'
+    nDiv.style.top = vOffSet +'px'
+    nDiv.style.width = width+"px"
+    nDiv.style.height = height+"px"
+    nDiv.style.Zpos = Zpos
+    nDiv.style.border = "solid 5px Black"
+    nDiv.style.textAlign = "Center"
+    nDiv.style.justifyContent = "Center"
+    nDiv.style.margin = "Auto"
+    mDiv.append(nDiv)
+}
+
 window.onload = ()=> {
     mapSize(window.screen.availWidth, window.screen.availHeight)
     //Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
-    console.log('Sky Height ' + heightOfSky)
-    console.log('Grass Height ' + heightOfGrass)
-    console.log('Width ' + widthOfGrass)
-    console.log('Horizon/50 ' + Horizon/50)
+    //console.log('Sky Height ' + heightOfSky)
+    //console.log('Grass Height ' + heightOfGrass)
+    //console.log('Width ' + widthOfGrass)
+    console.log('widthOfGrass/50 ' + widthOfGrass/50 + ' heightOfGrass/50 ' + heightOfGrass/50+ ' horizontalOffSet '+ horizontalOffSet + ' verticalOffSet '+ verticalOffSet )
+    console.log('heightOfGrass/50 ' + heightOfGrass/50)
     //tileOffSet('./assets/img/offset50.svg', 0, 0, 0, widthOfGrass, heightOfSky/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 0, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/grass100.svg', horizontalOffSet, verticalOffSet, 0, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 1, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet, verticalOffSet, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
+    gameWindow(horizontalOffSet, verticalOffSet, 2, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
 };
 
