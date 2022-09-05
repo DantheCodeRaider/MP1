@@ -1,7 +1,98 @@
+//Establish classes
+class GameObject{
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        this.context = context
+        this.ImgAssest = ImgAssest
+        this.Xpos = Xpos
+        this.Ypos = Ypos
+        this.Zpos = Zpos
+
+        this.isColliding = false;
+    }
+    //Function for placing objects throughout the browser
+    drawObject (ImgAssest, Xpos, Ypos, Zpos) {
+        this.context = document.createElement('img')
+        this.context.src = this.ImgAssest
+        this.context.style.position = 'fixed'
+        this.context.style.left = this.Xpos +'px'
+        this.context.style.bottom = this.Ypos +'px'
+        this.context.style.zIndex = this.Zpos
+        document.body.append(this.context)
+    }
+}
+
+class Character extends GameObject {
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
+
+        //Set default hieght and width
+        this.width = 50;
+        this.height = 50;
+    }
+}
+
+class mainCharacter extends Character {
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(context, ImgAssest, Xpos, Ypos, Zpos);
+    }
+    //Function for moving mainCharacter around in the game
+     moveChar(Xpos, Ypos, Zpos, cDir){
+        this.Xpos += Xpos //Update Xpos
+        this.Ypos += Ypos //Update Ypos
+        this.Zpos += Zpos //Update Zpos
+        //Keep Character on the map West/East
+        if (this.Xpos < horizontalOffSet) {
+            this.Xpos = horizontalOffSet
+        } else if (this.Xpos >= (widthOfGrass+horizontalOffSet)) {
+            this.Xpos = (widthOfGrass+horizontalOffSet) - 50
+        }
+        //Keep Character on the map North/South
+        if (this.Ypos < verticalOffSet) {
+            this.Ypos = verticalOffSet
+        } else if (this.Ypos > heightOfGrass) {
+            this.Ypos = heightOfGrass 
+        }
+        //Logs for bug testing 
+        //console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1]+' Ypos');
+        //console.log(charCoords[2]+' Zpos');
+        //let nImg = document.querySelector('[src="assets/green-character.gif"]');
+        this.context.style.left = this.Xpos+'px';
+        this.context.style.bottom = this.Ypos +'px';
+        this.context.style.Zpos = this.Zpos
+        // Switch case to change character model based on direction of travel
+        switch (cDir) {
+        // Update character model for moving North
+        case "North":
+            this.context.src='assets/img/green-character/north.gif'
+        break;
+        // Update character model for moving South
+        case "South":
+            this.context.src='assets/img/green-character/south.gif'
+        break;
+        // Update character model for moving East
+        case "East":
+            this.context.src='assets/img/green-character/east.gif'
+        break;
+        // Update character model for moving West
+        case "West":
+            this.context.src='assets/img/green-character/west.gif'
+        break;
+        // Update character model for static
+        case null:
+            this.context.src='assets/img/green-character/static.gif'
+        break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+        }
+        // Update Character
+        document.body.append(this.context)
+    }
+}
+
 //Set global Variables
 var GameMapSize //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1300
 var Horizon = 0 //Mobile 200px, Tablet 300px, Desktop 400px
-var greenCharacter
+var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/static.gif', 0, 0, 25) //Set Main Character Object
 
 //Variable for movement management
 let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
@@ -145,7 +236,7 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     nImg.style.position = 'fixed'
     nImg.style.left = Xpos +'px'
     nImg.style.bottom = Ypos +'px'
-    nImg.style.zIndex = Zpos
+    nImg.style.Zpos = Zpos
     document.body.append(nImg)
     return nImg
 }
@@ -166,112 +257,59 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     mDiv.append(nDiv)
 }
 
-//Function for moving assets around in the game
-function moveChar(Xpos, Ypos, Zpos, cDir){
-    charCoords[0] += Xpos //Update Xpos
-    charCoords[1] += Ypos //Update Ypos
-    charCoords[2] += Zpos //Update Zpos
-    //Keep Character on the map West/East
-    if (charCoords[0] < horizontalOffSet) {
-        charCoords[0] = horizontalOffSet
-    } else if (charCoords[0] >= (widthOfGrass+horizontalOffSet)) {
-        charCoords[0] = (widthOfGrass+horizontalOffSet) - 50
-    }
-    //Keep Character on the map North/South
-    if (charCoords[1] < verticalOffSet) {
-      charCoords[1] = verticalOffSet
-    } else if (charCoords[1] > heightOfGrass) {
-      charCoords[1] = heightOfGrass 
-    }
-    //Logs for bug testing 
-    console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1]+' Ypos');
-    //console.log(charCoords[2]+' Zpos');
-    //let nImg = document.querySelector('[src="assets/green-character.gif"]');
-    greenCharacter.style.left = charCoords[0]+'px';
-    greenCharacter.style.bottom = charCoords[1] +'px';
-    greenCharacter.style.Zpos = charCoords[2]
-    // Switch case to change character model based on direction of travel
-    switch (cDir) {
-      // Update character model for moving North
-      case "North":
-        greenCharacter.src='assets/img/green-character/north.gif'
-      break;
-      // Update character model for moving South
-      case "South":
-        greenCharacter.src='assets/img/green-character/south.gif'
-      break;
-      // Update character model for moving East
-      case "East":
-        greenCharacter.src='assets/img/green-character/east.gif'
-      break;
-      // Update character model for moving West
-      case "West":
-        greenCharacter.src='assets/img/green-character/west.gif'
-      break;
-      // Update character model for static
-      case null:
-        greenCharacter.src='assets/img/green-character/static.gif'
-      break;
-      default:
-        return; // Quit when this doesn't handle the key event.
-    }
-    // Update Character
-    document.body.append(greenCharacter)
-}
-
 //Event listener to move the Green Character
 window.addEventListener("keydown", function (event) {
     if (event.defaultPrevented) {
       return; // Do nothing if the event was already processed
     }
     switch (event.key) {
-      // Code for "down arrow" key press.
+            // Code for "down arrow" key press.
       case "ArrowDown":
-           moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+           greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
         break;
-        // Code for "S" key press.
+            // Code for "S" key press.
         case "S":
-          moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+            greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
        break;
-       // Code for "s" key press.
+            // Code for "s" key press.
         case "s":
-          moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+            greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
        break;
       case "ArrowUp":
-        // Code for "up arrow" key press.
-        moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+            // Code for "up arrow" key press.
+            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
         break;
         case "W":
-          // Code for "W" key press.
-          moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+            // Code for "W" key press.
+            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
           break;
           case "w":
             // Code for "w" key press.
-            moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
             break;
       case "ArrowLeft":
-        // Code for "left arrow" key press.
-        moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+            // Code for "left arrow" key press.
+            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
         break;
         case "A":
-          // Code for "A" key press.
-          moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+            // Code for "A" key press.
+            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
           break;
           case "a":
             // Code for "a" key press.
-            moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
             break;
       case "ArrowRight":
-        // Code for "right arrow" key press.
-        moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+            // Code for "right arrow" key press.
+            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
         break;
         case "D":
-          // Code for "D" key press.
-          moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+            // Code for "D" key press.
+            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
           break;
           case "d":
             // Code for "d" key press.
-            moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
             break;
       default:
         return; // Quit when this doesn't handle the key event.
@@ -283,7 +321,7 @@ window.addEventListener("keydown", function (event) {
   // Then dispatches event to window
 
   document.addEventListener("keyup",function(event){
-     moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
+    greenCharacter.moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
   })
 
 window.onload = ()=> {
@@ -298,7 +336,10 @@ window.onload = ()=> {
     tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
     tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
     gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
+    //Set initial Position for Main Character
+    greenCharacter.Xpos=horizontalOffSet
+    greenCharacter.Ypos=verticalOffSet
     //Call new Image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos)
-    greenCharacter = newImage('assets/img/green-character/static.gif', charCoords[0] = horizontalOffSet, charCoords[1] = verticalOffSet, charCoords[2]) //Set Green Character Object & intial load
+    greenCharacter.drawObject() //Set Main Character Intial Load
 };
 
