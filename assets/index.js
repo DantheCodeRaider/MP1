@@ -1,6 +1,10 @@
 //Set global Variables
 var GameMapSize //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1300
 var Horizon = 0 //Mobile 200px, Tablet 300px, Desktop 400px
+var greenCharacter
+
+//Variable for movement management
+let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
 
 //Variables to determine screen size for background images
 let verticalOffSet = 0
@@ -8,7 +12,6 @@ let horizontalOffSet = 0
 let heightOfSky = 0
 let heightOfGrass = 0
 let widthOfGrass = 0
-
 
 //Find out browser width to set game map size.
 function mapSize(screenWidth, screenHieght) {
@@ -163,6 +166,127 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     mDiv.append(nDiv)
 }
 
+//Function for moving assets around in the game
+function moveChar(Xpos, Ypos, Zpos, cDir){
+    charCoords[0] += Xpos //Update Xpos
+    charCoords[1] += Ypos //Update Ypos
+    charCoords[2] += Zpos //Update Zpos
+    //Keep Character on the map West/East
+    if (charCoords[0] < 0) {
+        charCoords[0] = 0
+    } else if (charCoords[0] >= widthOfGrass) {
+        charCoords[0] = widthOfGrass - 50
+    }
+    //Keep Character on the map North/South
+    if (charCoords[1] < 100) {
+      charCoords[1] = 100
+    } else if (charCoords[1] > heightOfGrass) {
+      charCoords[1] = heightOfGrass 
+    }
+    /* Logs for bug testing 
+    console.log(charCoords[0]+' Xpos');
+    console.log(charCoords[1]+' Ypos');
+    console.log(charCoords[2]+' Zpos'); */
+    //let nImg = document.querySelector('[src="assets/green-character.gif"]');
+    greenCharacter.style.left = charCoords[0]+'px';
+    greenCharacter.style.bottom = charCoords[1] +'px';
+    greenCharacter.style.Zpos = charCoords[2]
+    // Switch case to change character model based on direction of travel
+    switch (cDir) {
+      // Update character model for moving North
+      case "North":
+        greenCharacter.src='assets/img/green-character/north.gif'
+      break;
+      // Update character model for moving South
+      case "South":
+        greenCharacter.src='assets/img/green-character/south.gif'
+      break;
+      // Update character model for moving East
+      case "East":
+        greenCharacter.src='assets/img/green-character/east.gif'
+      break;
+      // Update character model for moving West
+      case "West":
+        greenCharacter.src='assets/img/green-character/west.gif'
+      break;
+      // Update character model for static
+      case null:
+        greenCharacter.src='assets/img/green-character/static.gif'
+      break;
+      default:
+        return; // Quit when this doesn't handle the key event.
+    }
+    // Update Character
+    document.body.append(greenCharacter)
+}
+
+//Event listener to move the Green Character
+window.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) {
+      return; // Do nothing if the event was already processed
+    }
+    switch (event.key) {
+      // Code for "down arrow" key press.
+      case "ArrowDown":
+           moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+        break;
+        // Code for "S" key press.
+        case "S":
+          moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+       break;
+       // Code for "s" key press.
+        case "s":
+          moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+       break;
+      case "ArrowUp":
+        // Code for "up arrow" key press.
+        moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+        break;
+        case "W":
+          // Code for "W" key press.
+          moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+          break;
+          case "w":
+            // Code for "w" key press.
+            moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+            break;
+      case "ArrowLeft":
+        // Code for "left arrow" key press.
+        moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+        break;
+        case "A":
+          // Code for "A" key press.
+          moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+          break;
+          case "a":
+            // Code for "a" key press.
+            moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+            break;
+      case "ArrowRight":
+        // Code for "right arrow" key press.
+        moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+        break;
+        case "D":
+          // Code for "D" key press.
+          moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+          break;
+          case "d":
+            // Code for "d" key press.
+            moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+            break;
+      default:
+        return; // Quit when this doesn't handle the key event.
+    }
+    // Cancel the default action to avoid it being handled twice
+    event.preventDefault();
+  }, true);
+  // The last option dispatches the event to the listener first,
+  // Then dispatches event to window
+
+  document.addEventListener('keyup',function(event){
+     moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
+  })
+
 window.onload = ()=> {
     mapSize(window.screen.availWidth, window.screen.availHeight)
     //Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
@@ -171,10 +295,11 @@ window.onload = ()=> {
     //console.log('Width ' + widthOfGrass)
     //console.log('widthOfGrass/50 ' + widthOfGrass/50 + ' heightOfGrass/50 ' + heightOfGrass/50+ ' horizontalOffSet '+ horizontalOffSet + ' verticalOffSet '+ verticalOffSet )
     //console.log('heightOfGrass/50 ' + heightOfGrass/50)
-   tileBackground('./assets/img/offset100.svg', -50, -50, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet)
+    tileBackground('./assets/img/offset100.svg', -50, -50, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet)
     tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
     tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
     gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
-
+    //Call new Image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos)
+    greenCharacter = newImage('assets/img/green-character/static.gif', charCoords[0] = horizontalOffSet, charCoords[1] = verticalOffSet, charCoords[2]) //Set Green Character Object & intial load
 };
 
