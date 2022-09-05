@@ -172,21 +172,20 @@ function moveChar(Xpos, Ypos, Zpos, cDir){
     charCoords[1] += Ypos //Update Ypos
     charCoords[2] += Zpos //Update Zpos
     //Keep Character on the map West/East
-    if (charCoords[0] < 0) {
-        charCoords[0] = 0
-    } else if (charCoords[0] >= widthOfGrass) {
-        charCoords[0] = widthOfGrass - 50
+    if (charCoords[0] < horizontalOffSet) {
+        charCoords[0] = horizontalOffSet
+    } else if (charCoords[0] >= (widthOfGrass+horizontalOffSet)) {
+        charCoords[0] = (widthOfGrass+horizontalOffSet) - 50
     }
     //Keep Character on the map North/South
-    if (charCoords[1] < 100) {
-      charCoords[1] = 100
+    if (charCoords[1] < verticalOffSet) {
+      charCoords[1] = verticalOffSet
     } else if (charCoords[1] > heightOfGrass) {
       charCoords[1] = heightOfGrass 
     }
-    /* Logs for bug testing 
-    console.log(charCoords[0]+' Xpos');
-    console.log(charCoords[1]+' Ypos');
-    console.log(charCoords[2]+' Zpos'); */
+    //Logs for bug testing 
+    console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1]+' Ypos');
+    //console.log(charCoords[2]+' Zpos');
     //let nImg = document.querySelector('[src="assets/green-character.gif"]');
     greenCharacter.style.left = charCoords[0]+'px';
     greenCharacter.style.bottom = charCoords[1] +'px';
@@ -228,51 +227,51 @@ window.addEventListener("keydown", function (event) {
     switch (event.key) {
       // Code for "down arrow" key press.
       case "ArrowDown":
-           moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+           moveChar(0, -50, 0, "South") // Move Green Character Down (South)
         break;
         // Code for "S" key press.
         case "S":
-          moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+          moveChar(0, -50, 0, "South") // Move Green Character Down (South)
        break;
        // Code for "s" key press.
         case "s":
-          moveChar(0, -50, 0, 'South') // Move Green Character Down (South)
+          moveChar(0, -50, 0, "South") // Move Green Character Down (South)
        break;
       case "ArrowUp":
         // Code for "up arrow" key press.
-        moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+        moveChar(0, 50, 0, "North") // Move Green Character Up (North)
         break;
         case "W":
           // Code for "W" key press.
-          moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+          moveChar(0, 50, 0, "North") // Move Green Character Up (North)
           break;
           case "w":
             // Code for "w" key press.
-            moveChar(0, 50, 0, 'North') // Move Green Character Up (North)
+            moveChar(0, 50, 0, "North") // Move Green Character Up (North)
             break;
       case "ArrowLeft":
         // Code for "left arrow" key press.
-        moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+        moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
         break;
         case "A":
           // Code for "A" key press.
-          moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+          moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
           break;
           case "a":
             // Code for "a" key press.
-            moveChar(-50, 0, 0, 'West') // Move Green Character Left (West)
+            moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
             break;
       case "ArrowRight":
         // Code for "right arrow" key press.
-        moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+        moveChar(50, 0, 0, "East") // Move Green Character Right (East)
         break;
         case "D":
           // Code for "D" key press.
-          moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+          moveChar(50, 0, 0, "East") // Move Green Character Right (East)
           break;
           case "d":
             // Code for "d" key press.
-            moveChar(50, 0, 0, 'East') // Move Green Character Right (East)
+            moveChar(50, 0, 0, "East") // Move Green Character Right (East)
             break;
       default:
         return; // Quit when this doesn't handle the key event.
@@ -283,7 +282,7 @@ window.addEventListener("keydown", function (event) {
   // The last option dispatches the event to the listener first,
   // Then dispatches event to window
 
-  document.addEventListener('keyup',function(event){
+  document.addEventListener("keyup",function(event){
      moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
   })
 
