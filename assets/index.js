@@ -106,8 +106,8 @@ var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
 let secondsPassed = 0; 
 let oldTimeStamp = 0;
 var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/static.gif', 0, 0, 25); //Set Main Character Object
-let daBoulders;
-let daGems;
+let daBoulders = new Array;
+let daGems = new Array;
 
 //Variable for movement management
 //let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
@@ -143,12 +143,12 @@ function mapSize(screenWidth, screenHieght) {
         //console.log('HeightofSky '+ heightOfSky)
     } else if (screenWidth>=700){
         //Map Size will be 700px by 1000px
-        console.log(screenWidth)
-        console.log("Set Game Map Size to 700x1000")
+        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 700x1000" + "| Game Map " + GameMapSize)
         GameMapSize = 2
 
         //Set Horizon height
-        Horizon = 300
+        Horizon = setHorizon(screenHieght, 300)
+        console.log('Horizon ' + Horizon)
 
         //Set HorizontalOffSet
         horizontalOffSet = setVerticalOffSet(screenWidth)
@@ -162,12 +162,12 @@ function mapSize(screenWidth, screenHieght) {
         widthOfGrass = window.innerWidth - (horizontalOffSet*2)
     } else {
         //Map Size will be 350px by 650px
-        console.log(screenWidth)
-        console.log("Set Game Map Size to 350x650")
+        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 350x650" + "| Game Map " + GameMapSize)
         GameMapSize = 1
         
         //Set Horizon height
-        Horizon = 200
+        Horizon = setHorizon(screenHieght, 200)
+        console.log('Horizon ' + Horizon)
         
         //Set HorizontalOffSet
         horizontalOffSet = setHorizontalOffSet(screenWidth)
@@ -344,7 +344,7 @@ function gameLoop(timeStamp){
 
     //Loop over all game objects
     for (let i = 0; i < GameObject.length; i++) {
-        GameObject[i].update(secondsPassed)
+        //GameObject[i].update(secondsPassed)
     }
     //clear previous or update current??
 
@@ -356,32 +356,48 @@ function gameLoop(timeStamp){
 
 function randomXnumber(){
     let x = Math.floor(Math.random() * (window.screen.availWidth)); //generate a number for a new random xPOS
-    if (x <= (Math.floor(horizontalOffSet-50))){ //xPos is in the offset area, need to roll again
-            randomXnumber()
-    } else if ( x >= (Math.floor(horizontalOffSet-50)+widthOfGrass)){ //xPos is in the offset area, need to roll again
-      randomXnumber()  
-    } else {
-        return x 
+    while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
+        x = Math.floor(Math.random() * (window.screen.availWidth));
     }
+    //console.log("Returning X "+ x)
+    return x;
+}   
+
+function randomYnumber(){
+    let y = Math.floor(Math.random() * (window.screen.availHeight)); //generate a number for a new random xPOS
+    while (y <= (verticalOffSet) || (y >= (heightOfGrass))){
+        y = Math.floor(Math.random() * (window.screen.availHeight));
+    }
+    //console.log("Returning Y "+ y)
+    return y;
 }   
 
 function createGameWorld(){
-daBoulders = [
-    new GameObject(context,   )
+    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+    for (let i = 0; i < (5+GameMapSize+GameLevel); i++){
+        let x = randomXnumber();
+        let y = randomYnumber();
+        daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", x, y, 50, 0, 0);
+    }
 
-]
-
+    for (let i = 0; i < daBoulders.length; i++){
+        daBoulders[i].drawObject();
+    }
 }
+
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center
     mapSize(window.screen.availWidth, window.screen.availHeight);
+    //Set initial game level until we can detect it
+    GameLevel=1;
     //Tile Background based on Screen Size
     tileBackground('./assets/img/offset100.svg', -50, -50, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet);
     tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet);
     tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
     //Border Game Window
     gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-
+    console.log("HZ is" + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
+    createGameWorld();
     //Set initial Position for Main Character
     greenCharacter.Xpos=horizontalOffSet;
     greenCharacter.Ypos=verticalOffSet;
