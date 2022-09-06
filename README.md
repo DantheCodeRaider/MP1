@@ -17,7 +17,7 @@ Basics:
 
 
 Core Features:
--Move Character via keyboard input (coming soon)
+-Move Character via keyboard input
 -Dig for items via mouse click (coming soon)
 -Pickup gems via mouse click (coming soon)
 -Explorable map (coming soon)
