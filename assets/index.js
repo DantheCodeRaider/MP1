@@ -30,7 +30,17 @@ class Character extends GameObject {
         this.height = 50;
     }
 }
+class NPC extends Character {
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
 
+        //Set NPC Specific settings
+        this.ImgAssest = "assets/img/red-character/static.gif"
+    }
+    update(){
+        
+    }
+}
 class mainCharacter extends Character {
     constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
         super(context, ImgAssest, Xpos, Ypos, Zpos);
@@ -90,12 +100,17 @@ class mainCharacter extends Character {
 }
 
 //Set global Variables
-var GameMapSize //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1300
-var Horizon = 0 //Mobile 200px, Tablet 300px, Desktop 400px
-var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/static.gif', 0, 0, 25) //Set Main Character Object
+var GameMapSize; //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1300
+var GameLevel; //Value 1-3 -  3 total levels.
+var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
+let secondsPassed = 0; 
+let oldTimeStamp = 0;
+var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/static.gif', 0, 0, 25); //Set Main Character Object
+let daBoulders;
+let daGems;
 
 //Variable for movement management
-let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
+//let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
 
 //Variables to determine screen size for background images
 let verticalOffSet = 0
@@ -319,27 +334,57 @@ window.addEventListener("keydown", function (event) {
   }, true);
   // The last option dispatches the event to the listener first,
   // Then dispatches event to window
-
   document.addEventListener("keyup",function(event){
     greenCharacter.moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
   })
 
+function gameLoop(timeStamp){
+    secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+    oldTimeStamp = timeStamp;
+
+    //Loop over all game objects
+    for (let i = 0; i < GameObject.length; i++) {
+        GameObject[i].update(secondsPassed)
+    }
+    //clear previous or update current??
+
+    //Draw new or upodate objects?
+/*     for (let i = 0; i < GameObject.length; i++){
+        GameObject[i].drawObject();
+    } */
+}
+
+function randomXnumber(){
+    let x = Math.floor(Math.random() * (window.screen.availWidth)); //generate a number for a new random xPOS
+    if (x <= (Math.floor(horizontalOffSet-50))){ //xPos is in the offset area, need to roll again
+            randomXnumber()
+    } else if ( x >= (Math.floor(horizontalOffSet-50)+widthOfGrass)){ //xPos is in the offset area, need to roll again
+      randomXnumber()  
+    } else {
+        return x 
+    }
+}   
+
+function createGameWorld(){
+daBoulders = [
+    new GameObject(context,   )
+
+]
+
+}
 window.onload = ()=> {
-    mapSize(window.screen.availWidth, window.screen.availHeight)
-    //Call background image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos, Width, Height)
-    //console.log('Sky Height ' + heightOfSky)
-    //console.log('Grass Height ' + heightOfGrass)
-    //console.log('Width ' + widthOfGrass)
-    //console.log('widthOfGrass/50 ' + widthOfGrass/50 + ' heightOfGrass/50 ' + heightOfGrass/50+ ' horizontalOffSet '+ horizontalOffSet + ' verticalOffSet '+ verticalOffSet )
-    //console.log('heightOfGrass/50 ' + heightOfGrass/50)
-    tileBackground('./assets/img/offset100.svg', -50, -50, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet)
-    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet)
-    gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet)
+    //Detect Screen Size, Set Game Size, and Center
+    mapSize(window.screen.availWidth, window.screen.availHeight);
+    //Tile Background based on Screen Size
+    tileBackground('./assets/img/offset100.svg', -50, -50, 0, window.screen.availWidth/50, window.screen.availHeight/50, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
+    //Border Game Window
+    gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
+
     //Set initial Position for Main Character
-    greenCharacter.Xpos=horizontalOffSet
-    greenCharacter.Ypos=verticalOffSet
-    //Call new Image function and pass in requested asset and desired location. (Assest Name, X Pos, Y Pos, Z Pos)
-    greenCharacter.drawObject() //Set Main Character Intial Load
+    greenCharacter.Xpos=horizontalOffSet;
+    greenCharacter.Ypos=verticalOffSet;
+    greenCharacter.drawObject(); //Set Main Character Intial Load
 };
 
