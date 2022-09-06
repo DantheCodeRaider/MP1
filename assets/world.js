@@ -31,7 +31,7 @@ function mapSize(screenWidth, screenHieght) {
         console.log('Horizon ' + Horizon)
 
         //Set HorizontalOffSet
-        horizontalOffSet = setVerticalOffSet(screenWidth)
+        horizontalOffSet = setHorizontalOffSet(screenWidth)
 
         //Set Vertical Off Set
         verticalOffSet = setVerticalOffSet(screenHieght)
@@ -99,15 +99,6 @@ function setHorizontalOffSet(screenWidth){
 }
 
 //Function for placing background images throughout the browser
-function tile(ImgAssest, Xpos, Ypos, Zpos, width, height){
-    for(let h = 0; h < height; h++){
-        for(let w = 0; w < width; w++){
-            newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
-        }
-    }
-}
-
-//Function for placing background images throughout the browser
 function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     for(let h = 1; h < height; h++){
         for(let w = 1; w < width; w++){
@@ -150,4 +141,29 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     nDiv.style.justifyContent = "Center"
     nDiv.style.margin = "Auto"
     mDiv.append(nDiv)
+}
+
+function createGameWorld(){
+    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+    if (GameMapSize == 3 || GameMapSize == 2){
+        for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
+            let x = randomXnumber();
+            let y = randomYnumber();
+            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder100.svg", x, y, 50, 0, 0);
+        }
+
+        for (let i = 0; i < daBoulders.length; i++){
+            daBoulders[i].drawObject();
+        }
+    } else {
+        for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
+            let x = randomXnumber();
+            let y = randomYnumber();
+            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", x, y, 50, 0, 0);
+        }
+
+        for (let i = 0; i < daBoulders.length; i++){
+            daBoulders[i].drawObject();
+        }
+    }
 }

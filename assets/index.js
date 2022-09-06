@@ -101,12 +101,21 @@ function gameLoop(timeStamp){
 }
 
 function randomXnumber(){
-    let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS
-    while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
-        x = Math.floor(Math.random() * (visualViewport.width));
+    if (GameMapSize == 3 || GameMapSize ==2){
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS for 100px boulder
+        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-100)+widthOfGrass))){
+            x = Math.floor(Math.random() * (visualViewport.width));
+        }
+        //console.log("Returning X "+ x)
+        return x;
+    } else {
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS 50px boulder
+        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
+            x = Math.floor(Math.random() * (visualViewport.width));
+        }
+        //console.log("Returning X "+ x)
+        return x;
     }
-    //console.log("Returning X "+ x)
-    return x;
 }   
 
 function randomYnumber(){
@@ -117,19 +126,6 @@ function randomYnumber(){
     //console.log("Returning Y "+ y)
     return y;
 }   
-
-function createGameWorld(){
-    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
-    for (let i = 0; i < (5+GameMapSize+GameLevel); i++){
-        let x = randomXnumber();
-        let y = randomYnumber();
-        daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", x, y, 50, 0, 0);
-    }
-
-    for (let i = 0; i < daBoulders.length; i++){
-        daBoulders[i].drawObject();
-    }
-}
 
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center
