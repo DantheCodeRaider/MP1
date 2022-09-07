@@ -203,16 +203,23 @@ function randomYnumber(){
     return y;
 }  
 
-function createBoulders(){
-    let x = randomXnumber();
-    let y = randomYnumber();
-    let boulder = new GameObject("Boulder", "./assets/img/boulder100.svg", x, y, 50, 0, 0);
-    return boulder
-}
+
 
 function moveBoulders(gameObject){
+let obj1 = {Xpos:0, Ypos:0, width:0, height:0};
+obj1.Xpos = horizontalOffSet+(widthOfGrass/2);
+obj1.Ypos = verticalOffSet+(heightOfGrass/2);
+obj1.height = 100;
+obj1.width = 100;
 gameObject.Xpos = randomXnumber();
-gameObject. Ypos = randomYnumber();
+gameObject.Ypos = randomYnumber();
+
+//let squareDistance = (gameObject.Xpos-Xcenter)*(gameObject.Xpos-Xcenter) + (gameObject.Ypos-Ycenter)*(gameObject.Ypos-Ycenter);
+    //keep center of grass area open for main character
+    if (rectIntersect(obj1.Xpos, obj1.Ypos, obj1.width, obj1.height, gameObject.Xpos, gameObject.Ypos, gameObject.width, gameObject.height)){
+        //console.log('Reroll Xpos ' + gameObject.Xpos + ' | ' + gameObject.Ypos)
+        gameObject = moveBoulders(gameObject);
+    }
 return gameObject
 }
 
@@ -236,27 +243,28 @@ function checkBoulders(gameObject){
                 obj2.isColliding = true;
                 gameObject[o] = moveBoulders(obj2)
                 obj2 = gameObject[o];
-                console.log('Obj1 X/Y ' + obj1.Xpos +','+ obj1.Ypos + ' H/W ' +  obj1.width +','+obj1.height + ' | Obj2 X/Y ' + obj2.Xpos +','+ obj2.Ypos + ' H/W ' +  obj2.width +','+obj2.height)
-                console.log('Reroll Xpos ' + gameObject[o].Xpos + ' | ' + gameObject[o].Ypos)
+                //console.log('Obj1 X/Y ' + obj1.Xpos +','+ obj1.Ypos + ' H/W ' +  obj1.width +','+obj1.height + ' | Obj2 X/Y ' + obj2.Xpos +','+ obj2.Ypos + ' H/W ' +  obj2.width +','+obj2.height)
+                //console.log('Reroll Xpos ' + gameObject[o].Xpos + ' | ' + gameObject[o].Ypos)
             }
         }
     }
     return gameObject
 }
 
-function createGameWorld(){
-    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+function createBoulders(){
+//Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     if (GameMapSize == 3 || GameMapSize == 2){
         //Generate Random 100px Boulders 
+        //createBoulders(GameMapSize) 
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            daBoulders[i] = createBoulders()
+            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0);
             //Set default hieght and width
             daBoulders[i].width = 100;
             daBoulders[i].height = 100;
+            moveBoulders(daBoulders[i]);
         }
-
         //Check for overlapping 100px Boulders
-        for (let i = 0; i < 15; i++){
+        for (let i = 0; i < 10; i++){
             checkBoulders(daBoulders)
         }
             
@@ -267,14 +275,26 @@ function createGameWorld(){
         } else {
         //Generate Random 50px Boulders
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            let x = randomXnumber();
-            let y = randomYnumber();
-            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", x, y, 50, 0, 0);
+            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0);
+            //Set default hieght and width
+            daBoulders[i].width = 50;
+            daBoulders[i].height = 50;
+            moveBoulders(daBoulders[i]);
         }
         
+        //Check for overlapping 100px Boulders
+        for (let i = 0; i < 10; i++){
+            checkBoulders(daBoulders)
+        }
+
         //Draw Random 50px Boulders
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
         }
     }
+}
+
+function createGameWorld(){
+    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+    createBoulders();
 }

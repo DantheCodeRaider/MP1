@@ -100,8 +100,6 @@ function gameLoop(timeStamp){
     } */
 }
 
- 
-
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center
     mapSize(visualViewport.width, visualViewport.height);
@@ -113,11 +111,11 @@ window.onload = ()=> {
     tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
     //Border Game Window
     gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    console.log("HZ is" + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
+    console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     createGameWorld();
-    //Set initial Position for Main Character
-    greenCharacter.Xpos=horizontalOffSet;
-    greenCharacter.Ypos=verticalOffSet;
+    //Set initial Position for Main Character to center of grass area
+    greenCharacter.Xpos=horizontalOffSet+(widthOfGrass/2);
+    greenCharacter.Ypos=verticalOffSet+(heightOfGrass/2);
     greenCharacter.drawObject(); //Set Main Character Intial Load
 };
 
