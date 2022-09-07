@@ -41,5 +41,11 @@ Desktops - Min width 900px
     }
   }
 
+  @media(width<=600px){
+    .instructions{
+      content-visibility: hidden;
+    }
+  }
+
 
 

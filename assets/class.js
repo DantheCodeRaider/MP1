@@ -61,8 +61,8 @@ class mainCharacter extends Character {
         //Keep Character on the map North/South
         if (this.Ypos < verticalOffSet) {
             this.Ypos = verticalOffSet
-        } else if (this.Ypos > heightOfGrass) {
-            this.Ypos = heightOfGrass 
+        } else if (this.Ypos > (heightOfGrass+verticalOffSet)-50) {
+            this.Ypos = (heightOfGrass+verticalOffSet)-50
         }
         //Console Logs for bug testing 
         //console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1] + ' Ypos' + ' | ' + charCoords[2]+ ' Zpos');

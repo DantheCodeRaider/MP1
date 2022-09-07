@@ -8,9 +8,6 @@ var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/stati
 let daBoulders = new Array;
 let daGems = new Array;
 
-//Variable for movement management
-//let charCoords = [100, 100, 25]; // Xpos, Ypos, Zpos 
-
 //Variables to determine screen size for background images
 let verticalOffSet = 0
 let horizontalOffSet = 0

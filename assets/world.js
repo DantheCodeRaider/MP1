@@ -6,21 +6,22 @@ function mapSize(screenWidth, screenHieght) {
         GameMapSize = 3
         console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 900x1200" + "| Game Map " + GameMapSize)
         
-        //Set Horizon height
-        Horizon = setHorizon(screenHieght, 400)
-        console.log('Horizon ' + Horizon)
-
         //Set Horizontal Off Set
         horizontalOffSet = setHorizontalOffSet(screenWidth)
    
         //Set Vertical Off Set
         verticalOffSet = setVerticalOffSet(screenHieght)
 
+        //Set Horizon height
+        Horizon = setHorizon(screenHieght, 400)
+        console.log('Horizon ' + Horizon)
+
         //Set Variables for how big an area to tile for the game map
         heightOfSky = 400
         heightOfGrass = 800
         widthOfGrass = 900
         //console.log('HeightofSky '+ heightOfSky)
+        //console.log('heightOfGrass '+ heightOfGrass)
     } else if (screenWidth>=700){
         //Map Size will be 700px by 1000px
         console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 700x1000" + "| Game Map " + GameMapSize)
@@ -127,7 +128,6 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     return nImg
 }
 
-
 function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     let mDiv = document.querySelector('main')
     let nDiv= document.createElement('Div')
@@ -203,9 +203,8 @@ function randomYnumber(){
     return y;
 }  
 
-
-
 function moveBoulders(gameObject){
+//Set a default object as a place holder for character spawn point
 let obj1 = {Xpos:0, Ypos:0, width:0, height:0};
 obj1.Xpos = horizontalOffSet+(widthOfGrass/2);
 obj1.Ypos = verticalOffSet+(heightOfGrass/2);
@@ -213,8 +212,7 @@ obj1.height = 100;
 obj1.width = 100;
 gameObject.Xpos = randomXnumber();
 gameObject.Ypos = randomYnumber();
-
-//let squareDistance = (gameObject.Xpos-Xcenter)*(gameObject.Xpos-Xcenter) + (gameObject.Ypos-Ycenter)*(gameObject.Ypos-Ycenter);
+    //let squareDistance = (gameObject.Xpos-Xcenter)*(gameObject.Xpos-Xcenter) + (gameObject.Ypos-Ycenter)*(gameObject.Ypos-Ycenter);
     //keep center of grass area open for main character
     if (rectIntersect(obj1.Xpos, obj1.Ypos, obj1.width, obj1.height, gameObject.Xpos, gameObject.Ypos, gameObject.width, gameObject.height)){
         //console.log('Reroll Xpos ' + gameObject.Xpos + ' | ' + gameObject.Ypos)
