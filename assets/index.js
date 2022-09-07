@@ -100,32 +100,7 @@ function gameLoop(timeStamp){
     } */
 }
 
-function randomXnumber(){
-    if (GameMapSize == 3 || GameMapSize ==2){
-        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS for 100px boulder
-        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-100)+widthOfGrass))){
-            x = Math.floor(Math.random() * (visualViewport.width));
-        }
-        //console.log("Returning X "+ x)
-        return x;
-    } else {
-        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS 50px boulder
-        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
-            x = Math.floor(Math.random() * (visualViewport.width));
-        }
-        //console.log("Returning X "+ x)
-        return x;
-    }
-}   
-
-function randomYnumber(){
-    let y = Math.floor(Math.random() * (visualViewport.height)); //generate a number for a new random xPOS
-    while (y <= (verticalOffSet) || (y >= (heightOfGrass))){
-        y = Math.floor(Math.random() * (visualViewport.height));
-    }
-    //console.log("Returning Y "+ y)
-    return y;
-}   
+ 
 
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center

@@ -127,6 +127,7 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     return nImg
 }
 
+
 function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     let mDiv = document.querySelector('main')
     let nDiv= document.createElement('Div')
@@ -143,25 +144,135 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     mDiv.append(nDiv)
 }
 
+function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
+    //Check x and y for overlap
+    if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2){
+        return false;
+    }
+    return true;
+}
+
+function detectCollisions(gameObject){
+    let obj1;
+    let obj2;
+
+    //Reset collision state of all objects
+    for (let i = 0; i < gameObject.length; i++){
+        gameObject[i].isColliding = false;
+    }
+
+    //Start checking for collisions
+    for (let i = 0; i < gameObject.length; i++){
+        obj1 = gameObject[i];
+        for (let o = i + 1; o < gameObject.length; o++){
+            obj2 = gameObject[o];
+            // Compare object1 with object2
+            if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)){
+                obj1.isColliding = true;
+                obj2.isColliding = true;
+            }
+        }
+    }
+    return gameObject
+}
+
+function randomXnumber(){
+    if (GameMapSize == 3 || GameMapSize ==2){
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS for 100px boulder
+        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-100)+widthOfGrass))){
+            x = Math.floor(Math.random() * (visualViewport.width));
+        }
+        //console.log("Returning X "+ x)
+        return x;
+    } else {
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS 50px boulder
+        while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
+            x = Math.floor(Math.random() * (visualViewport.width));
+        }
+        //console.log("Returning X "+ x)
+        return x;
+    }
+}   
+
+function randomYnumber(){
+    let y = Math.floor(Math.random() * (visualViewport.height)); //generate a number for a new random xPOS
+    while (y <= (verticalOffSet) || (y >= (heightOfGrass))){
+        y = Math.floor(Math.random() * (visualViewport.height));
+    }
+    //console.log("Returning Y "+ y)
+    return y;
+}  
+
+function createBoulders(){
+    let x = randomXnumber();
+    let y = randomYnumber();
+    let boulder = new GameObject("Boulder", "./assets/img/boulder100.svg", x, y, 50, 0, 0);
+    return boulder
+}
+
+function moveBoulders(gameObject){
+gameObject.Xpos = randomXnumber();
+gameObject. Ypos = randomYnumber();
+return gameObject
+}
+
+function checkBoulders(gameObject){ 
+    let obj1;
+    let obj2;
+
+    //Reset collision state of all objects
+    for (let i = 0; i < gameObject.length; i++){
+        gameObject[i].isColliding = false;
+    }
+
+    //Start checking for collisions
+    for (let i = 0; i < gameObject.length; i++){
+        obj1 = gameObject[i];
+        for (let o = i + 1; o < gameObject.length; o++){
+            obj2 = gameObject[o];
+            // Compare object1 with object2
+            if (rectIntersect(obj1.Xpos, obj1.Ypos, obj1.width, obj1.height, obj2.Xpos, obj2.Ypos, obj2.width, obj2.height)){
+                obj1.isColliding = true;
+                obj2.isColliding = true;
+                gameObject[o] = moveBoulders(obj2)
+                obj2 = gameObject[o];
+                console.log('Obj1 X/Y ' + obj1.Xpos +','+ obj1.Ypos + ' H/W ' +  obj1.width +','+obj1.height + ' | Obj2 X/Y ' + obj2.Xpos +','+ obj2.Ypos + ' H/W ' +  obj2.width +','+obj2.height)
+                console.log('Reroll Xpos ' + gameObject[o].Xpos + ' | ' + gameObject[o].Ypos)
+            }
+        }
+    }
+    return gameObject
+}
+
 function createGameWorld(){
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     if (GameMapSize == 3 || GameMapSize == 2){
+        //Generate Random 100px Boulders 
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            let x = randomXnumber();
-            let y = randomYnumber();
-            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder100.svg", x, y, 50, 0, 0);
+            daBoulders[i] = createBoulders()
+            //Set default hieght and width
+            daBoulders[i].width = 100;
+            daBoulders[i].height = 100;
         }
 
+        //Check for overlapping 100px Boulders
+        for (let i = 0; i < 15; i++){
+            checkBoulders(daBoulders)
+        }
+            
+        //Draw Random 100px Boulders
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
         }
-    } else {
+        } else {
+        //Generate Random 50px Boulders
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
             let x = randomXnumber();
             let y = randomYnumber();
             daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", x, y, 50, 0, 0);
         }
-
+        
+        //Draw Random 50px Boulders
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
         }

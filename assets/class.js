@@ -19,27 +19,6 @@ class GameObject{
         this.context.style.zIndex = this.Zpos
         document.body.append(this.context)
     }
-    detectCollisions(){
-        let obj1;
-        let obj2;
-
-        //Reset collision state of all objects
-        for (let i = 0; i < gameObject.length; i++){
-            gameObject[i].isColliding = false;
-        }
-        // Start checking for collisions
-        for (let i = 0; i < gameObject.length; i++){
-            obj1 = gameObject[i];
-            for (let j = i + 1; j < gameObject.length; j++){
-                obj2 = gameObject[j];
-                // Compare object1 with object2
-                if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)){
-                    obj1.isColliding = true;
-                    obj2.isColliding = true;
-                }
-            }
-        }
-    }
 }
 
 class Character extends GameObject {
@@ -85,10 +64,8 @@ class mainCharacter extends Character {
         } else if (this.Ypos > heightOfGrass) {
             this.Ypos = heightOfGrass 
         }
-        //Logs for bug testing 
-        //console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1]+' Ypos');
-        //console.log(charCoords[2]+' Zpos');
-        //let nImg = document.querySelector('[src="assets/green-character.gif"]');
+        //Console Logs for bug testing 
+        //console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1] + ' Ypos' + ' | ' + charCoords[2]+ ' Zpos');
         this.context.style.left = this.Xpos+'px';
         this.context.style.bottom = this.Ypos +'px';
         this.context.style.Zpos = this.Zpos
