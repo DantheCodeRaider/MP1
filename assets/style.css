@@ -24,28 +24,30 @@ Desktops - Min width 900px
 */
 
 @media(width>=350px){
-    p#screenSize:after{
-      content:"Viewport width atleast than 350px";
-    }
+  p#screenSize:after{
+    content:"Viewport width atleast than 350px";
   }
+}
 
-  @media(width>=700px){
-    p#screenSize:after{
-      content:"Viewport width atleast than 700px";
-    }
+@media(width>=700px){
+  p#screenSize:after{
+    content:"Viewport width atleast than 700px";
   }
+}
   
 @media(width>=900px){
-    p#screenSize:after{
-      content:"Viewport width greater than 900px";
-    }
+  p#screenSize:after{
+    content:"Viewport width greater than 900px";
   }
+}
 
-  @media(width<=600px){
-    .instructions{
-      content-visibility: hidden;
-    }
+@media only screen and (max-width: 600px){
+  .instructions{
+    content-visibility: hidden;
+    border: none;
+    z-index: -1;
   }
+}
 
 
 

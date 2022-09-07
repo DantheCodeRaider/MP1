@@ -70,33 +70,33 @@ function setHorizon (screenHieght, hzn){
 }
 
 function setVerticalOffSet(screenHieght){
-    //Check to ensure window height is as expected
-    let vOS = 0
-    if (screenHieght > 1200 && GameMapSize == 3) {
-        vOS = (screenHieght-1200)/2
-    } else if (screenHieght > 1000 && GameMapSize == 2){
-        vOS = (screenHieght-1000)/2
-    } else if (screenHieght > 650 && GameMapSize == 1) {
-        vOS = (screenHieght-650)/2
-    } else {
-        vOS = 0
-    }
-    return vOS
+//Check to ensure window height is as expected
+let vOS = 0
+if (screenHieght > 1200 && GameMapSize == 3) {
+    vOS = (screenHieght-1200)/2
+} else if (screenHieght > 1000 && GameMapSize == 2){
+    vOS = (screenHieght-1000)/2
+} else if (screenHieght > 650 && GameMapSize == 1) {
+    vOS = (screenHieght-650)/2
+} else {
+    vOS = 0
+}
+return vOS
 }
 
 function setHorizontalOffSet(screenWidth){
-      //Check to ensure window width is as expected
-      let hOS = 0
-      if (screenWidth > 900 && GameMapSize == 3) {
-        hOS = (screenWidth-900)/2
-    } else if (screenWidth > 700 && GameMapSize == 2) {
-        hOS = (screenWidth-700)/2
-    } else if (screenWidth > 350 && GameMapSize == 1) {
-        hOS = (screenWidth-350)/2
-    } else {
-        hOS = 0
-    }
-    return hOS
+//Check to ensure window width is as expected
+let hOS = 0
+if (screenWidth > 900 && GameMapSize == 3) {
+    hOS = (screenWidth-900)/2
+} else if (screenWidth > 700 && GameMapSize == 2) {
+    hOS = (screenWidth-700)/2
+} else if (screenWidth > 350 && GameMapSize == 1) {
+    hOS = (screenWidth-350)/2
+} else {
+    hOS = 0
+}
+return hOS
 }
 
 //Function for placing background images throughout the browser
@@ -113,7 +113,7 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
                 h = height
             }
         }
-}
+    }
 }
 
 //Function for placing static images throughout the browser
@@ -128,6 +128,7 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     return nImg
 }
 
+//Function for placing Game Window Div with border, center on player screen
 function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     let mDiv = document.querySelector('main')
     let nDiv= document.createElement('Div')
@@ -142,38 +143,6 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     nDiv.style.justifyContent = "Center"
     nDiv.style.margin = "Auto"
     mDiv.append(nDiv)
-}
-
-function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
-    //Check x and y for overlap
-    if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2){
-        return false;
-    }
-    return true;
-}
-
-function detectCollisions(gameObject){
-    let obj1;
-    let obj2;
-
-    //Reset collision state of all objects
-    for (let i = 0; i < gameObject.length; i++){
-        gameObject[i].isColliding = false;
-    }
-
-    //Start checking for collisions
-    for (let i = 0; i < gameObject.length; i++){
-        obj1 = gameObject[i];
-        for (let o = i + 1; o < gameObject.length; o++){
-            obj2 = gameObject[o];
-            // Compare object1 with object2
-            if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, obj2.x, obj2.y, obj2.width, obj2.height)){
-                obj1.isColliding = true;
-                obj2.isColliding = true;
-            }
-        }
-    }
-    return gameObject
 }
 
 function randomXnumber(){

@@ -1,13 +1,17 @@
 //Establish classes
 class GameObject{
-    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        this.context = context
-        this.ImgAssest = ImgAssest
-        this.Xpos = Xpos
-        this.Ypos = Ypos
-        this.Zpos = Zpos
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state){
+        this.context = context //Used to update browser
+        this.ImgAssest = ImgAssest //Used for art assets links
+        this.Xpos = Xpos //X Position
+        this.Ypos = Ypos //Y Position
+        this.Zpos = Zpos //Z Position
+        this.VelX = VelX //X Velocity
+        this.VelY = VelY //Y Velocity
+        this.state = state //0 Hidden, 1 Nueteral, 2 Friendly, 3 Hostile
 
-        this.isColliding = false;
+        this.isColliding = false; //Is Colliding
+        this.isCollidingWithMain = false; //Is Colliding with Main Character
     }
     //Function for placing objects throughout the browser
     drawObject (ImgAssest, Xpos, Ypos, Zpos) {
@@ -32,8 +36,8 @@ class Character extends GameObject {
 }
 
 class NPC extends Character {
-    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        super(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state){
+        super(context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state);
 
         //Set NPC Specific settings
         this.ImgAssest = "assets/img/red-character/static.gif"
@@ -44,14 +48,24 @@ class NPC extends Character {
 }
 
 class mainCharacter extends Character {
-    constructor(context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        super(context, ImgAssest, Xpos, Ypos, Zpos);
+    constructor(context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state){
+        super(context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state);
     }
     //Function for moving mainCharacter around in the game
      moveChar(Xpos, Ypos, Zpos, cDir){
+        let basePos = this //Backup of Main Char
         this.Xpos += Xpos //Update Xpos
         this.Ypos += Ypos //Update Ypos
         this.Zpos += Zpos //Update Zpos
+
+        //Check for Collisions
+        this.detectObjects(GameObject)
+        if (this.isColliding==true){
+
+        } else {
+
+        }
+
         //Keep Character on the map West/East
         if (this.Xpos < horizontalOffSet) {
             this.Xpos = horizontalOffSet
@@ -65,7 +79,7 @@ class mainCharacter extends Character {
             this.Ypos = (heightOfGrass+verticalOffSet)-50
         }
         //Console Logs for bug testing 
-        //console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1] + ' Ypos' + ' | ' + charCoords[2]+ ' Zpos');
+        console.log('|'+ charCoords[0]+' Xpos |'+ charCoords[1] + ' Ypos' + ' | ' + charCoords[2]+ ' Zpos');
         this.context.style.left = this.Xpos+'px';
         this.context.style.bottom = this.Ypos +'px';
         this.context.style.Zpos = this.Zpos
@@ -96,5 +110,29 @@ class mainCharacter extends Character {
         }
         // Update Character
         document.body.append(this.context)
+    }
+    detectObjects(gameObject){
+        let obj1;
+        let obj2;
+        
+        //Reset collision state of all objects
+        for (let i = 0; i < gameObject.length; i++){
+            gameObject[i].isColliding = false;
+            gameObject[i].isCollidingWithMain = false;
+        }
+        //Set Obj 1 as Main Character
+        this.isColliding = false;
+        
+        //Start checking for collisions
+        for (let i = 0; i < gameObject.length; i++){
+        obj2 = gameObject[i];
+            // Compare object1 with object2
+            if (rectIntersect(this.Xpos, this.Ypos, this.width, this.height, gameObject[i].Xpos, gameObject[i].Ypos, gameObject[i].width, gameObject[i].height)){
+                this.isColliding = true;
+                gameObject[i].isColliding = true;
+                gameObject[i].isCollidingWithMain = true;
+            }
+        }
+    return gameObject
     }
 }
