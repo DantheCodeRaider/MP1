@@ -4,7 +4,8 @@ var GameLevel; //Value 1-3 -  3 total levels.
 var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
 let secondsPassed = 0; 
 let oldTimeStamp = 0;
-var greenCharacter = new mainCharacter('Main', 'assets/img/green-character/static.gif', 0, 0, 25); //Set Main Character Object
+var greenCharacter = new mainCharacter('Main', 'Main', 'assets/img/green-character/static.gif', 0, 0, 25, 2); //Set Main Character Object
+var allGameObjects; //Set Object to track all objects
 let daBoulders = new Array;
 let daGems = new Array;
 
@@ -21,54 +22,54 @@ window.addEventListener("keydown", function (event) {
       return; // Do nothing if the event was already processed
     }
     switch (event.key) {
-            // Code for "down arrow" key press.
-      case "ArrowDown":
-           greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+        // Code for "down arrow" key press.
+        case "ArrowDown":
+          greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
         break;
-            // Code for "S" key press.
+          // Code for "S" key press.
         case "S":
-            greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
-       break;
-            // Code for "s" key press.
+          greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+        break;
+          // Code for "s" key press.
         case "s":
-            greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
-       break;
-      case "ArrowUp":
-            // Code for "up arrow" key press.
-            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+          greenCharacter.moveChar(0, -50, 0, "South") // Move Green Character Down (South)
+        break;
+        case "ArrowUp":
+          // Code for "up arrow" key press.
+          greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
         break;
         case "W":
-            // Code for "W" key press.
-            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
-          break;
-          case "w":
-            // Code for "w" key press.
-            greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
-            break;
-      case "ArrowLeft":
-            // Code for "left arrow" key press.
-            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+          // Code for "W" key press.
+          greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+        break;
+        case "w":
+          // Code for "w" key press.
+          greenCharacter.moveChar(0, 50, 0, "North") // Move Green Character Up (North)
+        break;
+        case "ArrowLeft":
+          // Code for "left arrow" key press.
+          greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
         break;
         case "A":
-            // Code for "A" key press.
-            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
-          break;
-          case "a":
-            // Code for "a" key press.
-            greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
-            break;
-      case "ArrowRight":
-            // Code for "right arrow" key press.
-            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+          // Code for "A" key press.
+          greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+        break;
+        case "a":
+          // Code for "a" key press.
+          greenCharacter.moveChar(-50, 0, 0, "West") // Move Green Character Left (West)
+        break;
+        case "ArrowRight":
+          // Code for "right arrow" key press.
+          greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
         break;
         case "D":
-            // Code for "D" key press.
-            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
-          break;
-          case "d":
-            // Code for "d" key press.
-            greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
-            break;
+          // Code for "D" key press.
+          greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+        break;
+        case "d":
+          // Code for "d" key press.
+          greenCharacter.moveChar(50, 0, 0, "East") // Move Green Character Right (East)
+        break;
       default:
         return; // Quit when this doesn't handle the key event.
     }
@@ -78,10 +79,12 @@ window.addEventListener("keydown", function (event) {
   // The last option dispatches the event to the listener first,
   // Then dispatches event to window
   document.addEventListener("keyup",function(event){
-    greenCharacter.moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
+    //greenCharacter.moveChar(0, 0, 0, null) // Reset Character to static state when it is not moving
+    //greenCharacter.context.src='assets/img/green-character/static.gif' // Reset Character to static state when it is not moving
+    greenCharacter.stopChar();
   })
 
-function gameLoop(timeStamp){
+/* function gameLoop(timeStamp){
     secondsPassed = (timeStamp - oldTimeStamp) / 1000;
     oldTimeStamp = timeStamp;
 
@@ -92,10 +95,10 @@ function gameLoop(timeStamp){
     //clear previous or update current??
 
     //Draw new or upodate objects?
-/*     for (let i = 0; i < GameObject.length; i++){
+       for (let i = 0; i < GameObject.length; i++){
         GameObject[i].drawObject();
-    } */
-}
+    }
+} */
 
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center

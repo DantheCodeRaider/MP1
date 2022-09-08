@@ -224,7 +224,7 @@ function createBoulders(){
         //Generate Random 100px Boulders 
         //createBoulders(GameMapSize) 
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0);
+            daBoulders[i] = new GameObject("Boulder", "Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 100;
             daBoulders[i].height = 100;
@@ -242,7 +242,7 @@ function createBoulders(){
         } else {
         //Generate Random 50px Boulders
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            daBoulders[i] = new GameObject("Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0);
+            daBoulders[i] = new GameObject("Boulder", "Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 50;
             daBoulders[i].height = 50;
@@ -259,9 +259,10 @@ function createBoulders(){
             daBoulders[i].drawObject();
         }
     }
+    return daBoulders
 }
 
 function createGameWorld(){
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
-    createBoulders();
+    allGameObjects = createBoulders();
 }

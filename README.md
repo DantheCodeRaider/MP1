@@ -20,7 +20,7 @@ Core Features:
 -Move Character via keyboard input
 -Dig for items via mouse click (coming soon)
 -Pickup gems via mouse click (coming soon)
--Explorable map (coming soon)
+-Explorable map
 -Detect screen size and adjust explorable map accordingly. (coming soon)
 -Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon)
 -Progress through all three game-level difficulties to become the Master Gem Raider! (coming soon)
