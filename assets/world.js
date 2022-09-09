@@ -172,6 +172,66 @@ function randomYnumber(){
     return y;
 }  
 
+function rollGem(gameObject){
+    let x = Math.floor(Math.random() * 11);
+    console.log ('Gem Roll ' + x)
+    switch (x) {
+        // White Gem
+        case 1:
+            gameObject.context.src='assets/img/gem1.png'
+            gameObject.name ='Gem'
+        break;
+        // Blue Gem
+        case 2:
+            gameObject.context.src='assets/img/gem2.png'
+            gameObject.name ='Gem'
+        break;
+        // Green Gem
+        case 3:
+            gameObject.context.src='assets/img/gem3.png'
+            gameObject.name ='Gem'
+        break;
+        // Red Gem
+        case 4:
+            gameObject.context.src='assets/img/gem4.png'
+            gameObject.name ='Gem'
+        break;
+        // Orange Gem
+        case 5:
+            gameObject.context.src='assets/img/gem5.png'
+            gameObject.name ='Gem'
+        break;
+        // Yellow Gem
+        case 6:
+            gameObject.context.src='assets/img/gem6.png'
+            gameObject.name ='Gem'
+        break;
+        // Purple Gem
+        case 7:
+            gameObject.context.src='assets/img/gem7.png'
+            gameObject.name ='Gem'
+        break;
+        // Black Gem
+        case 8:
+            gameObject.context.src='assets/img/gem8.png'
+            gameObject.name ='Gem'
+        break;
+        // Rock
+        case 9:
+            gameObject.context.src='assets/img/rock.png'
+            gameObject.name ='Rock'
+        break;
+        // Rock
+        case 10:
+            gameObject.context.src='assets/img/rock.png'
+            gameObject.name ='Rock'
+        break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+        }
+
+}
+
 function moveBoulders(gameObject){
 //Set a default object as a place holder for character spawn point
 let obj1 = {Xpos:0, Ypos:0, width:0, height:0};
