@@ -30,3 +30,75 @@ function detectCollisions(gameObject){
     }
     return gameObject
 }
+
+function rollGem(gameObject){
+    let x = Math.floor(Math.random() * 11);
+    console.log ('Gem Roll ' + x)
+    switch (x) {
+        // White Gem
+        case 1:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem1.png"
+            
+        break;
+        // Blue Gem
+        case 2:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem2.png"
+        break;
+        // Green Gem
+        case 3:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem3.png"
+            gameObject.name ='Gem'
+        break;
+        // Red Gem
+        case 4:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem4.png"
+        break;
+        // Orange Gem
+        case 5:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem5.png"
+        break;
+        // Yellow Gem
+        case 6:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem6.png"
+        break;
+        // Purple Gem
+        case 7:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem7.png"
+        break;
+        // Black Gem
+        case 8:
+            gameObject.name ="Gem"
+            gameObject.context="Gem"
+            gameObject.ImgAssest="assets/img/gem8.png"
+        break;
+        // Rock
+        case 9:
+            gameObject.name ="Rock"
+            gameObject.context="Rock"
+            gameObject.ImgAssest="assets/img/rock.png"
+        break;
+        // Rock
+        case 10:
+            gameObject.name ="Rock"
+            gameObject.context="Rock"
+            gameObject.ImgAssest="assets/img/rock.png"
+        break;
+        default:
+            return; //Quit when this doesn't handle the key event.
+        }
+    return gameObject;
+}

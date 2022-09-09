@@ -17,6 +17,14 @@ main {
     right: 0%;
 }
 
+.gems {
+  transition-timing-function: linear;
+  transition-delay: 1s;
+  transition-duration: 5s;
+  transition-property: opacity;
+  opacity: 100;
+}
+
 /*Setting CSS conditions for 3 supported screen sizes.
 Mobile - Min width 350px
 Tablet - Min width 700px

@@ -15,8 +15,9 @@ class GameObject{
         this.isCollidingWithMain = false; //Is Colliding with Main Character (true/false)
     }
     //Function for placing objects throughout the browser
-    drawObject (ImgAssest, Xpos, Ypos, Zpos) {
+    drawObject (cName) {
         this.context = document.createElement('img')
+        this.context.className = cName
         this.context.src = this.ImgAssest
         this.context.style.position = 'fixed'
         this.context.style.left = this.Xpos +'px'
@@ -130,18 +131,27 @@ class mainCharacter extends Character {
         for (let i = 0; i < daBoulders.length; i++){
             //Check to make sure we are looping through only Boulder objects
             if (daBoulders[i].name == "Boulder"){
-                let y1 = this.Xpos
-                let y2 = this.Ypos
+                let x1 = this.Xpos
+                let y1 = this.Ypos
                 let x2 = daBoulders[i].Xpos
                 let y2 = daBoulders[i].Ypos
                 //find the distance between the main character a boulder
-                let d = Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2))
+                let d = Math.floor(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)))
                 console.log('Distance to boulder is ' + d)
-                if (d <= 100){
+                if (d < 110){
+                    let myRoll
+                    daGems = new GameObject('', '', '', daBoulders[i].Xpos, daBoulders[i].Ypos, 50, 0, 0, 1);
+                    rollGem(daGems)
                     console.log('I found a boulder to hit at ' + daBoulders[i].Xpos + ' ' + daBoulders[i].Ypos)
+                    daBoulders[i].context.style.display = "none"
+                    daGems.drawObject("gems")
+                    daBoulders[i].destroy
+                    //allGameObjects.append(daGems)
+                    //allGameObjects.append(daBoulders)
                 }
             }
-
+        }
+        return daBoulders, daGems;
     }
 
     //Function to detect objects touching and determine impact point
