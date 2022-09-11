@@ -4,7 +4,7 @@ var GameLevel; //Value 1-3 -  3 total levels.
 var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
 let secondsPassed = 0; 
 let oldTimeStamp = 0;
-var greenCharacter = new mainCharacter('Main', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
+var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'greenCharacter', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
 var allGameObjects; //Set Object to track all objects
 let daBoulders = new Array;
 let daGems = new Array;

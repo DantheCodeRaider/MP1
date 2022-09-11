@@ -1,7 +1,9 @@
 //Establish classes
 class GameObject{
-    constructor(name, context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state){
+    constructor(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, VelX, VelY, state){
         this.name = name //Object name type
+        this.ID = ID //Object ID
+        this.cName = cName //Object Class
         this.context = context //Used to update browser
         this.ImgAssest = ImgAssest //Used for art assets links
         this.Xpos = Xpos //X Position
@@ -15,22 +17,37 @@ class GameObject{
         this.isCollidingWithMain = false; //Is Colliding with Main Character (true/false)
     }
     //Function for placing objects throughout the browser
-    drawObject (cName) {
+    drawObject () {
         this.context = document.createElement('img')
-        this.context.className = cName
+        this.context.className = this.cName
+        this.context.id = this.ID
         this.context.src = this.ImgAssest
         this.context.style.position = 'fixed'
         this.context.style.left = this.Xpos +'px'
         this.context.style.bottom = this.Ypos +'px'
         this.context.style.zIndex = this.Zpos
-        this.context.style.border = 'solid 3px white'
+        //this.context.style.border = 'solid 3px white'
+        document.body.append(this.context)
+    }
+    //Function for replacing objects throughout the browser
+    updateObject (oldObject) {
+        this.context = document.getElementById(oldObject.ID)
+        this.context.className = this.cName
+        this.context.id = this.ID
+        this.context.src = this.ImgAssest
+        this.context.style.position = 'fixed'
+        this.context.style.left = this.Xpos +'px'
+        this.context.style.bottom = this.Ypos +'px'
+        this.context.style.zIndex = this.Zpos
+        context.style.visibility = "show"
+        //this.context.style.border = 'solid 3px white'
         document.body.append(this.context)
     }
 }
 
 class Character extends GameObject {
-    constructor(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        super(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
+    constructor(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
 
         //Set default hieght and width
         this.width = 50;
@@ -40,8 +57,8 @@ class Character extends GameObject {
 }
 
 class NPC extends Character {
-    constructor(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        super(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
+    constructor(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
 
         //Set NPC Specific settings
         this.ImgAssest = "assets/img/red-character/static.gif"
@@ -53,8 +70,8 @@ class NPC extends Character {
 }
 
 class mainCharacter extends Character {
-    constructor(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
-        super(name, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
+    constructor(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY){
+        super(name, ID, cName, context, ImgAssest, Xpos, Ypos, Zpos, velX, VelY);
         
         //Set defaults
         this.state = 2; //Friendly
@@ -141,13 +158,15 @@ class mainCharacter extends Character {
                 let d = Math.floor(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)))
                 console.log('Distance to boulder is ' + d)
                 if (d < 110){
-                    let myRoll
-                    daGems = new GameObject('', '', '', daBoulders[i].Xpos, daBoulders[i].Ypos, 50, 0, 0, 1);
+                    let oldObject
+                    daGems = new GameObject('', "gem"+i, '', '', daBoulders[i].Xpos, daBoulders[i].Ypos, 50, 0, 0, 1);
                     rollGem(daGems)
                     console.log('I found a boulder to hit at ' + daBoulders[i].Xpos + ' ' + daBoulders[i].Ypos)
-                    daBoulders[i].context.style.display = "none"
-                    daGems.drawObject("gems")
-                    daBoulders[i].destroy
+                    daBoulders[i].context.style.visibility = "hidden"
+                    oldObject = daBoulders[i] 
+                    daBoulders[i] = daGems
+                    daBoulders[i].updateObject(oldObject)
+
                     //allGameObjects.append(daGems)
                     //allGameObjects.append(daBoulders)
                 }

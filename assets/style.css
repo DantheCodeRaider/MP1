@@ -17,12 +17,21 @@ main {
     right: 0%;
 }
 
-.gems {
+.greenCharacter {
+
+}
+
+.boulder {
+
+}
+
+.gem {
+  opacity: 100%;
   transition-timing-function: linear;
   transition-delay: 1s;
-  transition-duration: 5s;
+  transition-duration: 10s;
   transition-property: opacity;
-  opacity: 100;
+
 }
 
 /*Setting CSS conditions for 3 supported screen sizes.

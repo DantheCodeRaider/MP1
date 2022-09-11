@@ -224,7 +224,7 @@ function createBoulders(){
         //Generate Random 100px Boulders 
         //createBoulders(GameMapSize) 
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            daBoulders[i] = new GameObject("Boulder", "Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0, 1);
+            daBoulders[i] = new GameObject("Boulder", "boulder"+i, "boulder", "Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 100;
             daBoulders[i].height = 100;
@@ -242,7 +242,7 @@ function createBoulders(){
         } else {
         //Generate Random 50px Boulders
         for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
-            daBoulders[i] = new GameObject("Boulder", "Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0, 1);
+            daBoulders[i] = new GameObject("Boulder", "boulder"+i, "boulder", "Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 50;
             daBoulders[i].height = 50;
