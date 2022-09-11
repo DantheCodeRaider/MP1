@@ -17,6 +17,10 @@ main {
     right: 0%;
 }
 
+.background {
+
+}
+
 .greenCharacter {
 
 }
@@ -26,12 +30,10 @@ main {
 }
 
 .gem {
-  opacity: 100%;
+  opacity: 1;
   transition-timing-function: linear;
-  transition-delay: 1s;
   transition-duration: 10s;
   transition-property: opacity;
-
 }
 
 /*Setting CSS conditions for 3 supported screen sizes.
@@ -60,7 +62,7 @@ Desktops - Min width 900px
 
 @media only screen and (max-width: 600px){
   .instructions{
-    content-visibility: hidden;
+    display: none;
     border: none;
     z-index: -1;
   }

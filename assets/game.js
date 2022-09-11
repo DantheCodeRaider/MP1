@@ -31,19 +31,21 @@ function detectCollisions(gameObject){
     return gameObject
 }
 
-function rollGem(gameObject){
+function rollGem(gameObject,i){
     let x = Math.floor(Math.random() * 11);
     console.log ('Gem Roll ' + x)
     switch (x) {
         // Rock
         case 0:
-            gameObject.name ="Rock"
-            gameObject.context="Rock"
+            gameObject.name = "Rock"
+            gameObject.ID = "rock"+i
+            gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
         // White Gem
         case 1:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem1.png"
             
@@ -51,62 +53,71 @@ function rollGem(gameObject){
         // Blue Gem
         case 2:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem2.png"
         break;
         // Green Gem
         case 3:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem3.png"
         break;
         // Red Gem
         case 4:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem4.png"
         break;
         // Orange Gem
         case 5:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem5.png"
         break;
         // Yellow Gem
         case 6:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem6.png"
         break;
         // Purple Gem
         case 7:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem7.png"
         break;
         // Black Gem
         case 8:
             gameObject.name ="Gem"
-            gameObject.context="Gem"
+            gameObject.ID = "gem"+i
+            gameObject.cName = "gem"
             gameObject.context.style="opactiy: 0%"
             gameObject.ImgAssest="assets/img/gem8.png"
         break;
         // Rock
         case 9:
             gameObject.name ="Rock"
-            gameObject.context="Rock"
+            gameObject.ID = "rock"+i
+            gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
         break;
         // Rock
         case 10:
             gameObject.name ="Rock"
-            gameObject.context="Rock"
+            gameObject.ID = "rock"+i
+            gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
         break;
         default:

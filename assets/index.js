@@ -6,6 +6,9 @@ let secondsPassed = 0;
 let oldTimeStamp = 0;
 var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'greenCharacter', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
 var allGameObjects; //Set Object to track all objects
+var gemsCollected = 0;
+var currentLevel = 0;
+var gamesPlayed = 0;
 let daBoulders = new Array;
 let daGems = new Array;
 

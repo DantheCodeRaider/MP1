@@ -30,8 +30,9 @@ class GameObject{
         document.body.append(this.context)
     }
     //Function for replacing objects throughout the browser
-    updateObject (oldObject) {
-        this.context = document.getElementById(oldObject.ID)
+    updateObject (oldObjectID) {
+        this.context = document.getElementById(oldObjectID)
+        //console.log('Initial Context ' + this.context)
         this.context.className = this.cName
         this.context.id = this.ID
         this.context.src = this.ImgAssest
@@ -39,8 +40,13 @@ class GameObject{
         this.context.style.left = this.Xpos +'px'
         this.context.style.bottom = this.Ypos +'px'
         this.context.style.zIndex = this.Zpos
-        context.style.visibility = "show"
+        if (this.name="Gem"){
+        this.context.style.FadeIn='2000'
+        }
+        
+        //context.style.visibility = "visible"
         //this.context.style.border = 'solid 3px white'
+        //console.log('Ending Context ' + this.context)
         document.body.append(this.context)
     }
 }
@@ -158,15 +164,18 @@ class mainCharacter extends Character {
                 let d = Math.floor(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)))
                 console.log('Distance to boulder is ' + d)
                 if (d < 110){
-                    let oldObject
-                    daGems = new GameObject('', "gem"+i, '', '', daBoulders[i].Xpos, daBoulders[i].Ypos, 50, 0, 0, 1);
-                    rollGem(daGems)
+                    let oldObjectID
+                    oldObjectID = daBoulders[i].ID; 
+                    daGems = daBoulders[i];
+                    rollGem(daGems, i)
                     console.log('I found a boulder to hit at ' + daBoulders[i].Xpos + ' ' + daBoulders[i].Ypos)
-                    daBoulders[i].context.style.visibility = "hidden"
-                    oldObject = daBoulders[i] 
+                    //daBoulders[i].context.style.visibility = "hidden"
                     daBoulders[i] = daGems
-                    daBoulders[i].updateObject(oldObject)
-
+                    //console.log(daGems)
+                    //console.log(daBoulders[i].cName)
+                    //console.log(daBoulders[i].context)
+                    //console.log(oldObjectID)
+                    daBoulders[i].updateObject(oldObjectID)
                     //allGameObjects.append(daGems)
                     //allGameObjects.append(daBoulders)
                 }

@@ -119,6 +119,7 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
 //Function for placing static images throughout the browser
 function newImage (ImgAssest, Xpos, Ypos, Zpos) {
     let nImg = document.createElement('img')
+    nImg.className = 'background'
     nImg.src = ImgAssest
     nImg.style.position = 'fixed'
     nImg.style.left = Xpos +'px'
