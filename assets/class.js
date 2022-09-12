@@ -17,7 +17,7 @@ class GameObject{
         this.isCollidingWithMain = false; //Is Colliding with Main Character (true/false)
     }
     //Function for placing objects throughout the browser
-    drawObject () {
+    drawObject() {
         this.context = document.createElement('img')
         this.context.className = this.cName
         this.context.id = this.ID
@@ -30,7 +30,7 @@ class GameObject{
         document.body.append(this.context)
     }
     //Function for replacing objects throughout the browser
-    updateObject (oldObjectID) {
+    updateObject(oldObjectID) {
         this.context = document.getElementById(oldObjectID)
         //console.log('Initial Context ' + this.context)
         this.context.className = this.cName
@@ -40,14 +40,16 @@ class GameObject{
         this.context.style.left = this.Xpos +'px'
         this.context.style.bottom = this.Ypos +'px'
         this.context.style.zIndex = this.Zpos
-        if (this.name="Gem"){
-        this.context.style.FadeIn='2000'
-        }
-        
-        //context.style.visibility = "visible"
         //this.context.style.border = 'solid 3px white'
-        //console.log('Ending Context ' + this.context)
+        if (this.name=="Gem"){
+        //If its a gem fade it into view over 5 seconds
+        this.context.style.opacity = "0";
         document.body.append(this.context)
+        fadeIn(this)
+        } else {
+        //If its a rock just put it out there
+        document.body.append(this.context)
+        }
     }
 }
 
@@ -169,7 +171,6 @@ class mainCharacter extends Character {
                     daGems = daBoulders[i];
                     rollGem(daGems, i)
                     console.log('I found a boulder to hit at ' + daBoulders[i].Xpos + ' ' + daBoulders[i].Ypos)
-                    //daBoulders[i].context.style.visibility = "hidden"
                     daBoulders[i] = daGems
                     //console.log(daGems)
                     //console.log(daBoulders[i].cName)
@@ -182,6 +183,29 @@ class mainCharacter extends Character {
             }
         }
         return daBoulders, daGems;
+    }
+
+    pickUpGem(allGameObjects, i) {
+        gemsCollected = pushObjects(gemsCollected, allGameObjects[1])
+        console.log('You Collected ' + gemsCollected.length +' Gems!')
+        console.log(allGameObjects[i])
+        console.log(allGameObjects[i].ID)
+        let inventoryItem = document.getElementById(allGameObjects[i].ID)
+        //select the Gem to be moved
+        for (let g =  0; g < gemsCollected.length; g++){
+            if (gemsCollected[g].ID == allGameObjects[i].ID) {
+             moveGem(gemsCollected[g]);  
+             console.log("Gems Move Object " + gemsCollected[g])
+             //console.log('New Inventory item ' + inventoryItem)
+             inventoryItem.style.left = gemsCollected[g].Xpos +'px'
+             inventoryItem.style.bottom = gemsCollected[g].Ypos +'px'
+             inventoryItem.style.zIndex = gemsCollected[g].Zpos
+             inventory.append(inventoryItem)
+             //allGameObjects[i].name
+             allGameObjects.splice(i, 1);
+            }
+        }
+        return allGameObjects;
     }
 
     //Function to detect objects touching and determine impact point
@@ -304,6 +328,9 @@ class mainCharacter extends Character {
                 this.isColliding = true;
                 allGameObjects[i].isColliding = true;
                 allGameObjects[i].isCollidingWithMain = true;
+                if (allGameObjects[i].name == "Gem"){
+                    this.pickUpGem(allGameObjects, i);
+                }
             }
         }
     return allGameObjects

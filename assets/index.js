@@ -5,12 +5,15 @@ var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
 let secondsPassed = 0; 
 let oldTimeStamp = 0;
 var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'greenCharacter', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
-var allGameObjects; //Set Object to track all objects
-var gemsCollected = 0;
+var allGameObjects; //Create Object to track all objects
+var theGameWindow; //Create variable for game window tracking
+var inventory; //Create variable for inventory tracking
+var gemsCollected; //Create variable for tracking collected gems
 var currentLevel = 0;
 var gamesPlayed = 0;
 let daBoulders = new Array;
 let daGems = new Array;
+
 
 //Variables to determine screen size for background images
 let verticalOffSet = 0
@@ -113,17 +116,13 @@ window.onload = ()=> {
     mapSize(visualViewport.width, visualViewport.height);
     //Set initial game level until we can detect it
     GameLevel=1;
-    //Tile Background based on Screen Size
-    tileBackground('./assets/img/offset100.svg', -50, -50, 0, visualViewport.width/50, visualViewport.height/50, horizontalOffSet, verticalOffSet);
-    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet);
-    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
-    //Border Game Window
-    gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
+    //Generate game screen
     createGameWorld();
+    //Prepare inventory area
+    inventory = newInventory(theGameWindow);
     //Set initial Position for Main Character to center of grass area
     greenCharacter.Xpos=horizontalOffSet+(widthOfGrass/2);
     greenCharacter.Ypos=verticalOffSet+(heightOfGrass/2);
-    greenCharacter.drawObject(); //Set Main Character Intial Load
+    greenCharacter.drawObject(); //Set main character initial spawn point
 };
 

@@ -29,11 +29,18 @@ main {
 
 }
 
+.inventory {
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 1.5s ease;
+}
+
 .gem {
   opacity: 1;
   transition-timing-function: linear;
-  transition-duration: 10s;
+  transition-duration: 4s;
   transition-property: opacity;
+
 }
 
 /*Setting CSS conditions for 3 supported screen sizes.

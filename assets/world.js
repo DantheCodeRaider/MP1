@@ -131,19 +131,21 @@ function newImage (ImgAssest, Xpos, Ypos, Zpos) {
 
 //Function for placing Game Window Div with border, center on player screen
 function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
-    let mDiv = document.querySelector('main')
-    let nDiv= document.createElement('Div')
-    nDiv.className = 'gameWindow'
-    nDiv.style.position = 'fixed'
-    nDiv.style.bottom = vOffSet-10 +'px'
-    nDiv.style.width = 10+width+"px"
-    nDiv.style.height = 10+height+"px"
-    nDiv.style.zIndex = Zpos
-    nDiv.style.border = "solid 5px White"
-    nDiv.style.textAlign = "Center"
-    nDiv.style.justifyContent = "Center"
-    nDiv.style.margin = "Auto"
-    mDiv.append(nDiv)
+    let mDiv = document.querySelector('main');
+    let nDiv = document.createElement('Div');
+    nDiv.className = 'gameWindow';
+    nDiv.id = 'gameWindow';
+    nDiv.style.position = 'fixed';
+    nDiv.style.bottom = vOffSet-10 +"px";
+    nDiv.style.width = 10+width+"px";
+    nDiv.style.height = 10+height+"px";
+    nDiv.style.zIndex = Zpos;
+    nDiv.style.border = "solid 5px White";
+    nDiv.style.textAlign = "Center";
+    nDiv.style.justifyContent = "Center";
+    nDiv.style.margin = "Auto";
+    mDiv.append(nDiv);
+    return nDiv;
 }
 
 function randomXnumber(){
@@ -263,7 +265,38 @@ function createBoulders(){
     return daBoulders
 }
 
+function newInventory(theGameWindow){
+    console.log('Inventory object in ' + theGameWindow);
+    //let gDiv = document.getElementById('gameWindow')
+    let inventory = document.createElement('div')
+    inventory.className = "inventory";
+    inventory.id = "inventory";
+    inventory.style.position = 'fixed';
+    inventory.style.bottom = Horizon-verticalOffSet+"px";
+    inventory.style.left = horizontalOffSet+"px";
+    inventory.style.width = widthOfGrass+"px";
+    inventory.style.height = heightOfSky+"px";
+    inventory.style.display = 'flex';
+    inventory.style.flexDirection = 'row';
+    inventory.style.alignItems = 'left';
+    inventory.style.justifyContent = 'space-evenly';
+    //inventory.style.border = '2px solid black';
+    //inventory.style.backgroundColor = 'none';
+    inventory.style.Zpos = '25';
+    theGameWindow.append(inventory);
+    return inventory;
+}
+
 function createGameWorld(){
+    //Tile Background based on Screen Size
+    tileBackground('./assets/img/offset100.svg', -50, -50, 0, visualViewport.width/50, visualViewport.height/50, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
+    //Border Game Window
+    theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
+    console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     allGameObjects = createBoulders();
+    
 }
+
