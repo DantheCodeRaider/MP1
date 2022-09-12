@@ -185,23 +185,28 @@ class mainCharacter extends Character {
         return daBoulders, daGems;
     }
 
-    pickUpGem(allGameObjects, i) {
-        gemsCollected = pushObjects(gemsCollected, allGameObjects[1])
+    pickUpGem(gemsCollected, allGameObjects, i) {
+        if (gemsCollected == null){
+            gemsCollected = allGameObjects[i]
+        } else {
+            gemsCollected.push(allGameObjects[i])
+        }
         console.log('You Collected ' + gemsCollected.length +' Gems!')
-        console.log(allGameObjects[i])
+        
         console.log(allGameObjects[i].ID)
-        let inventoryItem = document.getElementById(allGameObjects[i].ID)
         //select the Gem to be moved
         for (let g =  0; g < gemsCollected.length; g++){
-            if (gemsCollected[g].ID == allGameObjects[i].ID) {
+            if (gemsCollected[g].ID == allGameObjects[i].ID){
+             let inventory = document.getElementById('inventory')
+             gemsCollected[g].context.className += " "+ inventory.className
+             inventory.append(gemsCollected[g].context)
              moveGem(gemsCollected[g]);  
-             console.log("Gems Move Object " + gemsCollected[g])
-             //console.log('New Inventory item ' + inventoryItem)
-             inventoryItem.style.left = gemsCollected[g].Xpos +'px'
-             inventoryItem.style.bottom = gemsCollected[g].Ypos +'px'
-             inventoryItem.style.zIndex = gemsCollected[g].Zpos
-             inventory.append(inventoryItem)
-             //allGameObjects[i].name
+             console.log("Gems Move Object " + gemsCollected[g].ID + " "+ gemsCollected[g].Xpos + "xPos | "+ gemsCollected[g].Ypos + " yPos | " + gemsCollected[g].Zpos + " zPos" )
+             inventory.append(gemsCollected[g].context)
+             console.log("gemsCollected[g]")
+             console.log(gemsCollected[g])
+             console.log("allGameObjects[i]")
+             console.log(allGameObjects[i])
              allGameObjects.splice(i, 1);
             }
         }
@@ -329,7 +334,7 @@ class mainCharacter extends Character {
                 allGameObjects[i].isColliding = true;
                 allGameObjects[i].isCollidingWithMain = true;
                 if (allGameObjects[i].name == "Gem"){
-                    this.pickUpGem(allGameObjects, i);
+                    this.pickUpGem(gemsCollected, allGameObjects, i);
                 }
             }
         }

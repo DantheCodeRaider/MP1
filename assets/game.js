@@ -37,6 +37,46 @@ function pushObjects(object1, Object2){
     return object1;
 }
 
+function moveGem(gem){
+
+    let inventory = document.getElementById('inventory')
+    if (gem.length > 1){
+        //This is not the first gem collected this game, find off set for gem position
+        console.log("Needed for first row " + gem.length + "<" + (heightOfGrass/100)-20)
+        if (gem.length < (heightOfGrass/100)){
+            //Add a gem to the first row
+            gem.xPos = (10+parseInt(inventory.style.left))+(100*gem.length)
+            gem.yPos = (heightOfGrass+heightOfSky)-100
+            gem.zPos = parseInt(inventory.style.zIndex)
+            gem.context.style.left = gem.xPos +"px"
+            gem.context.style.bottom = gem.yPos +"px"
+            gem.context.style.zIndex = inventory.zIndex
+
+        } else if (gem.length >= (heightOfGrass/100)-20 && gem.length < ((heightOfGrass/100))*2){
+            //Add gem to 2nd row
+            gem.xPos = (10+parseInt(inventory.style.left))+(100*gem.length)
+            gem.yPos = (heightOfGrass+heightOfSky)-200
+            gem.zPos = parseInt(inventory.style.zIndex)
+            gem.context.style.left = gem.xPos +"px"
+            gem.context.style.bottom = gem.yPos +"px"
+            gem.context.style.zIndex = inventory.zIndex
+        } else {
+            //Add gem to 3rd row
+
+        }
+    } else {
+        //This is the first gem collected this game
+        gem.xPos = 10+parseInt(inventory.style.left)
+        gem.yPos = (heightOfGrass+heightOfSky)-10
+        gem.zPos = parseInt(inventory.style.zIndex)
+        gem.context.style.left = gem.xPos +"px"
+        gem.context.style.bottom = gem.yPos +"px"
+        gem.context.style.zIndex = inventory.zIndex
+        console.log("Setting Gem as first gem " + gem.xPos + " xPos | "+ gem.yPos + " yPos | " + gem.zPos + " zPos" )
+    }
+    return gem;
+}
+
 //Fuction to pick a random gem image after digging a boulder
 function rollGem(gameObject,i){
     let x = Math.floor(Math.random() * 11);
@@ -137,6 +177,18 @@ function fadeIn(gameObject) {
         //document.body.append(this.context)
         //console.log(op)
         //console.log('Looping ' + op.toFixed(1));
+        op += 0.1;
+    }, 10);
+}
+
+//Function to trigger mvoement tranistion of gem to inventory.
+function triggerGem(gameObject) {
+    let op = 0.1;
+    let timer = setInterval(function () {
+        if (op.toFixed(1) >= 1){
+            clearInterval(timer);
+        }
+        gameObject.context.style.opacity = 1;
         op += 0.1;
     }, 10);
 }

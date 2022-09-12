@@ -8,7 +8,7 @@ var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'gree
 var allGameObjects; //Create Object to track all objects
 var theGameWindow; //Create variable for game window tracking
 var inventory; //Create variable for inventory tracking
-var gemsCollected; //Create variable for tracking collected gems
+var gemsCollected = new Array; //Create variable for tracking collected gems
 var currentLevel = 0;
 var gamesPlayed = 0;
 let daBoulders = new Array;

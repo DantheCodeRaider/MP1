@@ -39,7 +39,7 @@ function mapSize(screenWidth, screenHieght) {
 
         //Set Variables for how big an area to tile for the game map
         heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2)
-        heightOfGrass = Horizon + 50
+        heightOfGrass = Horizon + 100
         widthOfGrass = window.innerWidth - (horizontalOffSet*2)
     } else {
         //Map Size will be 350px by 650px
@@ -58,7 +58,7 @@ function mapSize(screenWidth, screenHieght) {
 
         //Set Variables for how big an area to tile for the game map
         heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2) 
-        heightOfGrass = Horizon + 50 - (verticalOffSet)
+        heightOfGrass = Horizon + 100 - (verticalOffSet)
         widthOfGrass = window.innerWidth - (horizontalOffSet*2)
         
     }
@@ -101,9 +101,9 @@ return hOS
 
 //Function for placing background images throughout the browser
 function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
-    for(let h = 1; h < height; h++){
-        for(let w = 1; w < width; w++){
-            newImage(ImgAssest, Xpos + w*50, Ypos + h*50, Zpos)
+    for(let h = 0; h < height; h++){
+        for(let w = 0; w < width; w++){
+            newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
             //Stop the madness
             if (w > 500) {
                 w = width
@@ -266,7 +266,7 @@ function createBoulders(){
 }
 
 function newInventory(theGameWindow){
-    console.log('Inventory object in ' + theGameWindow);
+    //console.log('Inventory object in ' + theGameWindow);
     //let gDiv = document.getElementById('gameWindow')
     let inventory = document.createElement('div')
     inventory.className = "inventory";
@@ -289,11 +289,11 @@ function newInventory(theGameWindow){
 
 function createGameWorld(){
     //Tile Background based on Screen Size
-    tileBackground('./assets/img/offset100.svg', -50, -50, 0, visualViewport.width/50, visualViewport.height/50, horizontalOffSet, verticalOffSet);
-    tileBackground('./assets/img/grass100.svg', horizontalOffSet-50, verticalOffSet-50, 1, widthOfGrass/50, heightOfGrass/50, horizontalOffSet, verticalOffSet);
-    tileBackground('./assets/img/sky100.svg', horizontalOffSet-50, Horizon-verticalOffSet-50, 5, widthOfGrass/50, heightOfSky/50, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/offset100.svg', 0, 0, 0, visualViewport.width/100, visualViewport.height/100, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/grass100.svg', horizontalOffSet, verticalOffSet, 1, widthOfGrass/100, heightOfGrass/100, horizontalOffSet, verticalOffSet);
+    tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
-    theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 10, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
+    theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     allGameObjects = createBoulders();
