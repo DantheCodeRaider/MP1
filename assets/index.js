@@ -8,19 +8,17 @@ var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'gree
 var allGameObjects; //Create Object to track all objects
 var theGameWindow; //Create variable for game window tracking
 var inventory; //Create variable for inventory tracking
-var gemsCollected = new Array; //Create variable for tracking collected gems
+var gemsCollected = 0; //Create variable for tracking collected gems
 var currentLevel = 0;
 var gamesPlayed = 0;
-let daBoulders = new Array;
-let daGems = new Array;
 
 
 //Variables to determine screen size for background images
-let verticalOffSet = 0
-let horizontalOffSet = 0
-let heightOfSky = 0
-let heightOfGrass = 0
-let widthOfGrass = 0
+let verticalOffSet = 0;
+let horizontalOffSet = 0;
+let heightOfSky = 0;
+let heightOfGrass = 0;
+let widthOfGrass = 0;
 
 //Event listener to move the Green Character
 window.addEventListener("keydown", function (event) {
@@ -79,7 +77,7 @@ window.addEventListener("keydown", function (event) {
         case " ": 
           // Code for "Spacebar" key press.
           //console.log('Spacebar!')
-          greenCharacter.dig(daBoulders, daGems)
+          greenCharacter.dig()
         break;
       default:
         return; // Quit when this doesn't handle the key event.
@@ -121,8 +119,8 @@ window.onload = ()=> {
     //Prepare inventory area
     inventory = newInventory(theGameWindow);
     //Set initial Position for Main Character to center of grass area
-    greenCharacter.Xpos=horizontalOffSet+(widthOfGrass/2);
-    greenCharacter.Ypos=verticalOffSet+(heightOfGrass/2);
+    greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
+    greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);
     greenCharacter.drawObject(); //Set main character initial spawn point
 };
 

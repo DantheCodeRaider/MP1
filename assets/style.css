@@ -37,7 +37,7 @@ main {
 .gem {
   opacity: 1;
   transition-timing-function: linear;
-  transition-duration: 4s;
+  transition-duration: 3s;
   transition-property: opacity;
 
 }
@@ -51,6 +51,12 @@ Desktops - Min width 900px
 @media(width>=350px){
   p#screenSize:after{
     content:"Viewport width atleast than 350px";
+    
+  }
+  .instructions{
+    display: none;
+    border: none;
+    z-index: -1;
   }
 }
 

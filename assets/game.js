@@ -37,50 +37,47 @@ function pushObjects(object1, Object2){
     return object1;
 }
 
-function moveGem(gem){
+function moveGem(i){
 
     let inventory = document.getElementById('inventory')
-    if (gem.length > 1){
+        //console.log("Needed for first row " + gemsCollected + "<" + Math.floor(((widthOfGrass)/100)))
+        //console.log("Needed for 2nd row " + gemsCollected + ">=" + Math.floor(((widthOfGrass)/100)) + " and " + gemsCollected + " < " + Math.floor((widthOfGrass*2/100)+2))
         //This is not the first gem collected this game, find off set for gem position
-        console.log("Needed for first row " + gem.length + "<" + (heightOfGrass/100)-20)
-        if (gem.length < (heightOfGrass/100)){
+        if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
             //Add a gem to the first row
-            gem.xPos = (10+parseInt(inventory.style.left))+(100*gem.length)
-            gem.yPos = (heightOfGrass+heightOfSky)-100
-            gem.zPos = parseInt(inventory.style.zIndex)
-            gem.context.style.left = gem.xPos +"px"
-            gem.context.style.bottom = gem.yPos +"px"
-            gem.context.style.zIndex = inventory.zIndex
-
-        } else if (gem.length >= (heightOfGrass/100)-20 && gem.length < ((heightOfGrass/100))*2){
+            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-15
+            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+            console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+        } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
             //Add gem to 2nd row
-            gem.xPos = (10+parseInt(inventory.style.left))+(100*gem.length)
-            gem.yPos = (heightOfGrass+heightOfSky)-200
-            gem.zPos = parseInt(inventory.style.zIndex)
-            gem.context.style.left = gem.xPos +"px"
-            gem.context.style.bottom = gem.yPos +"px"
-            gem.context.style.zIndex = inventory.zIndex
-        } else {
+            //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
+            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-115
+            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+            //console.log("Setting 2nd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+        } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
             //Add gem to 3rd row
-
+            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-215
+            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+            //console.log("Setting 3rd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
         }
-    } else {
-        //This is the first gem collected this game
-        gem.xPos = 10+parseInt(inventory.style.left)
-        gem.yPos = (heightOfGrass+heightOfSky)-10
-        gem.zPos = parseInt(inventory.style.zIndex)
-        gem.context.style.left = gem.xPos +"px"
-        gem.context.style.bottom = gem.yPos +"px"
-        gem.context.style.zIndex = inventory.zIndex
-        console.log("Setting Gem as first gem " + gem.xPos + " xPos | "+ gem.yPos + " yPos | " + gem.zPos + " zPos" )
-    }
-    return gem;
 }
 
 //Fuction to pick a random gem image after digging a boulder
 function rollGem(gameObject,i){
     let x = Math.floor(Math.random() * 11);
-    console.log ('Gem Roll ' + x)
+    //console.log ('Gem Roll ' + x)
     switch (x) {
         // Rock
         case 0:
@@ -88,6 +85,8 @@ function rollGem(gameObject,i){
             gameObject.ID = "rock"+i
             gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
+            gameObject.height = 50;
+            gameObject.width = 50;
         // White Gem
         case 1:
             gameObject.name ="Gem"
@@ -151,6 +150,8 @@ function rollGem(gameObject,i){
             gameObject.ID = "rock"+i
             gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
+            gameObject.height = 50;
+            gameObject.width = 50;
         break;
         // Rock
         case 10:
@@ -158,6 +159,8 @@ function rollGem(gameObject,i){
             gameObject.ID = "rock"+i
             gameObject.cName = "Rock"
             gameObject.ImgAssest="assets/img/rock.png"
+            gameObject.height = 50;
+            gameObject.width = 50;
         break;
         default:
             return; //Quit when this doesn't handle the key event.
@@ -179,6 +182,7 @@ function fadeIn(gameObject) {
         //console.log('Looping ' + op.toFixed(1));
         op += 0.1;
     }, 10);
+    return gameObject;
 }
 
 //Function to trigger mvoement tranistion of gem to inventory.
@@ -191,4 +195,5 @@ function triggerGem(gameObject) {
         gameObject.context.style.opacity = 1;
         op += 0.1;
     }, 10);
+    return gameObject;
 }

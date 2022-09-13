@@ -18,16 +18,23 @@ Basics:
 
 Core Features:
 -Move Character via keyboard input
--Dig for items via mouse click (coming soon)
--Pickup gems via mouse click (coming soon)
+-Dig for Gems via spacebar
+-Pickup gems by running them over
 -Explorable map
+-Clearly defined win state
+-Add lose state 1 (NPCs) - (coming soon)
+-Multiple game levels (3 total) - (coming soon)
+-Add lose state 2 (hostile environment) - (coming soon)
+-Add lose state 3 (timer) - (coming soon)
 -Detect screen size and adjust explorable map accordingly. (coming soon)
 -Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon)
 -Progress through all three game-level difficulties to become the Master Gem Raider! (coming soon)
 -Randomly roaming NPCs, hostile on collision with your Adventurer (coming soon)
 
 
-Known Issues: The game currently sucks…
+Known Issues: The game is slowly getting better, still sucks…
 
 Credits:
 Rights to use many of the art assets are courtesy of an MIT License from Copyright (c) 2022 ThriveDX
+Thanks to Cethiel – OpenGameArt.org for gem art assets. https://www.patreon.com/cethiel
+

@@ -100,10 +100,10 @@ return hOS
 }
 
 //Function for placing background images throughout the browser
-function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+function tileBackground(ImgAssest, xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     for(let h = 0; h < height; h++){
         for(let w = 0; w < width; w++){
-            newImage(ImgAssest, Xpos + w*100, Ypos + h*100, Zpos)
+            newImage(ImgAssest, xPos + w*100, yPos + h*100, zPos)
             //Stop the madness
             if (w > 500) {
                 w = width
@@ -117,20 +117,20 @@ function tileBackground(ImgAssest, Xpos, Ypos, Zpos, width, height, hOffSet, vOf
 }
 
 //Function for placing static images throughout the browser
-function newImage (ImgAssest, Xpos, Ypos, Zpos) {
+function newImage (ImgAssest, xPos, yPos, zPos) {
     let nImg = document.createElement('img')
     nImg.className = 'background'
     nImg.src = ImgAssest
     nImg.style.position = 'fixed'
-    nImg.style.left = Xpos +'px'
-    nImg.style.bottom = Ypos +'px'
-    nImg.style.Zpos = Zpos
+    nImg.style.left = xPos +'px'
+    nImg.style.bottom = yPos +'px'
+    nImg.style.zPos = zPos
     document.body.append(nImg)
     return nImg
 }
 
 //Function for placing Game Window Div with border, center on player screen
-function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
+function gameWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     let mDiv = document.querySelector('main');
     let nDiv = document.createElement('Div');
     nDiv.className = 'gameWindow';
@@ -139,7 +139,7 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
     nDiv.style.bottom = vOffSet-10 +"px";
     nDiv.style.width = 10+width+"px";
     nDiv.style.height = 10+height+"px";
-    nDiv.style.zIndex = Zpos;
+    nDiv.style.zIndex = zPos;
     nDiv.style.border = "solid 5px White";
     nDiv.style.textAlign = "Center";
     nDiv.style.justifyContent = "Center";
@@ -150,14 +150,14 @@ function gameWindow(Xpos, Ypos, Zpos, width, height, hOffSet, vOffSet){
 
 function randomXnumber(){
     if (GameMapSize == 3 || GameMapSize ==2){
-        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS for 100px boulder
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPos for 100px boulder
         while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-100)+widthOfGrass))){
             x = Math.floor(Math.random() * (visualViewport.width));
         }
         //console.log("Returning X "+ x)
         return x;
     } else {
-        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPOS 50px boulder
+        let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPos 50px boulder
         while ((x <= (horizontalOffSet)) || ( x >= ((horizontalOffSet-50)+widthOfGrass))){
             x = Math.floor(Math.random() * (visualViewport.width));
         }
@@ -167,7 +167,7 @@ function randomXnumber(){
 }   
 
 function randomYnumber(){
-    let y = Math.floor(Math.random() * (visualViewport.height)); //generate a number for a new random xPOS
+    let y = Math.floor(Math.random() * (visualViewport.height)); //generate a number for a new random xPos
     while (y <= (verticalOffSet) || (y >= (heightOfGrass))){
         y = Math.floor(Math.random() * (visualViewport.height));
     }
@@ -177,17 +177,17 @@ function randomYnumber(){
 
 function moveBoulders(gameObject){
 //Set a default object as a place holder for character spawn point
-let obj1 = {Xpos:0, Ypos:0, width:0, height:0};
-obj1.Xpos = horizontalOffSet+(widthOfGrass/2);
-obj1.Ypos = verticalOffSet+(heightOfGrass/2);
+let obj1 = {xPos:0, yPos:0, width:0, height:0};
+obj1.xPos = horizontalOffSet+(widthOfGrass/2);
+obj1.yPos = verticalOffSet+(heightOfGrass/2);
 obj1.height = 100;
 obj1.width = 100;
-gameObject.Xpos = randomXnumber();
-gameObject.Ypos = randomYnumber();
-    //let squareDistance = (gameObject.Xpos-Xcenter)*(gameObject.Xpos-Xcenter) + (gameObject.Ypos-Ycenter)*(gameObject.Ypos-Ycenter);
+gameObject.xPos = randomXnumber();
+gameObject.yPos = randomYnumber();
+    //let squareDistance = (gameObject.xPos-Xcenter)*(gameObject.xPos-Xcenter) + (gameObject.yPos-Ycenter)*(gameObject.yPos-Ycenter);
     //keep center of grass area open for main character
-    if (rectIntersect(obj1.Xpos, obj1.Ypos, obj1.width, obj1.height, gameObject.Xpos, gameObject.Ypos, gameObject.width, gameObject.height)){
-        //console.log('Reroll Xpos ' + gameObject.Xpos + ' | ' + gameObject.Ypos)
+    if (rectIntersect(obj1.xPos, obj1.yPos, obj1.width, obj1.height, gameObject.xPos, gameObject.yPos, gameObject.width, gameObject.height)){
+        //console.log('Reroll xPos ' + gameObject.xPos + ' | ' + gameObject.yPos)
         gameObject = moveBoulders(gameObject);
     }
 return gameObject
@@ -208,13 +208,13 @@ function checkBoulders(gameObject){
         for (let o = i + 1; o < gameObject.length; o++){
             obj2 = gameObject[o];
             // Compare object1 with object2
-            if (rectIntersect(obj1.Xpos, obj1.Ypos, obj1.width, obj1.height, obj2.Xpos, obj2.Ypos, obj2.width, obj2.height)){
+            if (rectIntersect(obj1.xPos, obj1.yPos, obj1.width, obj1.height, obj2.xPos, obj2.yPos, obj2.width, obj2.height)){
                 obj1.isColliding = true;
                 obj2.isColliding = true;
                 gameObject[o] = moveBoulders(obj2)
                 obj2 = gameObject[o];
-                //console.log('Obj1 X/Y ' + obj1.Xpos +','+ obj1.Ypos + ' H/W ' +  obj1.width +','+obj1.height + ' | Obj2 X/Y ' + obj2.Xpos +','+ obj2.Ypos + ' H/W ' +  obj2.width +','+obj2.height)
-                //console.log('Reroll Xpos ' + gameObject[o].Xpos + ' | ' + gameObject[o].Ypos)
+                //console.log('Obj1 X/Y ' + obj1.xPos +','+ obj1.yPos + ' H/W ' +  obj1.width +','+obj1.height + ' | Obj2 X/Y ' + obj2.xPos +','+ obj2.yPos + ' H/W ' +  obj2.width +','+obj2.height)
+                //console.log('Reroll xPos ' + gameObject[o].xPos + ' | ' + gameObject[o].yPos)
             }
         }
     }
@@ -222,6 +222,7 @@ function checkBoulders(gameObject){
 }
 
 function createBoulders(){
+let daBoulders = new Array;
 //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     if (GameMapSize == 3 || GameMapSize == 2){
         //Generate Random 100px Boulders 
@@ -282,7 +283,7 @@ function newInventory(theGameWindow){
     inventory.style.justifyContent = 'space-evenly';
     //inventory.style.border = '2px solid black';
     //inventory.style.backgroundColor = 'none';
-    inventory.style.Zpos = '25';
+    inventory.style.zIndex = '25';
     theGameWindow.append(inventory);
     return inventory;
 }
@@ -297,6 +298,8 @@ function createGameWorld(){
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     allGameObjects = createBoulders();
+    //console.log("Created allGameObjects");
+    //console.log(allGameObjects);
     
 }
 
