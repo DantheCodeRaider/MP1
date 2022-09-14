@@ -148,6 +148,47 @@ function gameWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     return nDiv;
 }
 
+//Function for placing Timer Window Div and elements on player screen
+function timerWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
+    let gDiv = document.getElementById('gameWindow');
+    let tDiv = document.createElement('Div');
+    tDiv.className = 'timerWindow';
+    tDiv.id = 'timerWindow';
+    tDiv.style.position = 'fixed';
+    tDiv.style.left = xPos+"px";
+    tDiv.style.bottom = yPos+"px";
+    tDiv.style.width = 10+width+"px";
+    tDiv.style.height = 10+height+"px";
+    tDiv.style.zIndex = zPos;
+    tDiv.style.border = "solid 5px Red";
+    tDiv.style.textAlign = "Center";
+    tDiv.style.justifyContent = "Center";
+    tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p> <p><span id="timer"></span></p><p><button id="playAgainButton" onclick="start()"> Start Game! </button></p>`
+    gDiv.append(tDiv);
+    return tDiv;
+}
+
+//Function for placing instructions Window Div and elements on player screen
+function instructionsWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
+    let gDiv = document.getElementById('gameWindow');
+    let iDiv = document.createElement('Div');
+    iDiv.className = 'instructionsWindow';
+    iDiv.id = 'instructionsWindow';
+    iDiv.style.position = 'fixed';
+    iDiv.style.left = xPos+"px";
+    iDiv.style.bottom = yPos+"px";
+    iDiv.style.width = 10+width+"px";
+    iDiv.style.height = 10+height+"px";
+    iDiv.style.zIndex = zPos;
+    iDiv.style.border = "solid 5px Red";
+    iDiv.style.textAlign = "Center";
+    iDiv.style.justifyContent = "Center";
+    iDiv.innerHTML = `<p>Use either option displayed below to move your Avatar.</p><img src="./assets/img/movement.png" alt="Movement Keys"><p>Use spacebar to dig for gems. Collect all the gems before the time runs out to progress to the next level. 
+    Beat all the levels to win!</p><p id="screenSize"></p><p><button id="hideInstructions" onclick="hideInstructions()"> Close Window </button></p>`
+    gDiv.append(iDiv);
+    return iDiv;
+}
+
 function randomXnumber(){
     if (GameMapSize == 3 || GameMapSize ==2){
         let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPos for 100px boulder
@@ -288,6 +329,24 @@ function newInventory(theGameWindow){
     return inventory;
 }
 
+function showInstructions(){
+    theTimerWindow.style.visibility = "hidden";
+    theTimerWindow.style.style,zIndex = 0;
+    theTimerWindow.append();
+    theInstructionsWindow.style.visibility = "visible";
+    theInstructionsWindow.style,zIndex = 100;
+    theInstructionsWindow.append();
+}
+
+function hideInstructions(){
+    theInstructionsWindow.style.visibility = "hidden";
+    theInstructionsWindow.style,zIndex = 0;
+    theInstructionsWindow.append();
+    theTimerWindow.style.visibility = "visible";
+    theTimerWindow.style.style,zIndex = 100;
+    theTimerWindow.append();
+}
+
 function createGameWorld(){
     //Tile Background based on Screen Size
     tileBackground('./assets/img/offset100.svg', 0, 0, 0, visualViewport.width/100, visualViewport.height/100, horizontalOffSet, verticalOffSet);
@@ -295,6 +354,8 @@ function createGameWorld(){
     tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
     theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
+    theTimerWindow = timerWindow((visualViewport.width/2)-(widthOfGrass/6), (Horizon), 100, (widthOfGrass/3), (heightOfSky/2), horizontalOffSet, verticalOffSet)
+    theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     allGameObjects = createBoulders();

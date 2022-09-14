@@ -1,12 +1,14 @@
 //Set global Variables
-var GameMapSize; //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1300
+var GameMapSize; //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1200
 var GameLevel; //Value 1-3 -  3 total levels.
 var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
 let secondsPassed = 0; 
-let oldTimeStamp = 0;
+let oldTimeStamp = 30; // seconds
 var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'greenCharacter', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
 var allGameObjects; //Create Object to track all objects
 var theGameWindow; //Create variable for game window tracking
+var theTimerWindow; //Create variable for timer window tracking
+var theInstructionsWindow //Create variable for instructions window tracking
 var inventory; //Create variable for inventory tracking
 var gemsCollected = 0; //Create variable for tracking collected gems
 var currentLevel = 0;
@@ -122,5 +124,7 @@ window.onload = ()=> {
     greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
     greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);
     greenCharacter.drawObject(); //Set main character initial spawn point
+
+    
 };
 

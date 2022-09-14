@@ -185,7 +185,7 @@ function fadeIn(gameObject) {
     return gameObject;
 }
 
-//Function to trigger mvoement tranistion of gem to inventory.
+//Function to trigger moveement tranistion of gem to inventory.
 function triggerGem(gameObject) {
     let op = 0.1;
     let timer = setInterval(function () {

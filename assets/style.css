@@ -4,17 +4,14 @@ main {
     justify-content: space-evenly;
 }
 
-.instructions {
-    border: 5px solid black;
+.instructionsWindow {
     text-align: center;
-    padding: 5px;
-    align-items: center;
+    padding: 10px;
     background-color: white;
-    z-index: 50;
+    z-index: 100;
     position: absolute;
     justify-content: center;
-    top: 0%;
-    right: 0%;
+    visibility: hidden;
 }
 
 .background {
@@ -41,6 +38,65 @@ main {
   transition-property: opacity;
 
 }
+.timerWindow {
+  margin: auto;
+  box-sizing: border-box;
+  transition: all 3s ease;
+}
+
+
+/* #showInstructions{
+  background-color: white;
+  border: 3px solid black;
+  color: black;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+#playAgainButton{
+  background-color: white;
+  border: 3px solid black;
+  color: black;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 16px;
+} */
+
+button {
+  background-color: white;
+  border: 3px solid red;
+  color: red;
+  font-weight: bolder;
+  margin: 10px 10px;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+button:hover {
+  background-color: red;
+  border: 3px solid white;
+  color: white;
+}
+
+#timer {
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  color: red;
+  font-weight: bolder;
+  font-size: 6rem;
+}
 
 /*Setting CSS conditions for 3 supported screen sizes.
 Mobile - Min width 350px
@@ -53,11 +109,11 @@ Desktops - Min width 900px
     content:"Viewport width atleast than 350px";
     
   }
-  .instructions{
+/*   .instructions{
     display: none;
     border: none;
-    z-index: -1;
-  }
+    z-index: 100;
+  } */
 }
 
 @media(width>=700px){
@@ -73,11 +129,11 @@ Desktops - Min width 900px
 }
 
 @media only screen and (max-width: 600px){
-  .instructions{
+/*   .instructions{
     display: none;
     border: none;
-    z-index: -1;
-  }
+    z-index: 100;
+  } */
 }
 
 

@@ -21,7 +21,7 @@ Core Features:
 -Dig for Gems via spacebar
 -Pickup gems by running them over
 -Explorable map
--Clearly defined win state
+-Clearly defined win state (coming soon)
 -Add lose state 1 (NPCs) - (coming soon)
 -Multiple game levels (3 total) - (coming soon)
 -Add lose state 2 (hostile environment) - (coming soon)
