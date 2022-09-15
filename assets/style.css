@@ -5,12 +5,9 @@ main {
 }
 
 .instructionsWindow {
-    text-align: center;
     padding: 10px;
     background-color: white;
     z-index: 100;
-    position: absolute;
-    justify-content: center;
     visibility: hidden;
 }
 
@@ -68,6 +65,9 @@ main {
   cursor: pointer;
   border-radius: 16px;
 } */
+#resetButton {
+  visibility: hidden;
+}
 
 button {
   background-color: white;

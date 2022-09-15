@@ -172,7 +172,7 @@ class mainCharacter extends Character {
                     oldObjectID = allGameObjects[i].ID; 
                     daGems = allGameObjects[i];
                     rollGem(daGems, i)
-                    console.log('I found a boulder to hit at ' + allGameObjects[i].xPos + ' ' + allGameObjects[i].yPos)
+                    //console.log('I found a boulder to hit at ' + allGameObjects[i].xPos + ' ' + allGameObjects[i].yPos)
                     allGameObjects[i] = daGems
                     //console.log(daGems)
                     //console.log(daBoulders[i].cName)

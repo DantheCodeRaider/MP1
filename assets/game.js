@@ -197,3 +197,82 @@ function triggerGem(gameObject) {
     }, 10);
     return gameObject;
 }
+
+function newLevel(){
+    allGameObjects = createBoulders();
+}
+
+function checkGameStatus(){
+/*     let x = 0;
+    for (let i = 0; i < allGameObjects.length; i++){
+        if (allGameObjects[i].name == "Boulders"){
+            x += 1;
+        }
+    }
+    if (x > 0 ) {
+        gameOver();
+        return true;
+    } else {
+        return false;
+    } */
+}
+
+function checkWinStatus(){
+    let b = 0;
+    let r = 0;
+    let g = 0;
+    for (let i = 0; i < allGameObjects.length; i++){
+        if (allGameObjects[i].name == "Boulder"){
+            b += 1;
+        } else if (allGameObjects[i].name == "Rock"){
+            r += 1;
+        } else if (allGameObjects[i].name == "Gem"){
+            g += 1;
+        }
+    } 
+    console.log("There are " + b + " boulders remaining and "+ gemsCollected +" gems collected")
+    if (b <= 0 && gemsCollected == g){
+        clearInterval(secondsPassed);
+        console.log("You win!");
+        checkGameStatus();
+        document.getElementById('resetButton').style.visibility = "visible";
+        document.getElementById('showInstructions').style.visibility = "hidden";
+        document.getElementById('playButton').style.visibility = "hidden";
+        //Reset text window
+        let update  = document.getElementById("timer")
+        update.textContent = "";
+        document.body.append(update.textContent)
+        return true;
+    } else {
+        console.log("There are " + b + " boulders remaining, looping")
+        return false;
+    }
+}
+
+function resetGame(){
+    gemsCollected = 0; //Create variable for tracking collected gems
+    for (let i = 0; i < allGameObjects.length; i++){
+        let update = document.getElementById(allGameObjects[i].ID).style.display = "none";
+        document.body.append(update);
+    }
+    console.log("Game Object length before splice " + allGameObjects.length)
+    let x = (allGameObjects.length)
+    for (let i = 0; i < x; i++){
+        allGameObjects.splice(0,1);
+    }
+    console.log("Game Object length before reset " + allGameObjects.length)
+    console.log(allGameObjects)
+    allGameObjects = createBoulders();
+    //Reset Position for Main Character to center of grass area
+    greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
+    greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);
+    greenCharacter.moveChar(0, 0, 0, null); //Set main character initial spawn point
+    //Reset Button visibility
+    document.getElementById('playButton').style.visibility = "visible";
+    document.getElementById('resetButton').style.visibility = "hidden";
+    document.getElementById('showInstructions').style.visibility = "visible";
+    //Reset text window
+    let update  = document.getElementById("timer")
+    update.textContent = "";
+    document.body.append(update.textContent)
+}

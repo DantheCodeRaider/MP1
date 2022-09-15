@@ -163,7 +163,8 @@ function timerWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     tDiv.style.border = "solid 5px Red";
     tDiv.style.textAlign = "Center";
     tDiv.style.justifyContent = "Center";
-    tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p> <p><span id="timer"></span></p><p><button id="playAgainButton" onclick="start()"> Start Game! </button></p>`
+    tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p> <p><span id="timer"></span></p><p><button id="playButton" onclick="startGame()">  Start Game  </button></p>
+    <p><button id="resetButton" onclick="resetGame()">  Reset Game  </button></p>`
     gDiv.append(tDiv);
     return tDiv;
 }
@@ -308,8 +309,6 @@ let daBoulders = new Array;
 }
 
 function newInventory(theGameWindow){
-    //console.log('Inventory object in ' + theGameWindow);
-    //let gDiv = document.getElementById('gameWindow')
     let inventory = document.createElement('div')
     inventory.className = "inventory";
     inventory.id = "inventory";
@@ -322,8 +321,6 @@ function newInventory(theGameWindow){
     inventory.style.flexDirection = 'row';
     inventory.style.alignItems = 'left';
     inventory.style.justifyContent = 'space-evenly';
-    //inventory.style.border = '2px solid black';
-    //inventory.style.backgroundColor = 'none';
     inventory.style.zIndex = '25';
     theGameWindow.append(inventory);
     return inventory;
@@ -354,8 +351,8 @@ function createGameWorld(){
     tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
     theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    theTimerWindow = timerWindow((visualViewport.width/2)-(widthOfGrass/6), (Horizon), 100, (widthOfGrass/3), (heightOfSky/2), horizontalOffSet, verticalOffSet)
-    theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
+    theTimerWindow = timerWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet)+10, 100, (widthOfGrass/2), (heightOfSky/1.5), horizontalOffSet, verticalOffSet)
+    theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
     allGameObjects = createBoulders();

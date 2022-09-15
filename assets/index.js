@@ -2,8 +2,8 @@
 var GameMapSize; //Value 1 Mobile 350x650, Value 2 Tablet 700x1000, Value 3 Desktop 900x1200
 var GameLevel; //Value 1-3 -  3 total levels.
 var Horizon = 0; //Mobile 200px, Tablet 300px, Desktop 400px
-let secondsPassed = 0; 
-let oldTimeStamp = 30; // seconds
+let secondsPassed = 0;  //Interval variable
+let oldTimeStamp = 0; //Variable for keep track of time remaining on timer
 var greenCharacter = new mainCharacter('greenCharacter', 'greenCharacter', 'greenCharacter', 'Main', 'assets/img/green-character/static.gif', 0, 0, 100, 2); //Set Main Character Object
 var allGameObjects; //Create Object to track all objects
 var theGameWindow; //Create variable for game window tracking
@@ -11,9 +11,8 @@ var theTimerWindow; //Create variable for timer window tracking
 var theInstructionsWindow //Create variable for instructions window tracking
 var inventory; //Create variable for inventory tracking
 var gemsCollected = 0; //Create variable for tracking collected gems
-var currentLevel = 0;
-var gamesPlayed = 0;
-
+var currentLevel = 1; //Variable to keep track of current level
+var gamesPlayed = 0; //Variable to keep track of games played
 
 //Variables to determine screen size for background images
 let verticalOffSet = 0;
