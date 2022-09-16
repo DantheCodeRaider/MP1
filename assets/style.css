@@ -9,8 +9,6 @@ p {
   text-align: end;
   justify-content: space-evenly;
   flex-direction: row;
-  flex-grow: inherit;
-
 }
 
 .instructionsWindow {
@@ -52,30 +50,6 @@ p {
   justify-content: space-evenly;
 }
 
-
-/* #showInstructions{
-  background-color: white;
-  border: 3px solid black;
-  color: black;
-  padding: 10px 50px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-#playAgainButton{
-  background-color: white;
-  border: 3px solid black;
-  color: black;
-  padding: 10px 50px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 16px;
-} */
 #resetButton {
   visibility: hidden;
 }
@@ -107,6 +81,7 @@ button:hover {
   color: red;
   font-weight: bolder;
   font-size: 6rem;
+  flex-grow: 2rem;
 }
 
 /*Setting CSS conditions for 3 supported screen sizes.
@@ -120,11 +95,7 @@ Desktops - Min width 900px
     content:"Viewport width atleast than 350px";
     
   }
-/*   .instructions{
-    display: none;
-    border: none;
-    z-index: 100;
-  } */
+
 }
 
 @media(width>=700px){
@@ -140,11 +111,8 @@ Desktops - Min width 900px
 }
 
 @media only screen and (max-width: 600px){
-/*   .instructions{
-    display: none;
-    border: none;
-    z-index: 100;
-  } */
+
+  
 }
 
 

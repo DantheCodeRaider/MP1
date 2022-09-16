@@ -7,9 +7,8 @@ function gameOver() {
   document.getElementById('resetButton').style.visibility = "visible";
   document.getElementById('showInstructions').style.visibility = "hidden";
   let update  = document.getElementById('timer')
-  update.style.fontSize="3rem"
-  update.textContent = "You Lose!";
-  document.body.append(update.textContent)
+  update.style.fontSize="4rem"
+  update.innerText = "You Lose!";
   GameLevel = 1;
   gamesPlayed += 1;
 }
@@ -22,8 +21,9 @@ function updateTimer() {
     }else {
       let update  = document.getElementById('timer')
       update.style.fontSize="6rem"
-      update.textContent = oldTimeStamp;
-      document.body.append(update.textContent)
+      //update.textContent = oldTimeStamp;
+      update.innerText = oldTimeStamp;
+      //document.body.append(update.textContent)
     }
   } else if (oldTimeStamp == 0){
     if (checkWinStatus() == true){
@@ -37,13 +37,13 @@ function updateTimer() {
 // The button has an on-click event handler that calls this
 function startGame() {
   if (GameLevel == 1){
-    oldTimeStamp = 120; // 120 seconds initial setting
+    oldTimeStamp = 90; // 90 seconds initial setting
   } else if (GameLevel == 2){
-    oldTimeStamp = 90; // 120 seconds initial setting
+    oldTimeStamp = 60; // 60 seconds lvl 2 setting
   } else if (GameLevel == 3){
-    oldTimeStamp = 60; // 120 seconds initial setting
+    oldTimeStamp = 45; // 45 seconds lvl 3 setting
   } else if (GameLevel == 4){
-    oldTimeStamp = 45; // 120 seconds initial setting
+    oldTimeStamp = 30; // 30 seconds lvl 4 setting
   } else {
     oldTimeStamp = 120; // 120 seconds initial setting
   }

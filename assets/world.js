@@ -24,8 +24,9 @@ function mapSize(screenWidth, screenHieght) {
         //console.log('heightOfGrass '+ heightOfGrass)
     } else if (screenWidth>=700){
         //Map Size will be 700px by 1000px
-        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 700x1000" + "| Game Map " + GameMapSize)
         GameMapSize = 2
+        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 700x1000" + "| Game Map " + GameMapSize)
+ 
 
         //Set Horizon height
         Horizon = setHorizon(screenHieght, 300)
@@ -38,13 +39,14 @@ function mapSize(screenWidth, screenHieght) {
         verticalOffSet = setVerticalOffSet(screenHieght)
 
         //Set Variables for how big an area to tile for the game map
-        heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2)
-        heightOfGrass = Horizon + 100
-        widthOfGrass = window.innerWidth - (horizontalOffSet*2)
+        heightOfSky = 300
+        heightOfGrass = 700
+        widthOfGrass = 700
     } else {
         //Map Size will be 350px by 650px
-        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 350x650" + "| Game Map " + GameMapSize)
         GameMapSize = 1
+        console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 350x650" + "| Game Map " + GameMapSize)
+        
         
         //Set Horizon height
         Horizon = setHorizon(screenHieght, 200)
@@ -56,10 +58,10 @@ function mapSize(screenWidth, screenHieght) {
         //Set Vertical Off Set
         verticalOffSet = setVerticalOffSet(screenHieght)
 
-        //Set Variables for how big an area to tile for the game map
-        heightOfSky = (window.innerHeight-Horizon)-(verticalOffSet*2) 
-        heightOfGrass = Horizon + 100 - (verticalOffSet)
-        widthOfGrass = window.innerWidth - (horizontalOffSet*2)
+       //Set Variables for how big an area to tile for the game map
+       heightOfSky = 200
+       heightOfGrass = 450
+       widthOfGrass = 350
         
     }
 }
@@ -160,7 +162,7 @@ function timerWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     tDiv.style.width = 10+width+"px";
     tDiv.style.height = 10+height+"px";
     tDiv.style.zIndex = zPos;
-    tDiv.style.border = "solid 5px Red";
+    //tDiv.style.border = "solid 5px Red";
     //tDiv.style.textAlign = "Center";
     //tDiv.style.justifyContent = "Center";
     tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p><p><button id="playButton" onclick="startGame()">  Start Game  </button></p>
@@ -351,7 +353,7 @@ function createGameWorld(){
     tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
     theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.7, horizontalOffSet, verticalOffSet)
+    theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.9, horizontalOffSet, verticalOffSet)
     theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level

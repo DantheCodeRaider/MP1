@@ -87,6 +87,7 @@ class mainCharacter extends Character {
     
     //Function for moving mainCharacter around in the game
     moveChar(xPos, yPos, zPos, cDir){
+
         //console.log('Starting |'+ preImpact.xPos +' xPos |'+ preImpact.yPos + ' yPos' + ' | ' + preImpact.zPos + ' zPos'); 
         this.xPos += xPos //Update xPos
         this.yPos += yPos //Update yPos
@@ -154,7 +155,7 @@ class mainCharacter extends Character {
     
     //Check for boulder near by and dig for gems
     dig(){
-        let daGems = new Array;
+        //let daGems = new Array;
         //Loop through game objects to see if they are close
         for (let i = 0; i < allGameObjects.length; i++){
             //Check to make sure we are looping through only Boulder objects
@@ -169,10 +170,10 @@ class mainCharacter extends Character {
                 if (d < 110){
                     let oldObjectID
                     oldObjectID = allGameObjects[i].ID; 
-                    daGems = allGameObjects[i];
-                    rollGem(daGems, i)
+                    //daGems = 
+                    rollGem(i)
                     //console.log('I found a boulder to hit at ' + allGameObjects[i].xPos + ' ' + allGameObjects[i].yPos)
-                    allGameObjects[i] = daGems
+                    //allGameObjects[i] = daGems
                     allGameObjects[i].updateObject(oldObjectID)
                 }
             }

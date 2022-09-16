@@ -46,7 +46,7 @@ function moveGem(i){
         if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
             //Add a gem to the first row
             allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-15
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-70
             allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
             allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
             allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
@@ -56,7 +56,7 @@ function moveGem(i){
             //Add gem to 2nd row
             //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
             allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-115
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-170
             allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
             allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
             allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
@@ -65,7 +65,7 @@ function moveGem(i){
         } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
             //Add gem to 3rd row
             allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-215
+            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-270
             allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
             allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
             allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
@@ -75,97 +75,96 @@ function moveGem(i){
 }
 
 //Fuction to pick a random gem image after digging a boulder
-function rollGem(gameObject,i){
+function rollGem(i){
     let x = Math.floor(Math.random() * 11);
     //console.log ('Gem Roll ' + x)
     switch (x) {
         // Rock
         case 0:
-            gameObject.name = "Rock"
-            gameObject.ID = "rock"+i
-            gameObject.cName = "Rock"
-            gameObject.ImgAssest="assets/img/rock.png"
-            gameObject.height = 50;
-            gameObject.width = 50;
+            allGameObjects[i].name = "Rock"
+            allGameObjects[i].ID = "rock"+i
+            allGameObjects[i].cName = "Rock"
+            allGameObjects[i].ImgAssest="assets/img/rock.png"
+            allGameObjects[i].height = 50;
+            allGameObjects[i].width = 50;
         // White Gem
         case 1:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem1.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem1.png"
             
         break;
         // Blue Gem
         case 2:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem2.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem2.png"
         break;
         // Green Gem
         case 3:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem3.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem3.png"
         break;
         // Red Gem
         case 4:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem4.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem4.png"
         break;
         // Orange Gem
         case 5:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem5.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem5.png"
         break;
         // Yellow Gem
         case 6:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem6.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem6.png"
         break;
         // Purple Gem
         case 7:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem7.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem7.png"
         break;
         // Black Gem
         case 8:
-            gameObject.name ="Gem"
-            gameObject.ID = "gem"+i
-            gameObject.cName = "gem"
-            gameObject.ImgAssest="assets/img/gem8.png"
+            allGameObjects[i].name ="Gem"
+            allGameObjects[i].ID = "gem"+i
+            allGameObjects[i].cName = "gem"
+            allGameObjects[i].ImgAssest="assets/img/gem8.png"
         break;
         // Rock
         case 9:
-            gameObject.name ="Rock"
-            gameObject.ID = "rock"+i
-            gameObject.cName = "Rock"
-            gameObject.ImgAssest="assets/img/rock.png"
-            gameObject.height = 50;
-            gameObject.width = 50;
+            allGameObjects[i].name ="Rock"
+            allGameObjects[i].ID = "rock"+i
+            allGameObjects[i].cName = "Rock"
+            allGameObjects[i].ImgAssest="assets/img/rock.png"
+            allGameObjects[i].height = 50;
+            allGameObjects[i].width = 50;
         break;
         // Rock
         case 10:
-            gameObject.name ="Rock"
-            gameObject.ID = "rock"+i
-            gameObject.cName = "Rock"
-            gameObject.ImgAssest="assets/img/rock.png"
-            gameObject.height = 50;
-            gameObject.width = 50;
+            allGameObjects[i].name ="Rock"
+            allGameObjects[i].ID = "rock"+i
+            allGameObjects[i].cName = "Rock"
+            allGameObjects[i].ImgAssest="assets/img/rock.png"
+            allGameObjects[i].height = 50;
+            allGameObjects[i].width = 50;
         break;
         default:
             return; //Quit when this doesn't handle the key event.
         }
-    return gameObject;
 }
 
 //Function to fade in game objects, mostly for gems.
@@ -176,10 +175,7 @@ function fadeIn(gameObject) {
             //console.log('Reseting Timer ' + op.toFixed(1))
             clearInterval(timer);
         }
-        gameObject.context.style.opacity = `${op.toFixed(1)}`; //`${op.toFixed(1)}`
-        //document.body.append(this.context)
-        //console.log(op)
-        //console.log('Looping ' + op.toFixed(1));
+        gameObject.context.style.opacity = `${op.toFixed(1)}`;
         op += 0.1;
     }, 10);
     return gameObject;
@@ -203,9 +199,10 @@ function resetLevelTimer(){
     oldTimeStamp = oldTimeStamp - 1;
     if (oldTimeStamp >= 0){
         let update  = document.getElementById("timer")
-        update.textContent = "Starting level "+ GameLevel + " in "+ oldTimeStamp;
-        update.style.fontSize="2rem"
-        document.body.append(update.textContent)
+        update.style.fontSize="3rem"
+        //update.textContent = "Starting level "+ GameLevel + " in "+ oldTimeStamp;
+        update.innerText = "Starting level "+ GameLevel + " in "+ oldTimeStamp;
+        //document.body.append(update.textContent)
     } else {
         clearInterval(leveltimer);
         setTimeout(startGame(), 1000);   
@@ -221,23 +218,21 @@ function newLevel(){
     } else {
         gemsCollected = 0; //Create variable for tracking collected gems
         for (let i = 0; i < allGameObjects.length; i++){
+            console.log("Moving Object # "+ allGameObjects[i].ID)
             let update = document.getElementById(allGameObjects[i].ID)
             update.style.visibility = "hidden";
             update.style.left = "0px";
             update.style.bottom = "0px";
             update.style.zIndex = "-1";
-            document.body.append(update);
+            update.remove();
         }
-/*         for (let i = 0; i < allGameObjects.length; i++){
-            document.getElementById(allGameObjects[i].ID).style.display = "none";
-        } */
-        console.log("Game Object length before splice " + allGameObjects.length)
+        //console.log("Game Object length before splice " + allGameObjects.length)
         let x = (allGameObjects.length)
         for (let i = 0; i < x; i++){
             allGameObjects.splice(0,1);
         }
-        console.log("Game Object length before reset " + allGameObjects.length)
-        console.log(allGameObjects)
+        //console.log("Game Object length before reset " + allGameObjects.length)
+        //console.log(allGameObjects)
         allGameObjects = createBoulders();
         //Reset Position for Main Character to center of grass area
         greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
@@ -246,12 +241,7 @@ function newLevel(){
         oldTimeStamp = 10;
         leveltimer = setInterval(resetLevelTimer, 1000);
         resetLevelTimer();
-        console.log("Ready to staet the next level")
-/*         let update  = document.getElementById("timer")
-        update.textContent = "Level "+ GameLevel + " Go! ";
-        update.style.fontSize="2rem"
-        document.body.append(update.textContent)
-        document.getElementById('playButton').style.visibility = "visible"; */
+        //console.log("Ready to staet the next level")
     }
 }
 
@@ -270,9 +260,8 @@ function checkGameStatus(){
         document.getElementById('showInstructions').style.visibility = "hidden";
         document.getElementById('playButton').style.visibility = "hidden";
         let update  = document.getElementById('timer')
-        update.style.fontSize="3rem"
-        update.textContent = "You Win!";
-        document.body.append(update.textContent)
+        update.style.fontSize="4rem"
+        update.innerText = "You Win!";
     }
 }
 
@@ -303,20 +292,20 @@ function checkWinStatus(){
 function resetGame(){
     gemsCollected = 0; //Create variable for tracking collected gems
     for (let i = 0; i < allGameObjects.length; i++){
-        let update = document.getElementById(allGameObjects[i].ID).style.visibility = "hidden";
-        //document.body.append(update);
+        let update = document.getElementById(allGameObjects[i].ID)
+        update.style.visibility = "hidden";
+        update.style.left = "0px";
+        update.style.bottom = "0px";
+        update.style.zIndex = "-1";
+        update.remove();
     }
-    for (let i = 0; i < allGameObjects.length; i++){
-        let update = document.getElementById(allGameObjects[i].ID).style.display = "none";
-        //document.body.append(update);
-    }
-    console.log("Game Object length before splice " + allGameObjects.length)
+    //console.log("Game Object length before splice " + allGameObjects.length)
     let x = (allGameObjects.length)
     for (let i = 0; i < x; i++){
         allGameObjects.splice(0,1);
     }
-    console.log("Game Object length before reset " + allGameObjects.length)
-    console.log(allGameObjects)
+    //console.log("Game Object length before reset " + allGameObjects.length)
+    //console.log(allGameObjects)
     allGameObjects = createBoulders();
     //Reset Position for Main Character to center of grass area
     greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
@@ -328,8 +317,8 @@ function resetGame(){
     document.getElementById('showInstructions').style.visibility = "visible";
     //Reset text window
     let update  = document.getElementById("timer")
-    update.textContent = "";
-    document.body.append(update.textContent)
+    update.style.fontSize="1rem"
+    update.innerText = "";
     if (GameLevel >=5){
         GameLevel = 1;
         gamesPlayed += 1;
