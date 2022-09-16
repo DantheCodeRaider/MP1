@@ -10,35 +10,24 @@ function gameOver() {
   update.style.fontSize="3rem"
   update.textContent = "You Lose!";
   document.body.append(update.textContent)
-  /*   theTimerWindow.style.font="bold 3em"
-  theTimerWindow.style.style,zIndex
-  theTimerWindow.append(); */
+  GameLevel = 1;
+  gamesPlayed += 1;
 }
 
 function updateTimer() {
   oldTimeStamp = oldTimeStamp - 1;
   if(oldTimeStamp > 0){
     if (checkWinStatus() == true){
-      let update  = document.getElementById('timer')
-      update.style.fontSize="3rem"
-      update.textContent = "You Win!";
-      document.body.append(update.textContent)
+      checkGameStatus();
     }else {
       let update  = document.getElementById('timer')
+      update.style.fontSize="6rem"
       update.textContent = oldTimeStamp;
       document.body.append(update.textContent)
     }
   } else if (oldTimeStamp == 0){
     if (checkWinStatus() == true){
-      let update  = document.getElementById('timer')
-      update.style.fontSize="3rem"
-      update.textContent = "You Win!";
-      document.body.append(update.textContent)
-    }else {
-      let update  = document.getElementById('timer')
-      update.style.fontSize="3rem"
-      update.textContent = "You Lose!";
-      document.body.append(update.textContent)
+      checkGameStatus();
     }
   } else {
     gameOver();
@@ -47,13 +36,13 @@ function updateTimer() {
 
 // The button has an on-click event handler that calls this
 function startGame() {
-  if (currentLevel == 1){
+  if (GameLevel == 1){
     oldTimeStamp = 120; // 120 seconds initial setting
-  } else if (currentLevel == 2){
+  } else if (GameLevel == 2){
     oldTimeStamp = 90; // 120 seconds initial setting
-  } else if (currentLevel == 3){
+  } else if (GameLevel == 3){
     oldTimeStamp = 60; // 120 seconds initial setting
-  } else if (currentLevel == 4){
+  } else if (GameLevel == 4){
     oldTimeStamp = 45; // 120 seconds initial setting
   } else {
     oldTimeStamp = 120; // 120 seconds initial setting

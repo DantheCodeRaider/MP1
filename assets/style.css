@@ -4,6 +4,15 @@ main {
     justify-content: space-evenly;
 }
 
+p {
+  display:flex;
+  text-align: end;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-grow: inherit;
+
+}
+
 .instructionsWindow {
     padding: 10px;
     background-color: white;
@@ -39,6 +48,8 @@ main {
   margin: auto;
   box-sizing: border-box;
   transition: all 3s ease;
+  text-align: center;
+  justify-content: space-evenly;
 }
 
 

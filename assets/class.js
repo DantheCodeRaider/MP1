@@ -87,7 +87,6 @@ class mainCharacter extends Character {
     
     //Function for moving mainCharacter around in the game
     moveChar(xPos, yPos, zPos, cDir){
-        let preImpact = this
         //console.log('Starting |'+ preImpact.xPos +' xPos |'+ preImpact.yPos + ' yPos' + ' | ' + preImpact.zPos + ' zPos'); 
         this.xPos += xPos //Update xPos
         this.yPos += yPos //Update yPos
@@ -174,13 +173,7 @@ class mainCharacter extends Character {
                     rollGem(daGems, i)
                     //console.log('I found a boulder to hit at ' + allGameObjects[i].xPos + ' ' + allGameObjects[i].yPos)
                     allGameObjects[i] = daGems
-                    //console.log(daGems)
-                    //console.log(daBoulders[i].cName)
-                    //console.log(daBoulders[i].context)
-                    //console.log(oldObjectID)
                     allGameObjects[i].updateObject(oldObjectID)
-                    //allGameObjects.append(daGems)
-                    //allGameObjects.append(daBoulders)
                 }
             }
         }
@@ -189,7 +182,7 @@ class mainCharacter extends Character {
 
     pickUpGem(i) {
         gemsCollected += 1;
-        console.log('You Collected ' + gemsCollected +' Gems!')
+        //console.log('You Collected ' + gemsCollected +' Gems!')
         //console.log(allGameObjects[i].ID)
             //select the Gem to be moved
              let inventory = document.getElementById('inventory')
@@ -218,19 +211,19 @@ class mainCharacter extends Character {
                     //Impacted the bottom of an Object
                     this.xPos
                     this.yPos=y2-h1 
-                    console.log('Impacted the bottom of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the bottom of an Object while heading North '+ this.xPos +' '+ this.yPos)
                 } else if (x1+w1 <= x2){
                     //Impacted the left side of an Object
                     this.xPos=x2-w1
                     this.yPos 
-                    console.log('Impacted the left side of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the left side of an Object while heading North '+ this.xPos +' '+ this.yPos)
                 } else if (x1 <= x2+w2) {
                     //Impacted the right side of an Object
                     this.xPos=x2+w2
                     this.yPos 
-                    console.log('Impacted the right side of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the right side of an Object while heading North '+ this.xPos +' '+ this.yPos)
                 } else {
-                    console.log('Unexpected impact at '+ x1 +' '+ y1)
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
                 }
             break;
             // Update character position for moving South
@@ -238,19 +231,19 @@ class mainCharacter extends Character {
                 if (y1+h1 >= y2+h2 & x1 < x2+w2 & x1+w1 > x2){
                     this.xPos
                     this.yPos=y2+h2 
-                    console.log('Impacted the top of an Object while heading South '+ this.xPos +' '+ this.yPos)  
+                    //console.log('Impacted the top of an Object while heading South '+ this.xPos +' '+ this.yPos)  
                 } else if (x1+w1 <= x2){
                     //Impacted the left side of an Object
                     this.xPos=x2-w1
                     this.yPos 
-                    console.log('Impacted the left side of an Object while heading South '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the left side of an Object while heading South '+ this.xPos +' '+ this.yPos)
                 } else if (x1 >= x2+w2) {
                     //Impacted the right side of an Object
                     this.xPos=x2+w2
                     this.yPos 
-                    console.log('Impacted the right side of an Object while heading South '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the right side of an Object while heading South '+ this.xPos +' '+ this.yPos)
                 } else {
-                    console.log('Unexpected impact at '+ x1 +' '+ y1)
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
                 }
             break;
             // Update character position for moving East
@@ -259,19 +252,19 @@ class mainCharacter extends Character {
                     //Impacted the left side of an Object
                     this.xPos=x2-w1
                     this.yPos
-                    console.log('Impacted the left side of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the left side of an Object while heading East '+ this.xPos +' '+ this.yPos)
                 } else if (y1 < y2){ 
                     //Impacted the bottom of an Object
                     this.xPos
                     this.yPos=y2-h1
-                    console.log('Impacted the bottom of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the bottom of an Object while heading East '+ this.xPos +' '+ this.yPos)
                 } else if (y1+h1 > y2) {
                     //Impacted the top of an Object
                     this.xPos
                     this.yPos=y2+h2 
-                    console.log('Impacted the top side of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the top side of an Object while heading East '+ this.xPos +' '+ this.yPos)
                 } else {
-                        console.log('Unexpected impact at '+ x1 +' '+ y1)
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
                 }
             break;
             // Update character position for moving West
@@ -280,19 +273,19 @@ class mainCharacter extends Character {
                     //Impacted the left side of an Object
                     this.xPos=x2+w2
                     this.yPos
-                    console.log('Impacted the right side of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the right side of an Object while heading West '+ this.xPos +' '+ this.yPos)
                 } else if (y1 < y2){ 
                     //Impacted the bottom of an Object
                     this.xPos
                     this.yPos=y2-h1
-                    console.log('Impacted the bottom of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the bottom of an Object while heading West '+ this.xPos +' '+ this.yPos)
                 } else if (y1+h1 > y2) {
                     //Impacted the top of an Object
                     this.xPos
                     this.yPos=y2+h2 
-                    console.log('Impacted the top side of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                    //console.log('Impacted the top side of an Object while heading West '+ this.xPos +' '+ this.yPos)
                 } else {
-                    console.log('Unexpected impact at '+ x1 +' '+ y1)
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
                 }
             break;
             // Update character position for ??

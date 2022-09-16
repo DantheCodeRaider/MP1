@@ -161,10 +161,10 @@ function timerWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     tDiv.style.height = 10+height+"px";
     tDiv.style.zIndex = zPos;
     tDiv.style.border = "solid 5px Red";
-    tDiv.style.textAlign = "Center";
-    tDiv.style.justifyContent = "Center";
-    tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p> <p><span id="timer"></span></p><p><button id="playButton" onclick="startGame()">  Start Game  </button></p>
-    <p><button id="resetButton" onclick="resetGame()">  Reset Game  </button></p>`
+    //tDiv.style.textAlign = "Center";
+    //tDiv.style.justifyContent = "Center";
+    tDiv.innerHTML = `<p><button id="showInstructions" onclick="showInstructions()">Instructions</button></p><p><button id="playButton" onclick="startGame()">  Start Game  </button></p>
+    <p><button id="resetButton" onclick="resetGame()">  Reset Game  </button></p><p><span id="timer"></span></p>`
     gDiv.append(tDiv);
     return tDiv;
 }
@@ -351,7 +351,7 @@ function createGameWorld(){
     tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
     theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    theTimerWindow = timerWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet)+10, 100, (widthOfGrass/2), (heightOfSky/1.5), horizontalOffSet, verticalOffSet)
+    theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.7, horizontalOffSet, verticalOffSet)
     theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level

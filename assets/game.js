@@ -51,7 +51,7 @@ function moveGem(i){
             allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
             allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
             allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
-            console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            //console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
         } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
             //Add gem to 2nd row
             //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
@@ -198,23 +198,82 @@ function triggerGem(gameObject) {
     return gameObject;
 }
 
+//Function to set timer delay for transaition to new level
+function resetLevelTimer(){
+    oldTimeStamp = oldTimeStamp - 1;
+    if (oldTimeStamp >= 0){
+        let update  = document.getElementById("timer")
+        update.textContent = "Starting level "+ GameLevel + " in "+ oldTimeStamp;
+        update.style.fontSize="2rem"
+        document.body.append(update.textContent)
+    } else {
+        clearInterval(leveltimer);
+        setTimeout(startGame(), 1000);   
+    }
+}
+
+//Function to tranistion to a new level
 function newLevel(){
-    allGameObjects = createBoulders();
+    if (GameLevel >=5){
+        GameLevel = 1;
+        gamesPlayed += 1;
+        resetGame();
+    } else {
+        gemsCollected = 0; //Create variable for tracking collected gems
+        for (let i = 0; i < allGameObjects.length; i++){
+            let update = document.getElementById(allGameObjects[i].ID)
+            update.style.visibility = "hidden";
+            update.style.left = "0px";
+            update.style.bottom = "0px";
+            update.style.zIndex = "-1";
+            document.body.append(update);
+        }
+/*         for (let i = 0; i < allGameObjects.length; i++){
+            document.getElementById(allGameObjects[i].ID).style.display = "none";
+        } */
+        console.log("Game Object length before splice " + allGameObjects.length)
+        let x = (allGameObjects.length)
+        for (let i = 0; i < x; i++){
+            allGameObjects.splice(0,1);
+        }
+        console.log("Game Object length before reset " + allGameObjects.length)
+        console.log(allGameObjects)
+        allGameObjects = createBoulders();
+        //Reset Position for Main Character to center of grass area
+        greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
+        greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);
+        greenCharacter.moveChar(0, 0, 0, null); //Set main character initial spawn point
+        oldTimeStamp = 10;
+        leveltimer = setInterval(resetLevelTimer, 1000);
+        resetLevelTimer();
+        console.log("Ready to staet the next level")
+/*         let update  = document.getElementById("timer")
+        update.textContent = "Level "+ GameLevel + " Go! ";
+        update.style.fontSize="2rem"
+        document.body.append(update.textContent)
+        document.getElementById('playButton').style.visibility = "visible"; */
+    }
 }
 
 function checkGameStatus(){
-/*     let x = 0;
-    for (let i = 0; i < allGameObjects.length; i++){
-        if (allGameObjects[i].name == "Boulders"){
-            x += 1;
-        }
-    }
-    if (x > 0 ) {
-        gameOver();
-        return true;
+    GameLevel += 1
+    if (GameLevel < 5){
+        document.getElementById('resetButton').style.visibility = "hidden";
+        document.getElementById('showInstructions').style.visibility = "hidden";
+        document.getElementById('playButton').style.visibility = "hidden";
+        //console.log("Calling newLevel Function, current level is " + GameLevel)
+        newLevel();
     } else {
-        return false;
-    } */
+        GameLevel = 1;
+        gamesPlayed += 1;
+        document.getElementById('resetButton').style.visibility = "visible";
+        document.getElementById('showInstructions').style.visibility = "hidden";
+        document.getElementById('playButton').style.visibility = "hidden";
+        let update  = document.getElementById('timer')
+        update.style.fontSize="3rem"
+        update.textContent = "You Win!";
+        document.body.append(update.textContent)
+    }
 }
 
 function checkWinStatus(){
@@ -230,21 +289,13 @@ function checkWinStatus(){
             g += 1;
         }
     } 
-    console.log("There are " + b + " boulders remaining and "+ gemsCollected +" gems collected")
+    //console.log("There are " + b + " boulders remaining and "+ gemsCollected +" gems collected")
     if (b <= 0 && gemsCollected == g){
         clearInterval(secondsPassed);
-        console.log("You win!");
-        checkGameStatus();
-        document.getElementById('resetButton').style.visibility = "visible";
-        document.getElementById('showInstructions').style.visibility = "hidden";
-        document.getElementById('playButton').style.visibility = "hidden";
-        //Reset text window
-        let update  = document.getElementById("timer")
-        update.textContent = "";
-        document.body.append(update.textContent)
+        //console.log("You win!");
         return true;
     } else {
-        console.log("There are " + b + " boulders remaining, looping")
+        //console.log("There are " + b + " boulders remaining, looping")
         return false;
     }
 }
@@ -252,8 +303,12 @@ function checkWinStatus(){
 function resetGame(){
     gemsCollected = 0; //Create variable for tracking collected gems
     for (let i = 0; i < allGameObjects.length; i++){
+        let update = document.getElementById(allGameObjects[i].ID).style.visibility = "hidden";
+        //document.body.append(update);
+    }
+    for (let i = 0; i < allGameObjects.length; i++){
         let update = document.getElementById(allGameObjects[i].ID).style.display = "none";
-        document.body.append(update);
+        //document.body.append(update);
     }
     console.log("Game Object length before splice " + allGameObjects.length)
     let x = (allGameObjects.length)
@@ -275,4 +330,8 @@ function resetGame(){
     let update  = document.getElementById("timer")
     update.textContent = "";
     document.body.append(update.textContent)
+    if (GameLevel >=5){
+        GameLevel = 1;
+        gamesPlayed += 1;
+    }
 }
