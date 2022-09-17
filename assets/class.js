@@ -67,31 +67,77 @@ class NPC extends Character {
 
         //Set NPC Specific settings
         this.ImgAssest = "assets/img/red-character/static.gif"
+        this.width = 30;
+        this.height = 40;
         this.state = 3; //Hostile
     }
-    //Function for moving mainCharacter around in the game
-    moveNPC(xPos, yPos, zPos, cDir){
 
-        //console.log('Starting |'+ preImpact.xPos +' xPos |'+ preImpact.yPos + ' yPos' + ' | ' + preImpact.zPos + ' zPos'); 
-        this.xPos += xPos //Update xPos
-        this.yPos += yPos //Update yPos
-        this.zPos += zPos //Update zPos
+    //Function for moving NPCs around in the game
+    moveNPC(xPos, yPos, zPos, cDir){
+        // Switch case to change character model based on direction of travel
+        switch (cDir) {
+        // Update character model for moving North
+        case "North":
+            this.context.src='assets/img/red-character/north.gif'
+        break;
+        // Update character model for moving South
+        case "South":
+            this.context.src='assets/img/red-character/south.gif'
+        break;
+        // Update character model for moving East
+        case "East":
+            this.context.src='assets/img/red-character/east.gif'
+        break;
+        // Update character model for moving West
+        case "West":
+            this.context.src='assets/img/red-character/west.gif'
+        break;
+        }
+
+        // Switch case to set direction of NPC travel
+        switch (cDir) {
+            // Update character model for moving North
+            case "North":
+                this.xPos += 0 //Update xPos
+                this.yPos += 50 //Update yPos
+                this.zPos += zPos //Update zPos
+            break;
+            // Update character model for moving South
+            case "South":
+                this.xPos += 0 //Update xPos
+                this.yPos -= 50  //Update yPos
+                this.zPos += zPos //Update zPos
+            break;
+            // Update character model for moving East
+            case "East":
+                this.xPos += 50 //Update xPos
+                this.yPos += 0 //Update yPos
+                this.zPos += zPos //Update zPos
+            break;
+            // Update character model for moving West
+            case "West":
+                this.xPos -= 50 //Update xPos
+                this.yPos += 0   //Update yPos
+                this.zPos += zPos //Update zPos
+            break;
+            }
+            //console.log('Starting |'+ this.xPos +' xPos |'+ this.yPos + ' yPos' + ' | ' + this.zPos + ' zPos'); 
 
         //Check for Collisions
-        this.detectObjects(cDir)
-        if (this.isColliding==true){
+        this.NPCdetectObjects(cDir)
+/*         if (this.isColliding==true){
             //console.log('I hit something!')
             //his.xPos -= xPos //Update xPos
             //this.yPos -= yPos //Update yPos
-        }
+        } */
 
-        //Keep Character on the map West/East
+        //Keep NPC on the map West/East
         if (this.xPos < horizontalOffSet) {
             this.xPos = horizontalOffSet
         } else if (this.xPos >= (widthOfGrass+horizontalOffSet)) {
             this.xPos = (widthOfGrass+horizontalOffSet) - 50
         }
-        //Keep Character on the map North/South
+        //Keep NPC on the map North/South
         if (this.yPos < verticalOffSet) {
             this.yPos = verticalOffSet
         } else if (this.yPos > (heightOfGrass+verticalOffSet)-50) {
@@ -102,39 +148,135 @@ class NPC extends Character {
         this.context.style.left = this.xPos+'px';
         this.context.style.bottom = this.yPos +'px';
         this.context.style.zPos = this.zPos
-        // Switch case to change character model based on direction of travel
-        switch (cDir) {
-        // Update character model for moving North
-        case "North":
-            this.context.src='assets/img/red-character/north.gif'
-        break;
-        // Update character model for moving South
-        case "South":
-            this.context.src='assets/img/rec-character/south.gif'
-        break;
-        // Update character model for moving East
-        case "East":
-            this.context.src='assets/img/red-character/east.gif'
-        break;
-        // Update character model for moving West
-        case "West":
-            this.context.src='assets/img/red-character/west.gif'
-        break;
-        // Update character model for static
-        case null:
-            this.context.src='assets/img/red-character/static.gif'
-        break;
-        default:
-            return; // Quit when this doesn't handle the key event.
-        }
-        // Update Character
-        //document.body.append(this.context)
-        return gemsCollected, allGameObjects;
     }
 
     //Reset Character to static state when it is not moving
     stopNPC(){
-        this.context.src='assets/img/green-character/static.gif'
+        this.context.src='assets/img/red-character/static.gif'
+    }
+
+    //Function to detect objects touching and determine impact point
+    NPCimpactPoint(x1, y1, w1, h1, cDir, x2, y2, w2, h2) {
+        //Check x and y for overlap
+        if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2){
+            return false;
+        }
+        switch (cDir) {
+            // Update character position for impact moving North
+            case "North":
+                if (y1 < y2+h2 & x1 < x2+w2 & x1+w1 > x2){ 
+                    //Impacted the bottom of an Object
+                    this.xPos
+                    this.yPos=y2-h1 
+                    //console.log('Impacted the bottom of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                } else if (x1+w1 <= x2){
+                    //Impacted the left side of an Object
+                    this.xPos=x2-w1
+                    this.yPos 
+                    //console.log('Impacted the left side of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                } else if (x1 <= x2+w2) {
+                    //Impacted the right side of an Object
+                    this.xPos=x2+w2
+                    this.yPos 
+                    //console.log('Impacted the right side of an Object while heading North '+ this.xPos +' '+ this.yPos)
+                } else {
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
+                }
+            break;
+            // Update character position for moving South
+            case "South":
+                if (y1+h1 >= y2+h2 & x1 < x2+w2 & x1+w1 > x2){
+                    this.xPos
+                    this.yPos=y2+h2 
+                    //console.log('Impacted the top of an Object while heading South '+ this.xPos +' '+ this.yPos)  
+                } else if (x1+w1 <= x2){
+                    //Impacted the left side of an Object
+                    this.xPos=x2-w1
+                    this.yPos 
+                    //console.log('Impacted the left side of an Object while heading South '+ this.xPos +' '+ this.yPos)
+                } else if (x1 >= x2+w2) {
+                    //Impacted the right side of an Object
+                    this.xPos=x2+w2
+                    this.yPos 
+                    //console.log('Impacted the right side of an Object while heading South '+ this.xPos +' '+ this.yPos)
+                } else {
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
+                }
+            break;
+            // Update character position for moving East
+            case "East":
+                if (x1 <= x2+w2 & y1 < y2+h2 & y1+h1 > y2){ 
+                    //Impacted the left side of an Object
+                    this.xPos=x2-w1
+                    this.yPos
+                    //console.log('Impacted the left side of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                } else if (y1 < y2){ 
+                    //Impacted the bottom of an Object
+                    this.xPos
+                    this.yPos=y2-h1
+                    //console.log('Impacted the bottom of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                } else if (y1+h1 > y2) {
+                    //Impacted the top of an Object
+                    this.xPos
+                    this.yPos=y2+h2 
+                    //console.log('Impacted the top side of an Object while heading East '+ this.xPos +' '+ this.yPos)
+                } else {
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
+                }
+            break;
+            // Update character position for moving West
+            case "West":
+                if (x1+w1 >= x2+w2 & y1 < y2+h2 & y1+h1 > y2){ 
+                    //Impacted the left side of an Object
+                    this.xPos=x2+w2
+                    this.yPos
+                    //console.log('Impacted the right side of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                } else if (y1 < y2){ 
+                    //Impacted the bottom of an Object
+                    this.xPos
+                    this.yPos=y2-h1
+                    //console.log('Impacted the bottom of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                } else if (y1+h1 > y2) {
+                    //Impacted the top of an Object
+                    this.xPos
+                    this.yPos=y2+h2 
+                    //console.log('Impacted the top side of an Object while heading West '+ this.xPos +' '+ this.yPos)
+                } else {
+                    //console.log('Unexpected impact at '+ x1 +' '+ y1)
+                }
+            break;
+            // Update character position for ??
+            case null:
+                //console.log('Unexpected impact at '+ x1 +' '+ y1)
+            break;
+            default:
+                return; // Quit when this doesn't handle the key event.
+        }
+        //console.log('Unexpected impact at '+ x1 +' '+ y1)
+        return true;
+    }
+
+    NPCdetectObjects(cDir){
+
+/*         //Reset collision state of all objects
+        for (let i = 0; i < allGameObjects.length; i++){
+            allGameObjects[i].isColliding = false;
+            allGameObjects[i].isCollidingWithMain = false;
+        }
+        //Set Obj 1 as NPC Character
+        this.isColliding = false;
+        this.isCollidingWithMain = false; */
+        
+        //Start checking for collisions
+        for (let i = 0; i < allGameObjects.length; i++){
+            // Compare object1 with object2
+            if (this.ID != allGameObjects[i].ID){
+                //ignore itself as an object collide with
+                if (this.NPCimpactPoint(this.xPos, this.yPos, this.width, this.height, cDir, allGameObjects[i].xPos, allGameObjects[i].yPos, allGameObjects[i].width, allGameObjects[i].height)){
+                    //Makes sure NPCs don't run anything over.
+                }
+            }
+        }
     }
 }
 
@@ -201,8 +343,6 @@ class mainCharacter extends Character {
         case null:
             this.context.src='assets/img/green-character/static.gif'
         break;
-        default:
-            return; // Quit when this doesn't handle the key event.
         }
     }
 
@@ -379,6 +519,8 @@ class mainCharacter extends Character {
                 allGameObjects[i].isCollidingWithMain = true;
                 if (allGameObjects[i].name == "Gem"){
                     this.pickUpGem(i);
+                } else if (allGameObjects[i].name == "NPC"){
+                    gameOver();
                 }
             }
         }

@@ -231,18 +231,24 @@ function randomYnumber(){
     return y;
 }  
 
-/* function randomCdir(){
-    let c = getRandomInt(0, 7);
+//Function to randomly decide if NPCs move North, East, South or West
+function randomCdir(){
+    let c = getRandomInt(1, 100);
     let NPCcDir
-    if (x == 0 || x == 4 ){
+    if (c <=24 ){   //North
+        NPCcDir = "North";
         return NPCcDir;
+    } else if (c >= 25 || c <= 49 ){ //East
+        NPCcDir = "East";
         return NPCcDir;
-    } else if (x == 1 || x == 5 ){
-    } else if (x == 2 || x == 6 ){
-    } else if (x == 3 || x == 7 ){
-    } else if (x == 4 || x == 8 ){
+    } else if (c >= 50 || c <=74 ){ //South
+        NPCcDir = "South";
+        return NPCcDir;
+    } else if (c >=75 || c <=100 ){ //West
+        NPCcDir = "West";
+        return NPCcDir;
     }
-} */
+}
 
 function moveBoulders(gameObject){
 //Set a default object as a place holder for character spawn point
@@ -335,11 +341,10 @@ let daBoulders = new Array;
 //Function for adding hostile NPCs to the game world
 function createNPCs(){
     let daEnemy = new Array;
-    //Generate a number of NPCs (possible enemy) based on the contant of 2 + game level for desktop and tablet. Set 0 + game level for mobile.
+    //Generate a number of NPCs (possible enemy) based on the contant of 1 per game level for desktop and tablet. Set .5 per game level for mobile.
         if (GameMapSize == 3 || GameMapSize == 2){
-            //Generate Random NPC start locations 
-            //createBoulders(GameMapSize) 
-            for (let i = 0; i < (2+GameMapSize+GameLevel); i++){
+            //Generate Random NPC start locations for big screens
+            for (let i = 0; i < (GameLevel); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
                 //Set default hieght and width
                 daEnemy[i].width = 100;
@@ -355,8 +360,8 @@ function createNPCs(){
                 daEnemy[i].drawObject();
             }
             } else {
-            //Generate Random 50px Boulders
-            for (let i = 0; i < (GameMapSize+GameLevel); i++){
+            //Generate Random NPC start locations for small screens
+            for (let i = 0; i < (Math.floor(GameLevel/2)); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
                 //Set default hieght and width
                 daEnemy[i].width = 50;
@@ -425,7 +430,6 @@ function createGameWorld(){
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 10 + game map size + game level
     allGameObjects = createBoulders();
-    //allGameObjects = pushObjects(allGameObjects, createNPCs());
-    console.log(allGameObjects);
+    allGameObjects = pushObjects(allGameObjects, createNPCs());
 }
 

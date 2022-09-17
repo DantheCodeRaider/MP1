@@ -234,6 +234,7 @@ function newLevel(){
         //console.log("Game Object length before reset " + allGameObjects.length)
         //console.log(allGameObjects)
         allGameObjects = createBoulders();
+        allGameObjects = pushObjects(allGameObjects, createNPCs());
         //Reset Position for Main Character to center of grass area
         greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
         greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);
@@ -308,6 +309,7 @@ function resetGame(){
     //console.log("Game Object length before reset " + allGameObjects.length)
     //console.log(allGameObjects)
     allGameObjects = createBoulders();
+    allGameObjects = pushObjects(allGameObjects, createNPCs());
     //Reset Position for Main Character to center of grass area
     greenCharacter.xPos=horizontalOffSet+(widthOfGrass/2);
     greenCharacter.yPos=verticalOffSet+(heightOfGrass/2);

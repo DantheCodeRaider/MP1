@@ -23,6 +23,13 @@ main {
   transition-property: opacity;
 } */
 
+/* .npc {
+  transition-timing-function: linear;
+  transition-duration: 1s;
+  transition-property: all;
+}
+ */
+ 
 .timerWindow {
   margin: auto;
   box-sizing: border-box;

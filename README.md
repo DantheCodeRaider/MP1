@@ -24,7 +24,7 @@ Core Features:
 -Clearly defined win state
 -Multiple game levels (4 total)
 -Add lose state 1 (timer)
--Add lose state 2 (NPCs) - (coming soon)
+-Add lose state 2 (NPCs)
 -Add lose state 3 (hostile environment) - (coming soon)
 
 -Add mobile friendly navaigation features (coming soon)

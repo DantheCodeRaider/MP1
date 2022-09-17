@@ -23,8 +23,7 @@ function updateTimer() {
     }else {
       for (let i = 0; i < allGameObjects.length; i++){
         if (allGameObjects[i].name=="NPC"){
-          
-          allGameObjects[i].moveNPC();
+          allGameObjects[i].moveNPC(0, 0, 0,randomCdir());
         }
       }
       let update  = document.getElementById('timer')
