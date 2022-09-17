@@ -233,18 +233,18 @@ function randomYnumber(){
 
 //Function to randomly decide if NPCs move North, East, South or West
 function randomCdir(){
-    let c = getRandomInt(1, 100);
+    let c = Math.floor(Math.random() * 101);
     let NPCcDir
     if (c <=24 ){   //North
         NPCcDir = "North";
         return NPCcDir;
-    } else if (c >= 25 || c <= 49 ){ //East
+    } else if (c >= 25 && c <= 49 ){ //East
         NPCcDir = "East";
         return NPCcDir;
-    } else if (c >= 50 || c <=74 ){ //South
+    } else if (c >= 50 && c <=74 ){ //South
         NPCcDir = "South";
         return NPCcDir;
-    } else if (c >=75 || c <=100 ){ //West
+    } else if (c >=75 && c <=100 ){ //West
         NPCcDir = "West";
         return NPCcDir;
     }
@@ -343,12 +343,12 @@ function createNPCs(){
     let daEnemy = new Array;
     //Generate a number of NPCs (possible enemy) based on the contant of 1 per game level for desktop and tablet. Set .5 per game level for mobile.
         if (GameMapSize == 3 || GameMapSize == 2){
-            //Generate Random NPC start locations for big screens
-            for (let i = 0; i < (GameLevel); i++){
+            //Generate Random NPC start locations for big screens (min 2, max 5)
+            for (let i = 0; i < (1+GameLevel); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
                 //Set default hieght and width
-                daEnemy[i].width = 100;
-                daEnemy[i].height = 100;
+                daEnemy[i].width = 50;
+                daEnemy[i].height = 50;
                 moveBoulders(daEnemy[i]);
             }
             //Check for overlapping 100px Boulders
@@ -360,8 +360,8 @@ function createNPCs(){
                 daEnemy[i].drawObject();
             }
             } else {
-            //Generate Random NPC start locations for small screens
-            for (let i = 0; i < (Math.floor(GameLevel/2)); i++){
+            //Generate Random NPC start locations for small screens (min 1, max 3)
+            for (let i = 0; i < (1+(Math.floor(GameLevel/2))); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
                 //Set default hieght and width
                 daEnemy[i].width = 50;

@@ -32,6 +32,7 @@ function detectCollisions(gameObject){
     return gameObject
 }
 
+//Function for combining two Object arrays. Used to keep allGameObjects Array updated.
 function pushObjects(object1, Object2){
     object1.push.apply(object1, Object2);
     return object1;
@@ -76,7 +77,7 @@ function moveGem(i){
 
 //Fuction to pick a random gem image after digging a boulder
 function rollGem(i){
-    let x = getRandomInt(0, 10);
+    let x = Math.floor(Math.random() * 11); //Generate a random number between 0-10
     //console.log ('Gem Roll ' + x)
     switch (x) {
         // Rock

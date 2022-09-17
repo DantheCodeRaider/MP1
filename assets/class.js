@@ -67,8 +67,8 @@ class NPC extends Character {
 
         //Set NPC Specific settings
         this.ImgAssest = "assets/img/red-character/static.gif"
-        this.width = 30;
-        this.height = 40;
+        this.width = 50;
+        this.height = 50;
         this.state = 3; //Hostile
     }
 
