@@ -42,36 +42,6 @@ main {
   visibility: hidden;
 }
 
-button {
-  background-color: white;
-  border: 3px solid red;
-  color: red;
-  font-weight: bolder;
-  margin: 10px 10px;
-  padding: 10px 50px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 16px;
-}
-
-button:hover {
-  background-color: red;
-  border: 3px solid white;
-  color: white;
-}
-
-#timer {
-  text-align: center;
-  justify-content: center;
-  width: 100%;
-  color: red;
-  font-weight: bolder;
-  font-size: 6rem;
-  flex-grow: 2rem;
-}
-
 /*Setting CSS conditions for 3 supported screen sizes.
 Mobile - Min width 350px
 Tablet - Min width 700px
@@ -83,17 +53,107 @@ Desktops - Min width 900px
     content:"Viewport width atleast than 350px";
     
   }
+  #timer {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    color: red;
+    font-weight: bolder;
+    font-size: 6rem;
+    flex-grow: 2rem;
+  }
+
+  button {
+    background-color: white;
+    border: 3px solid red;
+    color: red;
+    font-weight: bolder;
+    margin: 5px 5px;
+    padding: 8px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 16px;
+  }
+
+  button:hover {
+    background-color: red;
+    border: 3px solid white;
+    color: white;
+  }
 }
 
 @media(width>=700px){
   p#screenSize:after{
     content:"Viewport width atleast than 700px";
   }
+  main {
+    font-size: 0.9rem;
+  }
+  #timer {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    color: red;
+    font-weight: bolder;
+    font-size: 4rem;
+    flex-grow: 2rem;
+  }
+
+  button {
+    background-color: white;
+    border: 3px solid red;
+    color: red;
+    font-weight: bolder;
+    margin: 5px 5px;
+    padding: 8px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 16px;
+  }
+
+  button:hover {
+    background-color: red;
+    border: 3px solid white;
+    color: white;
+  }
 }
   
 @media(width>=900px){
   p#screenSize:after{
     content:"Viewport width greater than 900px";
+  }
+  #timer {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    color: red;
+    font-weight: bolder;
+    font-size: 6rem;
+    flex-grow: 2rem;
+  }
+
+  button {
+    background-color: white;
+    border: 3px solid red;
+    color: red;
+    font-weight: bolder;
+    margin: 10px 10px;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 16px;
+  }
+
+  button:hover {
+    background-color: red;
+    border: 3px solid white;
+    color: white;
   }
 }
 

@@ -23,9 +23,8 @@ let heightOfGrass = 0;
 let widthOfGrass = 0;
 
 //Event listener to move the Green Character
-window.addEventListener("keydown", function (event) {
-
-    if (event.defaultPrevented) {
+document.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented){
       return; // Do nothing if the event was already processed
     }
       switch (event.key) {
@@ -121,7 +120,27 @@ window.addEventListener("keydown", function (event) {
     //greenCharacter.context.src='assets/img/green-character/static.gif' // Reset Character to static state when it is not moving
     greenCharacter.stopChar();
   })
+  
+  //Function for processing click events
+/*   document.addEventListener("mousedown", function (event){
+    if (event.defaultPrevented){
+      return; // Do nothing if the event was already processed
+    }
+    console.log("I was touched");
+    console.log(event);
 
+  })
+ */
+    //Function for processing double click events
+/*   document.addEventListener("double click", function (event){
+    if (event.defaultPrevented){
+      return; // Do nothing if the event was already processed
+    }
+    console.log("I was double touched");
+    console.log(event);
+
+  })
+ */
 //Load game
 window.onload = ()=> {
     //Detect Screen Size, Set Game Size, and Center

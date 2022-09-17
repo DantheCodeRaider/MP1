@@ -13,8 +13,7 @@ Main Objectives:
 
 Basics:
 -Basic movement is accomplished using the AWSD, awds, or arrow keys. 
--The left mouse button will pick up items, and the right mouse button will dig for items. 
-
+-The space bar will dig boulders for gems. Run ovewr the gems to pick them up. 
 
 Core Features:
  | Move Character via keyboard input |
@@ -27,14 +26,18 @@ Core Features:
  | Add lose state 2 (NPCs Collision) |
  | Add lose state 3 (hostile environment) - (coming soon) |
  | Randomly roaming NPCs, hostile on collision with your Adventurer |
+ | Detect screen size and adjust explorable map accordingly. (Partially Implemented) |
+ | Add mouse movement alternative to keyboard only interaction (coming soon) |
  | Add mobile friendly navaigation features (coming soon) |
- | Detect screen size and adjust explorable map accordingly. (coming soon) |
  | Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon) |
 
 
 Known Issues: The game is slowly getting better, but still sucks…
+-The screen size detect and styling needs improvement for smaller devices.
+-Lack of touch screen support is a downer. 
 
 Credits:
+All code and original art designs are Copyright (c) 2022 Dan The Code Raider (me) and are free in accordance with the attached MIT License
 Rights to use many of the art assets are courtesy of an MIT License from Copyright (c) 2022 ThriveDX
 Thanks to Cethiel – OpenGameArt.org for gem art assets. https://www.patreon.com/cethiel
 

@@ -1,7 +1,7 @@
 //Detect Screen Size, Set Game Size, and set Game Window
 //Find out browser width to set game map size.
 function mapSize(screenWidth, screenHieght) {
-    if (screenWidth>=900){
+    if (screenWidth>=900 && screenHieght >= 1200){
         //Map Size will be 900px by 1200px
         GameMapSize = 3
         console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 900x1200" + "| Game Map " + GameMapSize)
@@ -22,7 +22,7 @@ function mapSize(screenWidth, screenHieght) {
         widthOfGrass = 900
         //console.log('HeightofSky '+ heightOfSky)
         //console.log('heightOfGrass '+ heightOfGrass)
-    } else if (screenWidth>=700){
+    } else if (screenWidth>=700 && screenHieght >= 1000){
         //Map Size will be 700px by 1000px
         GameMapSize = 2
         console.log("Screen Width " + screenWidth+ "| Screen Hieght " + screenHieght + "| Set Game Map Size to 700x1000" + "| Game Map " + GameMapSize)
@@ -298,11 +298,11 @@ function checkBoulders(gameObject){
 
 function createBoulders(){
 let daBoulders = new Array;
-//Generate a number of boulders (possible gems) based on the contant of 10 + game map size + game level
-    if (GameMapSize == 3 || GameMapSize == 2){
+//Generate a number of boulders (possible gems) based on the contant of 4 + game map size*3 + game level
+    if (GameMapSize == 3){
         //Generate Random 100px Boulders 
         //createBoulders(GameMapSize) 
-        for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
+        for (let i = 0; i < (4+(GameMapSize*3)+GameLevel); i++){
             daBoulders[i] = new GameObject("Boulder", "boulder"+i, "boulder", "Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 100;
@@ -317,9 +317,27 @@ let daBoulders = new Array;
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
         }
-        } else {
+    } else if (GameMapSize == 2){
+        //Generate Random 100px Boulders 
+        //createBoulders(GameMapSize) 
+        for (let i = 0; i < (4+(GameMapSize*3)+GameLevel); i++){
+            daBoulders[i] = new GameObject("Boulder", "boulder"+i, "boulder", "Boulder", "./assets/img/boulder100.svg", 0, 0, 50, 0, 0, 1);
+            //Set default hieght and width
+            daBoulders[i].width = 100;
+            daBoulders[i].height = 100;
+            moveBoulders(daBoulders[i]);
+        }
+        //Check for overlapping 100px Boulders
+        for (let i = 0; i < 10; i++){
+            checkBoulders(daBoulders)
+        }  
+        //Draw Random 100px Boulders
+        for (let i = 0; i < daBoulders.length; i++){
+            daBoulders[i].drawObject();
+        }
+    } else {
         //Generate Random 50px Boulders
-        for (let i = 0; i < (10+GameMapSize+GameLevel); i++){
+        for (let i = 0; i < (4+(GameMapSize*3)+GameLevel); i++){
             daBoulders[i] = new GameObject("Boulder", "boulder"+i, "boulder", "Boulder", "./assets/img/boulder50.svg", 0, 0, 50, 0, 0, 1);
             //Set default hieght and width
             daBoulders[i].width = 50;
@@ -342,7 +360,7 @@ let daBoulders = new Array;
 function createNPCs(){
     let daEnemy = new Array;
     //Generate a number of NPCs (possible enemy) based on the contant of 1 per game level for desktop and tablet. Set .5 per game level for mobile.
-        if (GameMapSize == 3 || GameMapSize == 2){
+        if (GameMapSize == 3){
             //Generate Random NPC start locations for big screens (min 2, max 5)
             for (let i = 0; i < (1+GameLevel); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
@@ -359,7 +377,24 @@ function createNPCs(){
             for (let i = 0; i < daEnemy.length; i++){
                 daEnemy[i].drawObject();
             }
-            } else {
+        } else if (GameMapSize == 2){
+            //Generate Random NPC start locations for medium screens (min 1, max 4)
+            for (let i = 0; i < (GameLevel); i++){
+                daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
+                //Set default hieght and width
+                daEnemy[i].width = 50;
+                daEnemy[i].height = 50;
+                moveBoulders(daEnemy[i]);
+            }
+            //Check for overlapping 100px Boulders
+            for (let i = 0; i < 10; i++){
+                checkBoulders(daEnemy)
+            }
+            //Draw Random 100px Boulders
+            for (let i = 0; i < daEnemy.length; i++){
+                daEnemy[i].drawObject();
+            }  
+        } else {
             //Generate Random NPC start locations for small screens (min 1, max 3)
             for (let i = 0; i < (1+(Math.floor(GameLevel/2))); i++){
                 daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
@@ -425,8 +460,17 @@ function createGameWorld(){
     tileBackground('./assets/img/sky100.svg', horizontalOffSet, Horizon-verticalOffSet, 5, widthOfGrass/100, heightOfSky/100, horizontalOffSet, verticalOffSet);
     //Border Game Window
     theGameWindow = gameWindow(horizontalOffSet, verticalOffSet, 1, widthOfGrass, heightOfGrass+heightOfSky, horizontalOffSet, verticalOffSet);
-    theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.9, horizontalOffSet, verticalOffSet)
-    theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
+    //Set Game timer and instrucction windows
+    if (GameMapSize == 3){
+        theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.9, horizontalOffSet, verticalOffSet)
+        theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
+    } else if (GameMapSize == 2){
+        theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/2), (Horizon-verticalOffSet), 100, (widthOfGrass-20), (heightOfSky-10), horizontalOffSet, verticalOffSet)
+        theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky-10)*0.90, horizontalOffSet, verticalOffSet)
+    } else {
+        theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.9, horizontalOffSet, verticalOffSet)
+        theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
+    }
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
     //Generate a number of boulders (possible gems) based on the contant of 10 + game map size + game level
     allGameObjects = createBoulders();

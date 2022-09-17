@@ -44,35 +44,100 @@ function moveGem(i){
         //console.log("Needed for first row " + gemsCollected + "<" + Math.floor(((widthOfGrass)/100)))
         //console.log("Needed for 2nd row " + gemsCollected + ">=" + Math.floor(((widthOfGrass)/100)) + " and " + gemsCollected + " < " + Math.floor((widthOfGrass*2/100)+2))
         //This is not the first gem collected this game, find off set for gem position
-        if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
-            //Add a gem to the first row
-            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-70
-            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
-            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
-            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
-            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
-            //console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
-        } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
-            //Add gem to 2nd row
-            //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
-            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-170
-            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
-            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
-            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
-            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
-            //console.log("Setting 2nd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
-        } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
-            //Add gem to 3rd row
-            allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
-            allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-270
-            allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
-            allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
-            allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
-            allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
-            //console.log("Setting 3rd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
-        }
+        if (GameMapSize == 3){
+            //Set gem rows for big screens
+            if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
+                //Add a gem to the first row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-70
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
+                //Add gem to 2nd row
+                //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-170
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 2nd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
+                //Add gem to 3rd row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-270
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 3rd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            }
+        } else if (GameMapSize == 2){
+            //Set gem rows for medium screens
+            if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
+                //Add a gem to the first row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-80
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
+                //Add gem to 2nd row
+                //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-180
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 2nd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
+                //Add gem to 3rd row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-280
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 3rd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            }
+        } else {
+            //Set gem rows for mobile screens
+            if (gemsCollected <= Math.floor(((widthOfGrass)/100))){
+                //Add a gem to the first row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*gemsCollected)-100))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-80
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting first row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor(((widthOfGrass)/100)) && gemsCollected <= Math.floor((widthOfGrass*2/100))){
+                //Add gem to 2nd row
+                //console.log("Row 2 Gem " + Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))) 
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-190
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 2nd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            } else if (gemsCollected > Math.floor((widthOfGrass*2/100)+2)){
+                //Add gem to 3rd row
+                allGameObjects[i].xPos = Math.floor((10+parseInt(inventory.style.left))+((100*(gemsCollected - (widthOfGrass*2/100))-100)))
+                allGameObjects[i].yPos = (heightOfGrass+heightOfSky)-300
+                allGameObjects[i].zPos = parseInt(inventory.style.zIndex)
+                allGameObjects[i].context.style.left = allGameObjects[i].xPos +"px"
+                allGameObjects[i].context.style.bottom = allGameObjects[i].yPos +"px"
+                allGameObjects[i].context.style.zIndex = allGameObjects[i].zPos
+                //console.log("Setting 3rd row gems " + allGameObjects[i].xPos + " xPos | " + allGameObjects[i].yPos + " yPos | " + allGameObjects[i].zPos + " zPos" )
+            }
+    }
 }
 
 //Fuction to pick a random gem image after digging a boulder
