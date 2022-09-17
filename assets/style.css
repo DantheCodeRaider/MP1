@@ -4,13 +4,6 @@ main {
     justify-content: space-evenly;
 }
 
-p {
-  display:flex;
-  text-align: end;
-  justify-content: space-evenly;
-  flex-direction: row;
-}
-
 .instructionsWindow {
     padding: 10px;
     background-color: white;
@@ -18,30 +11,18 @@ p {
     visibility: hidden;
 }
 
-.background {
-
-}
-
-.greenCharacter {
-
-}
-
-.boulder {
-
-}
-
 .inventory {
   box-sizing: border-box;
   transition: all 3s ease;
 }
 
-.gem {
+/* .gem {
   opacity: 1;
   transition-timing-function: linear;
-  transition-duration: 3s;
+  transition-duration: 2s;
   transition-property: opacity;
+} */
 
-}
 .timerWindow {
   margin: auto;
   box-sizing: border-box;
@@ -95,7 +76,6 @@ Desktops - Min width 900px
     content:"Viewport width atleast than 350px";
     
   }
-
 }
 
 @media(width>=700px){

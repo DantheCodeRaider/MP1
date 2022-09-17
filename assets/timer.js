@@ -2,6 +2,7 @@
 function gameOver() {
   // This cancels the setInterval, so the updateTimer stops getting called
   clearInterval(secondsPassed);
+  gameState = 0;
   // re-show the button, so they can start it again
   //document.getElementById('playButton').style.visibility = "visible";
   document.getElementById('resetButton').style.visibility = "visible";
@@ -13,17 +14,22 @@ function gameOver() {
   gamesPlayed += 1;
 }
 
+//Fucntion to execute game timer
 function updateTimer() {
   oldTimeStamp = oldTimeStamp - 1;
   if(oldTimeStamp > 0){
     if (checkWinStatus() == true){
       checkGameStatus();
     }else {
+      for (let i = 0; i < allGameObjects.length; i++){
+        if (allGameObjects[i].name=="NPC"){
+          
+          allGameObjects[i].moveNPC();
+        }
+      }
       let update  = document.getElementById('timer')
       update.style.fontSize="6rem"
-      //update.textContent = oldTimeStamp;
       update.innerText = oldTimeStamp;
-      //document.body.append(update.textContent)
     }
   } else if (oldTimeStamp == 0){
     if (checkWinStatus() == true){
@@ -36,6 +42,7 @@ function updateTimer() {
 
 // The button has an on-click event handler that calls this
 function startGame() {
+  gameState = 1;
   if (GameLevel == 1){
     oldTimeStamp = 90; // 90 seconds initial setting
   } else if (GameLevel == 2){

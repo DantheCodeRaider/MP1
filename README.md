@@ -21,16 +21,17 @@ Core Features:
 -Dig for Gems via spacebar
 -Pickup gems by running them over
 -Explorable map
--Clearly defined win state (coming soon)
--Add lose state 1 (NPCs) - (coming soon)
--Multiple game levels (3 total) - (coming soon)
--Add lose state 2 (hostile environment) - (coming soon)
--Add lose state 3 (timer) - (coming soon)
+-Clearly defined win state
+-Multiple game levels (4 total)
+-Add lose state 1 (timer)
+-Add lose state 2 (NPCs) - (coming soon)
+-Add lose state 3 (hostile environment) - (coming soon)
+
+-Add mobile friendly navaigation features (coming soon)
 -Detect screen size and adjust explorable map accordingly. (coming soon)
 -Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon)
 -Progress through all three game-level difficulties to become the Master Gem Raider! (coming soon)
 -Randomly roaming NPCs, hostile on collision with your Adventurer (coming soon)
-
 
 Known Issues: The game is slowly getting better, still sucks…
 

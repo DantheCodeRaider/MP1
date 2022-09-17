@@ -66,11 +66,13 @@ function mapSize(screenWidth, screenHieght) {
     }
 }
 
+//Function to set game horizon based on users screen size.
 function setHorizon (screenHieght, hzn){
     let h = screenHieght-hzn
     return h 
 }
 
+//Function to set Vertical Screen offset based on users screen size.
 function setVerticalOffSet(screenHieght){
 //Check to ensure window height is as expected
 let vOS = 0
@@ -86,6 +88,7 @@ if (screenHieght > 1200 && GameMapSize == 3) {
 return vOS
 }
 
+//Function to set Horizontizal Screen offset based on users screen size.
 function setHorizontalOffSet(screenWidth){
 //Check to ensure window width is as expected
 let hOS = 0
@@ -186,12 +189,20 @@ function instructionsWindow(xPos, yPos, zPos, width, height, hOffSet, vOffSet){
     iDiv.style.border = "solid 5px Red";
     iDiv.style.textAlign = "Center";
     iDiv.style.justifyContent = "Center";
-    iDiv.innerHTML = `<p>Use either option displayed below to move your Avatar.</p><img src="./assets/img/movement.png" alt="Movement Keys"><p>Use spacebar to dig for gems. Collect all the gems before the time runs out to progress to the next level. 
-    Beat all the levels to win!</p><p id="screenSize"></p><p><button id="hideInstructions" onclick="hideInstructions()"> Close Window </button></p>`
+    iDiv.innerHTML = `<p>Use either option displayed below to move your Avatar.</p><img src="./assets/img/movement.png" alt="Movement Keys"><p>Use spacebar to dig for gems. Collect all the gems before the time runs out to progress to the next level.</p>
+    <p>The timer decreases each level. Beat all 4 levels to win!</p><p id="screenSize"></p><p><button id="hideInstructions" onclick="hideInstructions()"> Close Window </button></p>`
     gDiv.append(iDiv);
     return iDiv;
 }
 
+//Function to get a random number
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+  }
+
+//Function to genrerate random X axis number
 function randomXnumber(){
     if (GameMapSize == 3 || GameMapSize ==2){
         let x = Math.floor(Math.random() * (visualViewport.width)); //generate a number for a new random xPos for 100px boulder
@@ -210,6 +221,7 @@ function randomXnumber(){
     }
 }   
 
+//Function to genrerate random Y axis number
 function randomYnumber(){
     let y = Math.floor(Math.random() * (visualViewport.height)); //generate a number for a new random xPos
     while (y <= (verticalOffSet) || (y >= (heightOfGrass))){
@@ -218,6 +230,19 @@ function randomYnumber(){
     //console.log("Returning Y "+ y)
     return y;
 }  
+
+/* function randomCdir(){
+    let c = getRandomInt(0, 7);
+    let NPCcDir
+    if (x == 0 || x == 4 ){
+        return NPCcDir;
+        return NPCcDir;
+    } else if (x == 1 || x == 5 ){
+    } else if (x == 2 || x == 6 ){
+    } else if (x == 3 || x == 7 ){
+    } else if (x == 4 || x == 8 ){
+    }
+} */
 
 function moveBoulders(gameObject){
 //Set a default object as a place holder for character spawn point
@@ -267,7 +292,7 @@ function checkBoulders(gameObject){
 
 function createBoulders(){
 let daBoulders = new Array;
-//Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+//Generate a number of boulders (possible gems) based on the contant of 10 + game map size + game level
     if (GameMapSize == 3 || GameMapSize == 2){
         //Generate Random 100px Boulders 
         //createBoulders(GameMapSize) 
@@ -281,8 +306,7 @@ let daBoulders = new Array;
         //Check for overlapping 100px Boulders
         for (let i = 0; i < 10; i++){
             checkBoulders(daBoulders)
-        }
-            
+        }  
         //Draw Random 100px Boulders
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
@@ -296,12 +320,10 @@ let daBoulders = new Array;
             daBoulders[i].height = 50;
             moveBoulders(daBoulders[i]);
         }
-        
-        //Check for overlapping 100px Boulders
+        //Check for overlapping 50px Boulders
         for (let i = 0; i < 10; i++){
             checkBoulders(daBoulders)
         }
-
         //Draw Random 50px Boulders
         for (let i = 0; i < daBoulders.length; i++){
             daBoulders[i].drawObject();
@@ -309,6 +331,51 @@ let daBoulders = new Array;
     }
     return daBoulders
 }
+
+//Function for adding hostile NPCs to the game world
+function createNPCs(){
+    let daEnemy = new Array;
+    //Generate a number of NPCs (possible enemy) based on the contant of 2 + game level for desktop and tablet. Set 0 + game level for mobile.
+        if (GameMapSize == 3 || GameMapSize == 2){
+            //Generate Random NPC start locations 
+            //createBoulders(GameMapSize) 
+            for (let i = 0; i < (2+GameMapSize+GameLevel); i++){
+                daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
+                //Set default hieght and width
+                daEnemy[i].width = 100;
+                daEnemy[i].height = 100;
+                moveBoulders(daEnemy[i]);
+            }
+            //Check for overlapping 100px Boulders
+            for (let i = 0; i < 10; i++){
+                checkBoulders(daEnemy)
+            }
+            //Draw Random 100px Boulders
+            for (let i = 0; i < daEnemy.length; i++){
+                daEnemy[i].drawObject();
+            }
+            } else {
+            //Generate Random 50px Boulders
+            for (let i = 0; i < (GameMapSize+GameLevel); i++){
+                daEnemy[i] = new NPC("NPC", "NPC"+i, "NPC", "NPC", "assets/img/red-character/static.gif", 0, 0, 50, 3); //Set NPC Character Objects
+                //Set default hieght and width
+                daEnemy[i].width = 50;
+                daEnemy[i].height = 50;
+                moveBoulders(daEnemy[i]);
+            }
+            
+            //Check for overlapping 100px Boulders
+            for (let i = 0; i < 10; i++){
+                checkBoulders(daEnemy)
+            }
+    
+            //Draw Random 50px Boulders
+            for (let i = 0; i < daEnemy.length; i++){
+                daEnemy[i].drawObject();
+            }
+        }
+        return daEnemy
+    }
 
 function newInventory(theGameWindow){
     let inventory = document.createElement('div')
@@ -356,10 +423,9 @@ function createGameWorld(){
     theTimerWindow = timerWindow((visualViewport.width/2)-((widthOfGrass-10)/4), (Horizon-verticalOffSet), 100, (widthOfGrass-20)/2, (heightOfSky-20)*0.9, horizontalOffSet, verticalOffSet)
     theInstructionsWindow = instructionsWindow((visualViewport.width/2)-(widthOfGrass/4), (Horizon-verticalOffSet), 100, (widthOfGrass/2), (heightOfSky*0.9), horizontalOffSet, verticalOffSet)
     console.log("HZ is " + horizontalOffSet + "-"+ (horizontalOffSet+widthOfGrass) + "| VZ is "+ verticalOffSet + "-" + heightOfGrass)
-    //Generate a number of boulders (possible gems) based on the contant of 5 + game map size + game level
+    //Generate a number of boulders (possible gems) based on the contant of 10 + game map size + game level
     allGameObjects = createBoulders();
-    //console.log("Created allGameObjects");
-    //console.log(allGameObjects);
-    
+    //allGameObjects = pushObjects(allGameObjects, createNPCs());
+    console.log(allGameObjects);
 }
 

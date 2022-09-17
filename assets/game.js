@@ -76,7 +76,7 @@ function moveGem(i){
 
 //Fuction to pick a random gem image after digging a boulder
 function rollGem(i){
-    let x = Math.floor(Math.random() * 11);
+    let x = getRandomInt(0, 10);
     //console.log ('Gem Roll ' + x)
     switch (x) {
         // Rock
@@ -281,6 +281,7 @@ function checkWinStatus(){
     //console.log("There are " + b + " boulders remaining and "+ gemsCollected +" gems collected")
     if (b <= 0 && gemsCollected == g){
         clearInterval(secondsPassed);
+        gameState = 0;
         //console.log("You win!");
         return true;
     } else {

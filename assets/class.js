@@ -29,6 +29,7 @@ class GameObject{
         //this.context.style.border = 'solid 3px white'
         document.body.append(this.context)
     }
+
     //Function for replacing objects throughout the browser
     updateObject(oldObjectID) {
         this.context = document.getElementById(oldObjectID)
@@ -44,11 +45,7 @@ class GameObject{
         if (this.name=="Gem"){
         //If its a gem fade it into view over 5 seconds
         this.context.style.opacity = "0";
-        document.body.append(this.context)
         fadeIn(this)
-        } else {
-        //If its a rock just put it out there
-        document.body.append(this.context)
         }
     }
 }
@@ -72,8 +69,72 @@ class NPC extends Character {
         this.ImgAssest = "assets/img/red-character/static.gif"
         this.state = 3; //Hostile
     }
-    update(){
-        
+    //Function for moving mainCharacter around in the game
+    moveNPC(xPos, yPos, zPos, cDir){
+
+        //console.log('Starting |'+ preImpact.xPos +' xPos |'+ preImpact.yPos + ' yPos' + ' | ' + preImpact.zPos + ' zPos'); 
+        this.xPos += xPos //Update xPos
+        this.yPos += yPos //Update yPos
+        this.zPos += zPos //Update zPos
+
+        //Check for Collisions
+        this.detectObjects(cDir)
+        if (this.isColliding==true){
+            //console.log('I hit something!')
+            //his.xPos -= xPos //Update xPos
+            //this.yPos -= yPos //Update yPos
+        }
+
+        //Keep Character on the map West/East
+        if (this.xPos < horizontalOffSet) {
+            this.xPos = horizontalOffSet
+        } else if (this.xPos >= (widthOfGrass+horizontalOffSet)) {
+            this.xPos = (widthOfGrass+horizontalOffSet) - 50
+        }
+        //Keep Character on the map North/South
+        if (this.yPos < verticalOffSet) {
+            this.yPos = verticalOffSet
+        } else if (this.yPos > (heightOfGrass+verticalOffSet)-50) {
+            this.yPos = (heightOfGrass+verticalOffSet)-50
+        }
+        //Console Logs for bug testing
+        //console.log('Ending |'+ this.xPos +' xPos |'+ this.yPos + ' yPos' + ' | ' + this.zPos + ' zPos');
+        this.context.style.left = this.xPos+'px';
+        this.context.style.bottom = this.yPos +'px';
+        this.context.style.zPos = this.zPos
+        // Switch case to change character model based on direction of travel
+        switch (cDir) {
+        // Update character model for moving North
+        case "North":
+            this.context.src='assets/img/red-character/north.gif'
+        break;
+        // Update character model for moving South
+        case "South":
+            this.context.src='assets/img/rec-character/south.gif'
+        break;
+        // Update character model for moving East
+        case "East":
+            this.context.src='assets/img/red-character/east.gif'
+        break;
+        // Update character model for moving West
+        case "West":
+            this.context.src='assets/img/red-character/west.gif'
+        break;
+        // Update character model for static
+        case null:
+            this.context.src='assets/img/red-character/static.gif'
+        break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+        }
+        // Update Character
+        //document.body.append(this.context)
+        return gemsCollected, allGameObjects;
+    }
+
+    //Reset Character to static state when it is not moving
+    stopNPC(){
+        this.context.src='assets/img/green-character/static.gif'
     }
 }
 
@@ -143,9 +204,6 @@ class mainCharacter extends Character {
         default:
             return; // Quit when this doesn't handle the key event.
         }
-        // Update Character
-        //document.body.append(this.context)
-        return gemsCollected, allGameObjects;
     }
 
     //Reset Character to static state when it is not moving
@@ -178,9 +236,9 @@ class mainCharacter extends Character {
                 }
             }
         }
-        //return allGameObjects;
     }
 
+    //function to pickup gems
     pickUpGem(i) {
         gemsCollected += 1;
         //console.log('You Collected ' + gemsCollected +' Gems!')
@@ -299,6 +357,7 @@ class mainCharacter extends Character {
         //console.log('Unexpected impact at '+ x1 +' '+ y1)
         return true;
     }
+
     //Detect collisions When the Main Character Moves
     detectObjects(cDir){
 
@@ -314,7 +373,6 @@ class mainCharacter extends Character {
         //Start checking for collisions
         for (let i = 0; i < allGameObjects.length; i++){
             // Compare object1 with object2
-            //if(this.name)
             if (this.impactPoint(this.xPos, this.yPos, this.width, this.height, cDir, allGameObjects[i].xPos, allGameObjects[i].yPos, allGameObjects[i].width, allGameObjects[i].height)){
                 this.isColliding = true;
                 allGameObjects[i].isColliding = true;
@@ -324,6 +382,5 @@ class mainCharacter extends Character {
                 }
             }
         }
-    //return gemsCollected, allGameObjects;
     }
 }
