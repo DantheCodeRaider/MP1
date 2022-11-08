@@ -18,7 +18,7 @@ Basics:
 
 Core Features:
  | Move Character via keyboard input |
- | Dig for Gems via spacebar |
+ | Dig for Gems via the spacebar |
  | Pickup gems by running them over |
  | Explorable map |
  | Clearly defined win state, collect all the gems before time runs out! |
@@ -28,8 +28,8 @@ Core Features:
  | Add lose state 3 (hostile environment) - (coming soon) |
  | Randomly roaming NPCs, hostile on collision with your Adventurer |
  | Detect screen size and adjust explorable map accordingly. (Partially Implemented) |
- | Add mouse movement alternative to keyboard only interaction (coming soon) |
- | Add mobile friendly navaigation features (coming soon) |
+ | Add mouse movement alternative to keyboard-only interaction (coming soon) |
+ | Add mobile-friendly navigation features (coming soon) |
  | Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon) |
 
 
