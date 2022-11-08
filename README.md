@@ -32,8 +32,8 @@ Core Features:
  | Dynamically changing map, becoming increasingly hospitable as time elapses. The higher the level of the map, the faster conditions worsen (coming soon) |
 
 
-Known Issues: The game is slowly getting better, but still sucks…
--The screen size detect and styling needs improvement for smaller devices.
+Known Issues: The game is slowly getting better, but still missing some keep mobile intergration features.
+-The screen size detection and styling needs to be optimzied for smaller devices.
 -Lack of touch screen support is a downer. 
 
 Credits:
