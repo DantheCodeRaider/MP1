@@ -13,7 +13,8 @@ Main Objectives:
 
 Basics:
 -Basic movement is accomplished using the AWSD, awds, or arrow keys. 
--The space bar will dig boulders for gems. Run ovewr the gems to pick them up. 
+-The space bar will dig boulders for gems. 
+-Run over the gems to pick them up. 
 
 Core Features:
  | Move Character via keyboard input |
